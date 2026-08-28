@@ -1,6 +1,6 @@
 /**
  * ANIRBAN KAR - DEVELOPER PORTFOLIO ENGINE
- * Interactive Neon Particles · 3D Tilt · Photo Hologram · Terminal CLI
+ * Smooth Particle Animation · High-Performance 3D Tilt · Photo Hologram · Terminal CLI
  */
 
 (function () {
@@ -22,7 +22,6 @@
     const metaScheme = document.querySelector('meta[name="color-scheme"]');
     if (metaScheme) metaScheme.content = theme;
 
-    // Toggle pictures for SVG light/dark if explicit override is set
     const pictureSources = document.querySelectorAll('picture');
     pictureSources.forEach((pic) => {
       const darkSource = pic.querySelector('source[media*="dark"]');
@@ -48,44 +47,46 @@
   });
 
   /* ==========================================================================
-     2. INTERACTIVE NEON PARTICLES CANVAS
+     2. HIGH-PERFORMANCE NEON PARTICLES CANVAS (NO LAG, NO JANK)
      ========================================================================== */
   const canvas = document.getElementById('canvas-particles');
   if (canvas) {
     const ctx = canvas.getContext('2d');
-    let width = (canvas.width = window.innerWidth);
-    let height = (canvas.height = window.innerHeight);
+    let width, height;
 
-    window.addEventListener('resize', () => {
+    function resizeCanvas() {
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
-    });
+    }
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas, { passive: true });
 
     const particles = [];
-    const PARTICLE_COUNT = Math.min(Math.floor(window.innerWidth / 20), 45);
+    const PARTICLE_COUNT = Math.min(Math.floor(window.innerWidth / 35), 32);
     const COLORS = ['#38bdf8', '#818cf8', '#c084fc', '#f43f5e', '#34d399', '#fbbf24'];
 
-    const mouse = { x: null, y: null, radius: 140 };
+    const mouse = { x: null, y: null, radius: 120 };
 
     window.addEventListener('mousemove', (e) => {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
-    });
+    }, { passive: true });
 
-    window.addEventListener('mouseout', () => {
+    window.addEventListener('mouseleave', () => {
       mouse.x = null;
       mouse.y = null;
-    });
+    }, { passive: true });
 
     class Particle {
       constructor() {
         this.x = Math.random() * width;
         this.y = Math.random() * height;
-        this.vx = (Math.random() - 0.5) * 0.75;
-        this.vy = (Math.random() - 0.5) * 0.75;
-        this.radius = Math.random() * 2.2 + 1.2;
+        this.vx = (Math.random() - 0.5) * 0.6;
+        this.vy = (Math.random() - 0.5) * 0.6;
+        this.radius = Math.random() * 2 + 1.2;
         this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
-        this.baseAlpha = Math.random() * 0.4 + 0.3;
+        this.baseAlpha = Math.random() * 0.35 + 0.25;
       }
 
       update() {
@@ -97,15 +98,15 @@
         if (this.y < 0) this.y = height;
         if (this.y > height) this.y = 0;
 
-        // Mouse repulsion
+        // Subtle mouse repulsion
         if (mouse.x !== null && mouse.y !== null) {
           const dx = this.x - mouse.x;
           const dy = this.y - mouse.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < mouse.radius) {
+          if (dist < mouse.radius && dist > 0) {
             const force = (mouse.radius - dist) / mouse.radius;
-            this.x += (dx / dist) * force * 3;
-            this.y += (dy / dist) * force * 3;
+            this.x += (dx / dist) * force * 2;
+            this.y += (dy / dist) * force * 2;
           }
         }
       }
@@ -115,10 +116,7 @@
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         ctx.fillStyle = this.color;
         ctx.globalAlpha = this.baseAlpha;
-        ctx.shadowBlur = 12;
-        ctx.shadowColor = this.color;
         ctx.fill();
-        ctx.shadowBlur = 0;
       }
     }
 
@@ -126,21 +124,31 @@
       particles.push(new Particle());
     }
 
+    let isVisible = true;
+    document.addEventListener('visibilitychange', () => {
+      isVisible = !document.hidden;
+    });
+
     function animateParticles() {
+      if (!isVisible) {
+        requestAnimationFrame(animateParticles);
+        return;
+      }
+
       ctx.clearRect(0, 0, width, height);
 
-      // Connect near particles
+      // Lightweight connecting lines
       for (let a = 0; a < particles.length; a++) {
         for (let b = a + 1; b < particles.length; b++) {
           const dx = particles[a].x - particles[b].x;
           const dy = particles[a].y - particles[b].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 130) {
+          if (dist < 115) {
             ctx.beginPath();
             ctx.moveTo(particles[a].x, particles[a].y);
             ctx.lineTo(particles[b].x, particles[b].y);
             ctx.strokeStyle = particles[a].color;
-            ctx.globalAlpha = (1 - dist / 130) * 0.25;
+            ctx.globalAlpha = (1 - dist / 115) * 0.18;
             ctx.lineWidth = 1;
             ctx.stroke();
           }
@@ -159,31 +167,44 @@
   }
 
   /* ==========================================================================
-     3. 3D TACTILE CARD TILT EFFECT
+     3. SMOOTH JITTER-FREE 3D CARD TILT
      ========================================================================== */
   const tiltCards = document.querySelectorAll('.tilt-card');
 
   tiltCards.forEach((card) => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
+    let ticking = false;
 
-      const rotateX = ((y - centerY) / centerY) * -7;
-      const rotateY = ((x - centerX) / centerX) * 7;
-
-      card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-4px)`;
+    card.addEventListener('mouseenter', () => {
+      card.style.transition = 'transform 0.08s ease-out, box-shadow 0.25s ease, border-color 0.25s ease';
     });
 
+    card.addEventListener('mousemove', (e) => {
+      if (ticking) return;
+      ticking = true;
+
+      requestAnimationFrame(() => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = ((y - centerY) / centerY) * -6;
+        const rotateY = ((x - centerX) / centerX) * 6;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-3px)`;
+        ticking = false;
+      });
+    }, { passive: true });
+
     card.addEventListener('mouseleave', () => {
+      card.style.transition = 'transform 0.4s ease-out, box-shadow 0.25s ease, border-color 0.25s ease';
       card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
     });
   });
 
   /* ==========================================================================
-     4. INTERACTIVE TOP-LEFT PHOTO SWITCHER
+     4. TOP-LEFT AVATAR PHOTO SWITCHER
      ========================================================================== */
   const heroProfilePhoto = document.getElementById('hero-profile-photo');
   const photos = [
@@ -194,24 +215,21 @@
   let photoIndex = 0;
 
   if (heroProfilePhoto) {
-    heroProfilePhoto.style.cursor = 'pointer';
-    heroProfilePhoto.title = 'Click to switch photo & trigger hologram scan!';
-
-    heroProfilePhoto.addEventListener('click', () => {
+    heroProfilePhoto.parentElement.addEventListener('click', () => {
       photoIndex = (photoIndex + 1) % photos.length;
       heroProfilePhoto.style.opacity = '0.3';
-      heroProfilePhoto.style.filter = 'brightness(2) contrast(1.5) hue-rotate(90deg)';
+      heroProfilePhoto.style.filter = 'brightness(1.8) hue-rotate(90deg)';
 
       setTimeout(() => {
         heroProfilePhoto.src = photos[photoIndex];
         heroProfilePhoto.style.opacity = '1';
         heroProfilePhoto.style.filter = '';
-      }, 200);
+      }, 180);
     });
   }
 
   /* ==========================================================================
-     5. GITHUB LIVE TELEMETRY FETCHER & METRIC COUNT-UP
+     5. GITHUB LIVE TELEMETRY FETCHER
      ========================================================================== */
   const apiPublicRepos = document.getElementById('api-public-repos');
   const apiFollowers = document.getElementById('api-followers');
@@ -401,12 +419,12 @@
     let count = 0;
     const interval = setInterval(() => {
       let line = '';
-      for (let i = 0; i < 50; i++) {
+      for (let i = 0; i < 48; i++) {
         line += chars.charAt(Math.floor(Math.random() * chars.length));
       }
       appendCliOutput(`<span style="color:#27c93f; font-size:0.75rem; letter-spacing:3px;">${line}</span>`);
       count++;
-      if (count > 14) {
+      if (count > 12) {
         clearInterval(interval);
         appendCliOutput(`<span style="color:#58a6ff;">[Matrix connection stabilized. Welcome back to terminal.]</span>`);
       }
@@ -544,6 +562,6 @@
         link.classList.add('active');
       }
     });
-  });
+  }, { passive: true });
 
 })();
