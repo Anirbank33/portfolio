@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark light" />
+  
+  <!-- Primary Meta Tags -->
+  <title>Anirban Kar | Backend Software Engineer & Systems Architect</title>
+  <meta name="title" content="Anirban Kar | Backend Software Engineer & Systems Architect" />
+  <meta name="description" content="Portfolio of Anirban Kar (Anirbank33) - Backend Software Engineer specializing in Java, Spring Boot, Microservices, REST APIs, and Distributed Systems based in Bengaluru, India." />
+  <meta name="author" content="Anirban Kar" />
+  <meta name="keywords" content="Anirban Kar, Anirbank33, Backend Engineer, Java, Spring Boot, Microservices, PostgreSQL, Bengaluru, Portfolio, Distributed Systems, Software Developer" />
+
+  <!-- Open Graph / Facebook / LinkedIn -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://anirbank33.github.io/portfolio/" />
+  <meta property="og:title" content="Anirban Kar | Backend Software Engineer" />
+  <meta property="og:description" content="Building resilient distributed systems, high-throughput APIs, and scalable backend infrastructure." />
+  <meta property="og:image" content="https://avatars.githubusercontent.com/u/81949869?v=4" />
+
+  <!-- Twitter / X -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://anirbank33.github.io/portfolio/" />
+  <meta property="twitter:title" content="Anirban Kar | Backend Software Engineer" />
+  <meta property="twitter:description" content="Backend Software Engineer · Java · Spring Boot · Microservices · APIs · Bengaluru" />
+  <meta property="twitter:image" content="https://avatars.githubusercontent.com/u/81949869?v=4" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+
+  <!-- Google Fonts: JetBrains Mono & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Pre-render theme switcher script to prevent FOUC -->
+  <script>
+    (function() {
+      try {
+        var saved = localStorage.getItem('theme');
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = saved || (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+        var metaScheme = document.querySelector('meta[name="color-scheme"]');
+        if (metaScheme) metaScheme.content = theme;
+      } catch (e) {}
+    })();
+  </script>
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Background Animated Canvas/Mesh -->
+  <div class="bg-mesh" aria-hidden="true">
+    <div class="mesh-blob blob-1"></div>
+    <div class="mesh-blob blob-2"></div>
+    <div class="mesh-blob blob-3"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="#hero" class="brand-logo" aria-label="Anirban Kar Home">
+        <span class="logo-terminal">&gt;_</span>
+        <span class="logo-name">anirban<span class="accent-dot">.kar</span></span>
+        <span class="badge-status">
+          <span class="status-dot"></span>
+          <span class="status-text">Available for hire</span>
+        </span>
+      </a>
+
+      <nav class="nav-links" id="nav-links" aria-label="Main Navigation">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#pipeline" class="nav-link">Architecture</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#telemetry" class="nav-link">Telemetry</a>
+        <a href="#terminal" class="nav-link">CLI</a>
+        <a href="#contact" class="nav-link cta-link">Get in Touch</a>
+      </nav>
+
+      <div class="nav-controls">
+        <button id="theme-toggle" class="btn-icon" aria-label="Toggle light/dark theme" title="Toggle theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <button id="mobile-toggle" class="btn-icon mobile-menu-btn" aria-label="Open menu" aria-expanded="false">
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="hero-eyebrow">
+            <span class="eyebrow-pill">☕ JVM &amp; Distributed Systems Engineer</span>
+            <span class="location-tag">📍 Bengaluru, India</span>
+          </div>
+
+          <h1 class="hero-title">
+            Architecting <span class="gradient-text">resilient</span> backend engines &amp; cloud APIs.
+          </h1>
+
+          <p class="hero-description">
+            Hi, I’m <strong>Anirban Kar</strong> (<code>@Anirbank33</code>). I specialize in high-performance 
+            <strong>Java &amp; Spring Boot</strong> microservices, transactional consistency, robust RESTful APIs, 
+            and scalable cloud architectures. Focused on low-latency data pipelines and distributed reliability.
+          </p>
+
+          <!-- Quick Metrics Bar -->
+          <div class="hero-metrics">
+            <div class="metric-card">
+              <span class="metric-num" id="hero-repo-count">23+</span>
+              <span class="metric-lbl">Public Repos</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-num">52</span>
+              <span class="metric-lbl">Weeks Active</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-num">REST / JVM</span>
+              <span class="metric-lbl">Core Focus</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-num">100%</span>
+              <span class="metric-lbl">Open Source</span>
+            </div>
+          </div>
+
+          <!-- Hero Action Buttons -->
+          <div class="hero-actions">
+            <a href="#projects" class="btn btn-primary">
+              <span>View Projects</span>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+            </a>
+            <a href="https://github.com/Anirbank33" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              <span>GitHub (@Anirbank33)</span>
+            </a>
+            <a href="#terminal" class="btn btn-ghost">
+              <code>&gt; open CLI</code>
+            </a>
+          </div>
+
+          <div class="hero-socials">
+            <a href="https://www.linkedin.com/in/anirban-kar-23645414a/" target="_blank" rel="noopener noreferrer" class="social-chip" title="LinkedIn">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+              <span>LinkedIn</span>
+            </a>
+            <a href="https://x.com/3anir33" target="_blank" rel="noopener noreferrer" class="social-chip" title="X / Twitter">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              <span>@3anir33</span>
+            </a>
+            <a href="mailto:anirbankar23@gmail.com" class="social-chip" title="Direct Email">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <span>anirbankar23@gmail.com</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Hero Visual Showcase -->
+        <div class="hero-visual">
+          <div class="terminal-mockup">
+            <div class="mockup-header">
+              <div class="mockup-dots">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+              </div>
+              <div class="mockup-title">anirbankar@macbook-air: ~/workspace</div>
+              <div class="mockup-badge">bash 5.2</div>
+            </div>
+            <div class="mockup-body">
+              <p class="code-line"><span class="prompt">$</span> <span class="cmd">curl -s https://api.github.com/users/Anirbank33</span></p>
+              <pre class="json-output"><code>{
+  <span class="key">"name"</span>: <span class="str">"Anirban Kar"</span>,
+  <span class="key">"role"</span>: <span class="str">"Backend Software Engineer"</span>,
+  <span class="key">"stack"</span>: [<span class="str">"Java 21"</span>, <span class="str">"Spring Boot"</span>, <span class="str">"PostgreSQL"</span>, <span class="str">"Docker"</span>],
+  <span class="key">"status"</span>: <span class="str">"Open to Engineering Opportunities"</span>,
+  <span class="key">"location"</span>: <span class="str">"Bengaluru, Karnataka, India"</span>,
+  <span class="key">"hireable"</span>: <span class="bool">true</span>
+}</code></pre>
+              <p class="code-line"><span class="prompt">$</span> <span class="cmd">java -version</span></p>
+              <p class="sys-output">openjdk 21.0.2 LTS (build 21.0.2+13-LTS)</p>
+              <p class="code-line"><span class="prompt">$</span> <span class="cmd">mvn spring-boot:run</span> <span class="cursor">_</span></p>
+              <p class="sys-output success-text">[INFO] Started DistributedApplication in 1.42 seconds (JVM running for 1.89)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Architecture & Pipeline Section -->
+    <section class="section pipeline-section" id="pipeline">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-subtitle">System Design &amp; Flow</span>
+          <h2 class="section-title">End-to-End Distributed Architecture</h2>
+          <p class="section-lead">
+            How I architect backend services from client ingress to database persistence and telemetry.
+          </p>
+        </div>
+
+        <div class="pipeline-flow-wrapper">
+          <div class="pipeline-grid">
+            <!-- Node 1: Client -->
+            <div class="pipeline-card" data-step="01">
+              <div class="pipeline-icon-box">
+                <img src="assets/svg/java-coffee.svg" alt="Client Node" class="pipeline-svg" />
+              </div>
+              <div class="step-num">01 / INGRESS</div>
+              <h3 class="pipeline-name">Client &amp; API Ingress</h3>
+              <p class="pipeline-text">
+                HTTP/2 &amp; WebSocket client requests, payload sanitization, JWT authorization tokens, and API rate limiting.
+              </p>
+              <div class="pipeline-tags">
+                <span>REST</span>
+                <span>WebSockets</span>
+                <span>HTTPS</span>
+              </div>
+            </div>
+
+            <div class="pipeline-arrow" aria-hidden="true">➜</div>
+
+            <!-- Node 2: Gateway -->
+            <div class="pipeline-card" data-step="02">
+              <div class="pipeline-icon-box">
+                <img src="assets/svg/server-animation.svg" alt="API Gateway" class="pipeline-svg" />
+              </div>
+              <div class="step-num">02 / GATEWAY</div>
+              <h3 class="pipeline-name">Spring &amp; Express Gateway</h3>
+              <p class="pipeline-text">
+                Centralized routing, load balancing, circuit breaker patterns, request interceptors, and error mapping.
+              </p>
+              <div class="pipeline-tags">
+                <span>Spring Cloud</span>
+                <span>Express</span>
+                <span>Microservices</span>
+              </div>
+            </div>
+
+            <div class="pipeline-arrow" aria-hidden="true">➜</div>
+
+            <!-- Node 3: Database -->
+            <div class="pipeline-card" data-step="03">
+              <div class="pipeline-icon-box">
+                <img src="assets/svg/database-animation.svg" alt="Distributed Database Engine" class="pipeline-svg" />
+              </div>
+              <div class="step-num">03 / PERSISTENCE</div>
+              <h3 class="pipeline-name">Persistence &amp; Cache</h3>
+              <p class="pipeline-text">
+                ACID transactions, relational modeling with PostgreSQL/MySQL, index optimization, and high-speed Redis caching.
+              </p>
+              <div class="pipeline-tags">
+                <span>PostgreSQL</span>
+                <span>Redis</span>
+                <span>JPA / Hibernate</span>
+              </div>
+            </div>
+
+            <div class="pipeline-arrow" aria-hidden="true">➜</div>
+
+            <!-- Node 4: Telemetry -->
+            <div class="pipeline-card" data-step="04">
+              <div class="pipeline-icon-box">
+                <img src="assets/svg/terminal-animation.svg" alt="Telemetry and Metrics" class="pipeline-svg" />
+              </div>
+              <div class="step-num">04 / OBSERVABILITY</div>
+              <h3 class="pipeline-name">Telemetry &amp; Health</h3>
+              <p class="pipeline-text">
+                Automated activity logging, health checks, CPU/memory profiling, JVM thread telemetry, and audit trails.
+              </p>
+              <div class="pipeline-tags">
+                <span>Prometheus</span>
+                <span>JVM Metrics</span>
+                <span>Healthchecks</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pipeline-terminal-bar">
+            <code><span class="cyan">Client Ingress</span> ──► <span class="magenta">Spring Gateway</span> ──► <span class="emerald">Distributed Persistence</span> ──► <span class="amber">Live Telemetry</span></code>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Projects Section -->
+    <section class="section projects-section" id="projects">
+      <div class="container">
+        <div class="section-header">
+          <div class="header-left">
+            <span class="section-subtitle">Portfolio Showcase</span>
+            <h2 class="section-title">Featured Engineering Projects</h2>
+            <p class="section-lead">Production-grade systems, REST APIs, frontend trackers, and open-source tools.</p>
+          </div>
+
+          <!-- Category Filters -->
+          <div class="filter-group" role="tablist" aria-label="Project Categories">
+            <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">All Projects</button>
+            <button class="filter-btn" data-filter="backend" role="tab" aria-selected="false">Backend &amp; Java</button>
+            <button class="filter-btn" data-filter="fullstack" role="tab" aria-selected="false">Full Stack</button>
+            <button class="filter-btn" data-filter="systems" role="tab" aria-selected="false">Telemetry &amp; Tools</button>
+          </div>
+        </div>
+
+        <div class="projects-grid" id="projects-grid">
+          <!-- Project 1: Medical Department Tracker -->
+          <article class="project-card" data-category="fullstack">
+            <div class="project-preview-wrap">
+              <picture>
+                <source media="(prefers-color-scheme: dark)" srcset="assets/svg/project-card-medical-tracker.svg" />
+                <source media="(prefers-color-scheme: light)" srcset="assets/svg/project-card-medical-tracker-light.svg" />
+                <img src="assets/svg/project-card-medical-tracker.svg" alt="Medical Department Tracker" class="project-svg-banner" loading="lazy" />
+              </picture>
+              <div class="project-badge">Full Stack System</div>
+            </div>
+            <div class="project-body">
+              <div class="project-meta">
+                <span class="project-tech">React · Vite · TypeScript · Express</span>
+                <span class="project-stars">★ 1</span>
+              </div>
+              <h3 class="project-title">
+                <a href="https://github.com/Anirbank33/medical-department-tracker" target="_blank" rel="noopener noreferrer">
+                  Wardline Medical Operations Tracker
+                </a>
+              </h3>
+              <p class="project-desc">
+                Enterprise clinic and hospital department workflow tracker. Designed for high-concurrency ward operations, real-time patient status transitions, doctor scheduling, and RESTful state synchronizations.
+              </p>
+              <div class="project-footer">
+                <div class="tag-list">
+                  <span class="tag">TypeScript</span>
+                  <span class="tag">React</span>
+                  <span class="tag">Express REST</span>
+                  <span class="tag">Vite</span>
+                </div>
+                <div class="project-links">
+                  <a href="https://github.com/Anirbank33/medical-department-tracker" class="icon-link" target="_blank" rel="noopener noreferrer" title="View Source Code">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    <span>Source</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 2: Backend Demo / Modular REST API -->
+          <article class="project-card" data-category="backend">
+            <div class="project-preview-wrap">
+              <picture>
+                <source media="(prefers-color-scheme: dark)" srcset="assets/svg/project-card-backend-demo.svg" />
+                <source media="(prefers-color-scheme: light)" srcset="assets/svg/project-card-backend-demo-light.svg" />
+                <img src="assets/svg/project-card-backend-demo.svg" alt="Modular REST API Engine" class="project-svg-banner" loading="lazy" />
+              </picture>
+              <div class="project-badge">Backend Engine</div>
+            </div>
+            <div class="project-body">
+              <div class="project-meta">
+                <span class="project-tech">Node.js · Express · REST API</span>
+                <span class="project-stars">Production Ready</span>
+              </div>
+              <h3 class="project-title">
+                <a href="https://github.com/Anirbank33/backend-demo" target="_blank" rel="noopener noreferrer">
+                  Modular Express REST API Engine
+                </a>
+              </h3>
+              <p class="project-desc">
+                High-throughput Node.js documents REST API featuring layered service architecture, centralized error handling, robust request validation, JSON schema enforcement, and integrated frontend client testbed.
+              </p>
+              <div class="project-footer">
+                <div class="tag-list">
+                  <span class="tag">REST API</span>
+                  <span class="tag">Express.js</span>
+                  <span class="tag">Middleware</span>
+                  <span class="tag">CRUD</span>
+                </div>
+                <div class="project-links">
+                  <a href="https://github.com/Anirbank33/backend-demo" class="icon-link" target="_blank" rel="noopener noreferrer" title="View Source Code">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    <span>Source</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 3: GitHub Activity Telemetry Dashboard -->
+          <article class="project-card" data-category="systems">
+            <div class="project-preview-wrap">
+              <picture>
+                <source media="(prefers-color-scheme: dark)" srcset="assets/svg/project-card-github-activity.svg" />
+                <source media="(prefers-color-scheme: light)" srcset="assets/svg/project-card-github-activity-light.svg" />
+                <img src="assets/svg/project-card-github-activity.svg" alt="GitHub Activity Dashboard" class="project-svg-banner" loading="lazy" />
+              </picture>
+              <div class="project-badge">Live Telemetry</div>
+            </div>
+            <div class="project-body">
+              <div class="project-meta">
+                <span class="project-tech">HTML5 · Canvas · Data Viz · GitHub Pages</span>
+                <span class="project-stars">Live Deployed</span>
+              </div>
+              <h3 class="project-title">
+                <a href="https://anirbank33.github.io/github-activity-2021-2026/" target="_blank" rel="noopener noreferrer">
+                  GitHub Activity &amp; Commit Telemetry (2021-2026)
+                </a>
+              </h3>
+              <p class="project-desc">
+                Multi-year contribution visualizer and commit telemetry dashboard. Parses year-over-year commit history, active repository timelines, and dynamic light/dark theme adaptation.
+              </p>
+              <div class="project-footer">
+                <div class="tag-list">
+                  <span class="tag">Analytics</span>
+                  <span class="tag">Charts</span>
+                  <span class="tag">GitHub API</span>
+                  <span class="tag">CSS Grid</span>
+                </div>
+                <div class="project-links">
+                  <a href="https://anirbank33.github.io/github-activity-2021-2026/" class="icon-link primary-link" target="_blank" rel="noopener noreferrer" title="Open Live Dashboard">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                    <span>Live Demo</span>
+                  </a>
+                  <a href="https://github.com/Anirbank33/github-activity-2021-2026" class="icon-link" target="_blank" rel="noopener noreferrer" title="View Source Code">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    <span>Source</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 4: Java Core & JVM Concurrency Troubleshooting -->
+          <article class="project-card" data-category="backend">
+            <div class="project-preview-wrap">
+              <picture>
+                <source media="(prefers-color-scheme: dark)" srcset="assets/svg/project-card-java-troubleshooting.svg" />
+                <source media="(prefers-color-scheme: light)" srcset="assets/svg/project-card-java-troubleshooting-light.svg" />
+                <img src="assets/svg/project-card-java-troubleshooting.svg" alt="Java Core Troubleshooting" class="project-svg-banner" loading="lazy" />
+              </picture>
+              <div class="project-badge">JVM Engineering</div>
+            </div>
+            <div class="project-body">
+              <div class="project-meta">
+                <span class="project-tech">Java 17/21 · JVM · Multithreading</span>
+                <span class="project-stars">★ 1</span>
+              </div>
+              <h3 class="project-title">
+                <a href="https://github.com/Anirbank33/java-core-troubleshooting" target="_blank" rel="noopener noreferrer">
+                  Java Core &amp; JVM Concurrency Troubleshooting
+                </a>
+              </h3>
+              <p class="project-desc">
+                Engineering lab targeting deep JVM memory behavior, deadlock reproduction and prevention, thread contention diagnostics, heap profiling, and low-latency synchronization structures in modern Java.
+              </p>
+              <div class="project-footer">
+                <div class="tag-list">
+                  <span class="tag">Java 21</span>
+                  <span class="tag">JVM Profiling</span>
+                  <span class="tag">Concurrency</span>
+                  <span class="tag">Multithreading</span>
+                </div>
+                <div class="project-links">
+                  <a href="https://github.com/Anirbank33/java-core-troubleshooting" class="icon-link" target="_blank" rel="noopener noreferrer" title="View Source Code">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    <span>Source</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 5: Cool Tracks from 90s -->
+          <article class="project-card" data-category="systems">
+            <div class="project-preview-wrap">
+              <picture>
+                <source media="(prefers-color-scheme: dark)" srcset="assets/svg/project-card-cool-tracks.svg" />
+                <source media="(prefers-color-scheme: light)" srcset="assets/svg/project-card-cool-tracks-light.svg" />
+                <img src="assets/svg/project-card-cool-tracks.svg" alt="90s Music Streamer" class="project-svg-banner" loading="lazy" />
+              </picture>
+              <div class="project-badge">Web Audio &amp; Media</div>
+            </div>
+            <div class="project-body">
+              <div class="project-meta">
+                <span class="project-tech">TypeScript · Web Audio API · Audio Synthesis</span>
+                <span class="project-stars">Interactive</span>
+              </div>
+              <h3 class="project-title">
+                <a href="https://github.com/Anirbank33/Cool-tracks-form-90-s" target="_blank" rel="noopener noreferrer">
+                  90s Bollywood Audio Player &amp; Streamer
+                </a>
+              </h3>
+              <p class="project-desc">
+                Interactive nostalgic media playlist and web audio engine featuring procedural audio controls, responsive track queuing, spectrum visualizers, and stateful playback management in TypeScript.
+              </p>
+              <div class="project-footer">
+                <div class="tag-list">
+                  <span class="tag">TypeScript</span>
+                  <span class="tag">Web Audio API</span>
+                  <span class="tag">Interactive UI</span>
+                </div>
+                <div class="project-links">
+                  <a href="https://github.com/Anirbank33/Cool-tracks-form-90-s" class="icon-link" target="_blank" rel="noopener noreferrer" title="View Source Code">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    <span>Source</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 6: TinDog & Modern Web Apps -->
+          <article class="project-card" data-category="fullstack">
+            <div class="project-preview-wrap fallback-preview">
+              <div class="preview-brand-icon">🐾</div>
+              <div class="project-badge">Web Architecture</div>
+            </div>
+            <div class="project-body">
+              <div class="project-meta">
+                <span class="project-tech">HTML5 · Modern CSS · JS</span>
+                <span class="project-stars">★ 1</span>
+              </div>
+              <h3 class="project-title">
+                <a href="https://github.com/Anirbank33/tindog" target="_blank" rel="noopener noreferrer">
+                  TinDog &amp; Responsive Web Platform
+                </a>
+              </h3>
+              <p class="project-desc">
+                High-fidelity responsive consumer web application built with modern flex/grid geometry, touch gesture navigation, dynamic testimonial carousels, and optimized asset delivery pipelines.
+              </p>
+              <div class="project-footer">
+                <div class="tag-list">
+                  <span class="tag">HTML5</span>
+                  <span class="tag">Responsive CSS</span>
+                  <span class="tag">UI/UX</span>
+                </div>
+                <div class="project-links">
+                  <a href="https://github.com/Anirbank33/tindog" class="icon-link" target="_blank" rel="noopener noreferrer" title="View Source Code">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    <span>Source</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Skills Matrix -->
+    <section class="section skills-section" id="skills">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-subtitle">Core Proficiencies</span>
+          <h2 class="section-title">Technical Competencies &amp; Stack</h2>
+          <p class="section-lead">
+            Languages, frameworks, and infrastructure tools I leverage to build robust software.
+          </p>
+        </div>
+
+        <!-- Moving Tech Stack Banner -->
+        <div class="skills-banner-wrap">
+          <picture>
+            <source media="(prefers-color-scheme: dark)" srcset="assets/svg/skills-icons-moving.svg" />
+            <source media="(prefers-color-scheme: light)" srcset="assets/svg/skills-icons-moving-light.svg" />
+            <img src="assets/svg/skills-icons-moving.svg" alt="Animated Moving Tech Stream" class="skills-stream-svg" loading="lazy" />
+          </picture>
+        </div>
+
+        <!-- Skills Categories Grid -->
+        <div class="skills-matrix-grid">
+          <!-- Category 1 -->
+          <div class="matrix-card">
+            <div class="matrix-header">
+              <span class="matrix-icon">☕</span>
+              <h3>Core Languages</h3>
+            </div>
+            <p class="matrix-desc">High-concurrency compiled and dynamic languages.</p>
+            <div class="skill-items">
+              <div class="skill-item">
+                <span class="skill-name">Java (17 / 21)</span>
+                <span class="skill-bar"><span style="width: 95%"></span></span>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">TypeScript</span>
+                <span class="skill-bar"><span style="width: 88%"></span></span>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">JavaScript (ES6+)</span>
+                <span class="skill-bar"><span style="width: 92%"></span></span>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">SQL (ANSI)</span>
+                <span class="skill-bar"><span style="width: 86%"></span></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category 2 -->
+          <div class="matrix-card">
+            <div class="matrix-header">
+              <span class="matrix-icon">⚙️</span>
+              <h3>Backend &amp; Frameworks</h3>
+            </div>
+            <p class="matrix-desc">Scalable REST architectures and application servers.</p>
+            <div class="skill-items">
+              <div class="skill-item">
+                <span class="skill-name">Spring Boot &amp; Spring Cloud</span>
+                <span class="skill-bar"><span style="width: 92%"></span></span>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">Node.js &amp; Express.js</span>
+                <span class="skill-bar"><span style="width: 90%"></span></span>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">Microservices &amp; REST APIs</span>
+                <span class="skill-bar"><span style="width: 94%"></span></span>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">Hibernate / JPA</span>
+                <span class="skill-bar"><span style="width: 87%"></span></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category 3 -->
+          <div class="matrix-card">
+            <div class="matrix-header">
+              <span class="matrix-icon">🗄️</span>
+              <h3>Data &amp; Persistence</h3>
+            </div>
+            <p class="matrix-desc">Relational databases, indexing, and cache layers.</p>
+            <div class="skill-items">
+              <div class="skill-item">
+                <span class="skill-name">PostgreSQL &amp; MySQL</span>
+                <span class="skill-bar"><span style="width: 90%"></span></span>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">Redis (In-Memory Caching)</span>
+                <span class="skill-bar"><span style="width: 85%"></span></span>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">MongoDB</span>
+                <span class="skill-bar"><span style="width: 80%"></span></span>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">ACID Transactions &amp; Schema Design</span>
+                <span class="skill-bar"><span style="width: 88%"></span></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category 4 -->
+          <div class="matrix-card">
+            <div class="matrix-header">
+              <span class="matrix-icon">🚀</span>
+              <h3>DevOps &amp; Infrastructure</h3>
+            </div>
+            <p class="matrix-desc">Containerization, CI/CD, and system diagnostics.</p>
+            <div class="skill-items">
+              <div class="skill-item">
+                <span class="skill-name">Docker &amp; Containerization</span>
+                <span class="skill-bar"><span style="width: 84%"></span></span>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">Git &amp; GitHub Actions CI/CD</span>
+                <span class="skill-bar"><span style="width: 92%"></span></span>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">JVM Profiling &amp; Concurrency</span>
+                <span class="skill-bar"><span style="width: 89%"></span></span>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">Linux / Unix Shell Scripting</span>
+                <span class="skill-bar"><span style="width: 86%"></span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Live GitHub Telemetry & Stats -->
+    <section class="section telemetry-section" id="telemetry">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-subtitle">Real-Time Activity</span>
+          <h2 class="section-title">GitHub Telemetry &amp; Stats</h2>
+          <p class="section-lead">
+            Live metrics dynamically synchronized from the GitHub REST API for <code>@Anirbank33</code>.
+          </p>
+        </div>
+
+        <div class="telemetry-grid">
+          <!-- Real-Time Metrics Card -->
+          <div class="telemetry-card live-card">
+            <div class="live-card-header">
+              <div class="live-badge">
+                <span class="pulse-indicator"></span>
+                <span>GitHub REST API v3</span>
+              </div>
+              <button id="refresh-stats" class="btn-refresh" title="Refresh Live Stats">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+              </button>
+            </div>
+
+            <div class="live-stats-rows">
+              <div class="live-stat-item">
+                <span class="stat-lbl">Public Repositories</span>
+                <span class="stat-val" id="api-public-repos">23</span>
+              </div>
+              <div class="live-stat-item">
+                <span class="stat-lbl">Followers</span>
+                <span class="stat-val" id="api-followers">2</span>
+              </div>
+              <div class="live-stat-item">
+                <span class="stat-lbl">Following</span>
+                <span class="stat-val" id="api-following">8</span>
+              </div>
+              <div class="live-stat-item">
+                <span class="stat-lbl">Account Age</span>
+                <span class="stat-val" id="api-created-at">Since Apr 2021</span>
+              </div>
+              <div class="live-stat-item">
+                <span class="stat-lbl">Location</span>
+                <span class="stat-val">Bengaluru, Karnataka</span>
+              </div>
+              <div class="live-stat-item">
+                <span class="stat-lbl">Hireable Status</span>
+                <span class="stat-val highlight-green">Available</span>
+              </div>
+            </div>
+
+            <div class="live-card-footer">
+              <a href="https://github.com/Anirbank33" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-secondary w-100">
+                View Raw GitHub Profile ↗
+              </a>
+            </div>
+          </div>
+
+          <!-- Dynamic GitHub Stats Banner -->
+          <div class="telemetry-card stats-images-card">
+            <div class="card-inner-title">Verified GitHub Developer Metrics</div>
+            <div class="metrics-visuals">
+              <picture>
+                <source media="(prefers-color-scheme: dark)" srcset="https://ghstats.vercel.app/api?username=Anirbank33&show_icons=true&theme=transparent&hide_border=true&title_color=00F0FF&icon_color=EC4899&text_color=C9D1D9&rank_icon=github" />
+                <source media="(prefers-color-scheme: light)" srcset="https://ghstats.vercel.app/api?username=Anirbank33&show_icons=true&theme=transparent&hide_border=true&title_color=0284C7&icon_color=DB2777&text_color=334155&rank_icon=github" />
+                <img src="https://ghstats.vercel.app/api?username=Anirbank33&show_icons=true&theme=transparent&hide_border=true&title_color=00F0FF&icon_color=EC4899&text_color=C9D1D9&rank_icon=github" alt="GitHub stats for Anirbank33" class="stats-img" loading="lazy" />
+              </picture>
+
+              <picture>
+                <source media="(prefers-color-scheme: dark)" srcset="https://ghstats.vercel.app/api/top-langs/?username=Anirbank33&layout=compact&theme=transparent&hide_border=true&title_color=00F0FF&text_color=C9D1D9&langs_count=6" />
+                <source media="(prefers-color-scheme: light)" srcset="https://ghstats.vercel.app/api/top-langs/?username=Anirbank33&layout=compact&theme=transparent&hide_border=true&title_color=0284C7&text_color=334155&langs_count=6" />
+                <img src="https://ghstats.vercel.app/api/top-langs/?username=Anirbank33&layout=compact&theme=transparent&hide_border=true&title_color=00F0FF&text_color=C9D1D9&langs_count=6" alt="Top languages for Anirbank33" class="stats-img" loading="lazy" />
+              </picture>
+            </div>
+            <div class="telemetry-cta-bar">
+              <a href="https://anirbank33.github.io/github-activity-2021-2026/" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
+                Explore Full Multi-Year Activity Telemetry ↗
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Developer CLI Terminal -->
+    <section class="section terminal-section" id="terminal">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-subtitle">Interactive Shell</span>
+          <h2 class="section-title">Developer Command Line Interface</h2>
+          <p class="section-lead">
+            Explore Anirban's background, projects, and skills through an in-browser terminal emulator. Type <code>help</code> to begin.
+          </p>
+        </div>
+
+        <div class="cli-container">
+          <div class="cli-chrome">
+            <div class="cli-buttons">
+              <span class="cli-dot red"></span>
+              <span class="cli-dot yellow"></span>
+              <span class="cli-dot green"></span>
+            </div>
+            <div class="cli-title">anirban@engineer-shell: ~ (zsh)</div>
+            <div class="cli-actions">
+              <button id="cli-clear-btn" class="cli-action-btn" title="Clear console">clear</button>
+            </div>
+          </div>
+
+          <div class="cli-screen" id="cli-screen" tabindex="0" role="region" aria-label="Interactive Terminal Emulator">
+            <div class="cli-output" id="cli-output">
+              <div class="cli-line banner-line">
+                <pre class="ascii-art">
+   _         _      _                  _  __           
+  /_\  _ _  (_)_ _ | |__  __ _ _ _    | |/ /__ _ _ _   
+ / _ \| ' \ | | '_|| '_ \/ _` | ' \   | ' </ _` | '_|  
+/_/ \_\_||_||_|_|  |_.__/\__,_|_||_|  |_|\_\__,_|_|    
+======================================================
+Backend Software Engineer · Bengaluru · Java &amp; Spring
+Type 'help' to view available system commands.
+                </pre>
+              </div>
+              <div class="cli-line info-line">Quick shortcuts: <span class="cli-tag" onclick="window.runTerminalCommand('skills')">skills</span> · <span class="cli-tag" onclick="window.runTerminalCommand('projects')">projects</span> · <span class="cli-tag" onclick="window.runTerminalCommand('experience')">experience</span> · <span class="cli-tag" onclick="window.runTerminalCommand('hire')">hire</span> · <span class="cli-tag" onclick="window.runTerminalCommand('contact')">contact</span></div>
+            </div>
+
+            <div class="cli-prompt-line">
+              <span class="prompt-user">visitor@anirbankar</span>:<span class="prompt-dir">~</span>$ 
+              <input type="text" id="cli-input" class="cli-input-field" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Terminal command input" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about-section" id="about">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-bio">
+            <span class="section-subtitle">Background &amp; Passion</span>
+            <h2 class="section-title">Engineering with Purpose &amp; Precision</h2>
+            <div class="bio-text">
+              <p>
+                I am a backend-focused software engineer based in <strong>Bengaluru, Karnataka</strong>. My primary 
+                fascination lies in building software systems that remain responsive, scalable, and resilient under 
+                demanding enterprise workloads.
+              </p>
+              <p>
+                From diagnosing multithreaded contention and heap anomalies in the <strong>JVM</strong> to designing 
+                idempotent <strong>RESTful APIs</strong> and structured relational data architectures, I enjoy translating 
+                complex operational challenges into maintainable, elegant code.
+              </p>
+              <p>
+                When not writing Java or Node services, I experiment with interactive frontend experiences, Web Audio 
+                synthesis, and developer tools that streamline daily engineering telemetry.
+              </p>
+            </div>
+
+            <div class="bio-highlights">
+              <div class="highlight-item">
+                <span class="highlight-icon">⚡</span>
+                <div>
+                  <strong>Low Latency &amp; Concurrency</strong>
+                  <p>Multithreading, thread pooling, and non-blocking IO design.</p>
+                </div>
+              </div>
+              <div class="highlight-item">
+                <span class="highlight-icon">🛡️</span>
+                <div>
+                  <strong>Enterprise API Design</strong>
+                  <p>Idempotency, OpenAPI specification, JWT security, and resilient error patterns.</p>
+                </div>
+              </div>
+              <div class="highlight-item">
+                <span class="highlight-icon">📦</span>
+                <div>
+                  <strong>Cloud-Native Ready</strong>
+                  <p>Docker containerization, reproducible builds, and automated GitHub CI/CD.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-card-side">
+            <div class="about-profile-card">
+              <div class="profile-avatar-wrap">
+                <img src="https://avatars.githubusercontent.com/u/81949869?v=4" alt="Anirban Kar" class="profile-avatar" />
+                <div class="avatar-ring"></div>
+              </div>
+              <h3 class="profile-card-name">Anirban Kar</h3>
+              <p class="profile-card-title">Backend Software Engineer</p>
+              <div class="profile-meta-pills">
+                <span>📍 Bengaluru</span>
+                <span>☕ Java &amp; Spring</span>
+                <span>🚀 Microservices</span>
+              </div>
+              <div class="profile-contact-list">
+                <a href="mailto:anirbankar23@gmail.com" class="profile-contact-item">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                  <span>anirbankar23@gmail.com</span>
+                </a>
+                <a href="https://www.linkedin.com/in/anirban-kar-23645414a/" target="_blank" rel="noopener noreferrer" class="profile-contact-item">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                  <span>LinkedIn Profile</span>
+                </a>
+                <a href="https://github.com/Anirbank33" target="_blank" rel="noopener noreferrer" class="profile-contact-item">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                  <span>github.com/Anirbank33</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact & Connect Section -->
+    <section class="section contact-section" id="contact">
+      <div class="container">
+        <div class="contact-box">
+          <div class="contact-header text-center">
+            <span class="section-subtitle">Let's Collaborate</span>
+            <h2 class="section-title">Ready to build something impactful?</h2>
+            <p class="section-lead">
+              I am actively looking for Backend Engineering, Distributed Systems, and Java/Spring roles in Bengaluru or Remote.
+            </p>
+          </div>
+
+          <div class="contact-grid">
+            <div class="contact-channel-cards">
+              <a href="mailto:anirbankar23@gmail.com" class="channel-card">
+                <div class="channel-icon mail-icon">
+                  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </div>
+                <div class="channel-info">
+                  <span class="channel-title">Direct Email</span>
+                  <span class="channel-val">anirbankar23@gmail.com</span>
+                </div>
+                <span class="channel-arrow">↗</span>
+              </a>
+
+              <a href="https://www.linkedin.com/in/anirban-kar-23645414a/" target="_blank" rel="noopener noreferrer" class="channel-card">
+                <div class="channel-icon in-icon">
+                  <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                </div>
+                <div class="channel-info">
+                  <span class="channel-title">LinkedIn Connection</span>
+                  <span class="channel-val">anirban-kar-23645414a</span>
+                </div>
+                <span class="channel-arrow">↗</span>
+              </a>
+
+              <a href="https://github.com/Anirbank33" target="_blank" rel="noopener noreferrer" class="channel-card">
+                <div class="channel-icon gh-icon">
+                  <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                </div>
+                <div class="channel-info">
+                  <span class="channel-title">GitHub Profile</span>
+                  <span class="channel-val">github.com/Anirbank33</span>
+                </div>
+                <span class="channel-arrow">↗</span>
+              </a>
+            </div>
+
+            <!-- Quick Email / Copy Composer -->
+            <div class="composer-card">
+              <h3>Quick Message Composer</h3>
+              <p>Type your message below to send directly via your mail client or copy formatted text:</p>
+              
+              <div class="composer-form">
+                <div class="form-field">
+                  <label for="contact-name">Your Name</label>
+                  <input type="text" id="contact-name" placeholder="e.g. Sarah Jenkins (Engineering Recruiter)" />
+                </div>
+                <div class="form-field">
+                  <label for="contact-subject">Subject</label>
+                  <input type="text" id="contact-subject" placeholder="Backend Engineer Opportunity / Tech Discussion" />
+                </div>
+                <div class="form-field">
+                  <label for="contact-body">Message</label>
+                  <textarea id="contact-body" rows="4" placeholder="Hi Anirban, I checked your GitHub projects and would like to connect regarding an opportunity..."></textarea>
+                </div>
+                <div class="composer-actions">
+                  <button id="btn-send-mail" class="btn btn-primary">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                    <span>Open Email Client</span>
+                  </button>
+                  <button id="btn-copy-info" class="btn btn-secondary">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    <span id="copy-btn-text">Copy Email</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div class="footer-left">
+        <div class="footer-logo">
+          <code>&gt; anirbankar.dev</code>
+        </div>
+        <p class="footer-copyright">
+          Designed &amp; engineered by <strong>Anirban Kar</strong> · Hosted with GitHub Pages.
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <a href="#hero">Back to Top ↑</a>
+        <a href="https://github.com/Anirbank33" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/anirban-kar-23645414a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://x.com/3anir33" target="_blank" rel="noopener noreferrer">X (Twitter)</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

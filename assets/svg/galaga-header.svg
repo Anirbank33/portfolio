@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 76" width="100%" height="76" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <linearGradient id="galHdrBgDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#09090b" stop-opacity="0.94"/>
+      <stop offset="50%" stop-color="#18181b" stop-opacity="0.88"/>
+      <stop offset="100%" stop-color="#030712" stop-opacity="0.96"/>
+    </linearGradient>
+
+    <!-- Refractive Edge Border -->
+    <linearGradient id="galHdrBorder" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f0ff" stop-opacity="0.8"/>
+      <stop offset="25%" stop-color="#ffffff" stop-opacity="0.3"/>
+      <stop offset="50%" stop-color="#a855f7" stop-opacity="0.8"/>
+      <stop offset="75%" stop-color="#ffffff" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#f43f5e" stop-opacity="0.8"/>
+    </linearGradient>
+
+    <!-- Specular Light Sweep -->
+    <linearGradient id="galHdrSweep" x1="-100%" y1="0%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+      <animate attributeName="x1" values="-100%;200%" dur="6s" repeatCount="indefinite"/>
+      <animate attributeName="x2" values="0%;300%" dur="6s" repeatCount="indefinite"/>
+    </linearGradient>
+
+    <filter id="galGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="galAmbientBlur" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="14"/>
+    </filter>
+  </defs>
+
+  <style>
+    .gal-mono { font-family: 'JetBrains Mono', Consolas, 'SF Mono', monospace; }
+    .gal-sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+  </style>
+
+  <!-- Ambient Neon Caustic Blobs -->
+  <circle cx="90" cy="38" r="45" fill="#00f0ff" opacity="0.16" filter="url(#galAmbientBlur)">
+    <animate attributeName="cx" values="90;130;90" dur="5s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.12;0.22;0.12" dur="5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="780" cy="38" r="45" fill="#f43f5e" opacity="0.14" filter="url(#galAmbientBlur)">
+    <animate attributeName="cx" values="780;740;780" dur="6s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.1;0.2;0.1" dur="6s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Main Glassmorphic Container -->
+  <rect x="2" y="2" width="876" height="72" rx="12" fill="url(#galHdrBgDark)"/>
+  <rect x="2" y="2" width="876" height="72" rx="12" fill="none" stroke="url(#galHdrBorder)" stroke-width="1.2"/>
+  <rect x="2" y="2" width="876" height="72" rx="12" fill="url(#galHdrSweep)"/>
+
+  <!-- Left Icon: Mini Galaga Starfighter -->
+  <g transform="translate(34, 38)">
+    <circle cx="0" cy="0" r="18" fill="#0f172a" stroke="#00f0ff" stroke-width="1"/>
+    <!-- Fighter Wings -->
+    <polygon points="0,-10 -9,6 -4,8 0,5 4,8 9,6" fill="#38bdf8"/>
+    <polygon points="0,-10 -3,4 0,7 3,4" fill="#ffffff"/>
+    <polygon points="-8,4 -10,9 -6,8" fill="#f43f5e"/>
+    <polygon points="8,4 10,9 6,8" fill="#f43f5e"/>
+    <!-- Laser Cannons -->
+    <line x1="-5" y1="-2" x2="-5" y2="-12" stroke="#00f0ff" stroke-width="1.2">
+      <animate attributeName="opacity" values="0.2;1;0.2" dur="0.4s" repeatCount="indefinite"/>
+    </line>
+    <line x1="5" y1="-2" x2="5" y2="-12" stroke="#00f0ff" stroke-width="1.2">
+      <animate attributeName="opacity" values="1;0.2;1" dur="0.4s" repeatCount="indefinite"/>
+    </line>
+  </g>
+
+  <!-- Center Title & Subtitle -->
+  <g transform="translate(70, 31)">
+    <text x="0" y="0" class="gal-sans" font-size="16.5" font-weight="900" fill="#ffffff" letter-spacing="1.5">
+      SPACE GALAGA <tspan fill="#64748b" font-weight="400">|</tspan> <tspan fill="#00f0ff" font-size="15">ARCADE ARENA</tspan>
+    </text>
+    <text x="0" y="19" class="gal-mono" font-size="9.5" fill="#94a3b8" font-weight="600" letter-spacing="1">
+      RETRO ARCADE SHOOTER POWERED BY GITHUB CONTRIBUTION TELEMETRY
+    </text>
+  </g>
+
+  <!-- Right Arcade Telemetry Badges -->
+  <g transform="translate(680, 24)">
+    <!-- 1UP Score Readout -->
+    <rect x="0" y="0" width="86" height="28" rx="6" fill="#0b1329" stroke="#1e293b" stroke-width="1"/>
+    <text x="43" y="11" class="gal-mono" font-size="7.5" fill="#f43f5e" font-weight="900" text-anchor="middle" letter-spacing="1">1UP SCORE</text>
+    <text x="43" y="23" class="gal-mono" font-size="9.5" fill="#00f0ff" font-weight="800" text-anchor="middle">058,920</text>
+
+    <!-- Stage Badge -->
+    <rect x="94" y="0" width="86" height="28" rx="6" fill="#0b1329" stroke="#10b981" stroke-width="1"/>
+    <circle cx="106" cy="14" r="3" fill="#10b981">
+      <animate attributeName="opacity" values="0.4;1;0.4" dur="1s" repeatCount="indefinite"/>
+    </circle>
+    <text x="144" y="18" class="gal-mono" font-size="8.5" fill="#10b981" font-weight="900" text-anchor="middle" letter-spacing="1">STAGE 01</text>
+  </g>
+</svg>

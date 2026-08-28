@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 150" width="140" height="150">
+  <defs>
+    <linearGradient id="apiFace" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1f6feb"/>
+      <stop offset="100%" stop-color="#1158c7"/>
+    </linearGradient>
+    <linearGradient id="apiSide" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0d419d"/>
+      <stop offset="100%" stop-color="#051d4d"/>
+    </linearGradient>
+    <linearGradient id="apiTop" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#388bfd"/>
+      <stop offset="100%" stop-color="#58a6ff"/>
+    </linearGradient>
+    <filter id="apiGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2.2" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <ellipse cx="70" cy="132" rx="34" ry="7" fill="#58a6ff" opacity="0.18">
+    <animate attributeName="rx" values="30;36;30" dur="2.4s" repeatCount="indefinite"/>
+  </ellipse>
+  <g filter="url(#apiGlow)">
+    <polygon points="70,28 108,48 108,96 70,116 32,96 32,48" fill="url(#apiSide)" opacity="0.35"/>
+    <polygon points="70,28 108,48 70,68 32,48" fill="url(#apiTop)"/>
+    <polygon points="70,68 108,48 108,96 70,116" fill="url(#apiSide)"/>
+    <polygon points="70,68 32,48 32,96 70,116" fill="url(#apiFace)"/>
+    <text x="70" y="92" text-anchor="middle" fill="#ffffff" font-family="Consolas, Menlo, monospace" font-size="14" font-weight="700">API</text>
+  </g>
+  <circle cx="48" cy="40" r="3" fill="#79c0ff" opacity="0.9">
+    <animate attributeName="cy" values="40;24;40" dur="1.8s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.3;1;0.3" dur="1.8s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="92" cy="36" r="2.5" fill="#a5d6ff" opacity="0.85">
+    <animate attributeName="cy" values="36;20;36" dur="2.1s" begin="0.4s" repeatCount="indefinite"/>
+  </circle>
+  <path d="M40 78 H100" stroke="#79c0ff" stroke-width="2" stroke-linecap="round" opacity="0">
+    <animate attributeName="opacity" values="0;0.8;0" dur="2s" repeatCount="indefinite"/>
+    <animate attributeName="stroke-dasharray" values="0 80;80 0" dur="2s" repeatCount="indefinite"/>
+  </path>
+</svg>

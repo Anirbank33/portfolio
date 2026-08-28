@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 280" width="100%" height="280" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <linearGradient id="medCmpBgDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#09090b" stop-opacity="0.9"/>
+      <stop offset="50%" stop-color="#18181b" stop-opacity="0.78"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.95"/>
+    </linearGradient>
+
+    <!-- Liquid Glass Edge Bevel -->
+    <linearGradient id="medCmpBorderDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/>
+      <stop offset="35%" stop-color="#71717a" stop-opacity="0.4"/>
+      <stop offset="70%" stop-color="#ffffff" stop-opacity="0.75"/>
+      <stop offset="100%" stop-color="#3f3f46" stop-opacity="0.3"/>
+    </linearGradient>
+
+    <linearGradient id="medCmpSheen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.22"/>
+      <stop offset="35%" stop-color="#ffffff" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+
+    <linearGradient id="medCmpShimmer" x1="-100%" y1="0%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+      <animate attributeName="x1" values="-100%;220%" dur="7.2s" repeatCount="indefinite"/>
+      <animate attributeName="x2" values="0%;320%" dur="7.2s" repeatCount="indefinite"/>
+    </linearGradient>
+
+    <filter id="medCmpOrb" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="16"/>
+    </filter>
+
+    <filter id="medCmpGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.5" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Ambient Liquid Caustics -->
+  <circle cx="45" cy="50" r="40" fill="#ffffff" opacity="0.22" filter="url(#medCmpOrb)">
+    <animate attributeName="cx" values="45;70;45" dur="7s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="130" cy="190" r="45" fill="#ffffff" opacity="0.18" filter="url(#medCmpOrb)">
+    <animate attributeName="cy" values="190;160;190" dur="8s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Outer Glass Panel -->
+  <rect x="2" y="2" width="166" height="276" rx="14" fill="url(#medCmpBgDark)" stroke="url(#medCmpBorderDark)" stroke-width="1.4"/>
+  <rect x="2" y="2" width="166" height="276" rx="14" fill="url(#medCmpSheen)"/>
+  <rect x="2" y="2" width="166" height="276" rx="14" fill="url(#medCmpShimmer)"/>
+  <line x1="14" y1="2" x2="156" y2="2" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" opacity="0.9" filter="url(#medCmpGlow)"/>
+
+  <!-- Category Tag -->
+  <g transform="translate(10, 14)">
+    <rect x="0" y="0" width="150" height="18" rx="5" fill="#ffffff" fill-opacity="0.08" stroke="#ffffff" stroke-opacity="0.3" stroke-width="0.8"/>
+    <path d="M8,6 h3 v-2 h2 v2 h3 v2 h-3 v3 h-2 v-3 h-3 z" fill="#ffffff" filter="url(#medCmpGlow)"/>
+    <text x="20" y="12.5" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="8.5" font-weight="700" letter-spacing="0.5">
+      CLINICAL PLATFORM
+    </text>
+  </g>
+
+  <!-- Title -->
+  <text x="10" y="48" fill="#ffffff" font-family="'JetBrains Mono', 'Segoe UI', sans-serif" font-size="12.5" font-weight="800" letter-spacing="0.2">
+    medical-tracker
+  </text>
+  <text x="10" y="62" fill="#e4e4e7" font-family="'JetBrains Mono', monospace" font-size="9.5" font-weight="700">
+    Wardline Operations
+  </text>
+
+  <!-- Tagline -->
+  <text x="10" y="78" fill="#a1a1aa" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="500">
+    Bed telemetry &amp; staff triage
+  </text>
+
+  <!-- ANIMATED ECG OSCILLOSCOPE HUD -->
+  <g transform="translate(10, 88)">
+    <rect x="0" y="0" width="150" height="78" rx="8" fill="#000000" fill-opacity="0.9" stroke="#3f3f46" stroke-width="0.8"/>
+
+    <!-- Header bar -->
+    <line x1="0" y1="18" x2="150" y2="18" stroke="#27272a" stroke-width="0.8"/>
+    <text x="10" y="12" fill="#d4d4d8" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="700">
+      ECG • WARD A
+    </text>
+    <text x="142" y="12" text-anchor="end" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="700">
+      74 BPM
+    </text>
+    <circle cx="106" cy="9" r="2.5" fill="#ffffff" filter="url(#medCmpGlow)">
+      <animate attributeName="opacity" values="0.3;1;0.3" dur="0.8s" repeatCount="indefinite"/>
+    </circle>
+
+    <!-- Grid lines -->
+    <line x1="0" y1="46" x2="150" y2="46" stroke="#27272a" stroke-width="0.6" stroke-dasharray="3,3"/>
+    <line x1="50" y1="18" x2="50" y2="78" stroke="#27272a" stroke-width="0.6" stroke-dasharray="3,3"/>
+    <line x1="100" y1="18" x2="100" y2="78" stroke="#27272a" stroke-width="0.6" stroke-dasharray="3,3"/>
+
+    <!-- Animated White Liquid ECG Heartbeat line -->
+    <path d="M 0,46 L 25,46 L 32,42 L 38,50 L 44,46 L 54,46 L 60,26 L 66,62 L 72,38 L 78,46 L 98,46 L 104,44 L 110,46 L 128,46 L 134,28 L 140,58 L 146,46 L 150,46" 
+          fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" filter="url(#medCmpGlow)"
+          stroke-dasharray="150" stroke-dashoffset="150">
+      <animate attributeName="stroke-dashoffset" values="150;0" dur="2.1s" repeatCount="indefinite"/>
+    </path>
+
+    <!-- Bottom vitals -->
+    <text x="10" y="70" fill="#d4d4d8" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="600">
+      STATUS: STABLE
+    </text>
+    <text x="142" y="70" text-anchor="end" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="600">
+      BED 12
+    </text>
+  </g>
+
+  <!-- TECH BADGES (Frosted Glass) -->
+  <g transform="translate(10, 178)">
+    <rect x="0" y="0" width="44" height="18" rx="4" fill="#ffffff" fill-opacity="0.08" stroke="#ffffff" stroke-opacity="0.25" stroke-width="0.8"/>
+    <text x="22" y="12.5" text-anchor="middle" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700">React</text>
+
+    <rect x="50" y="0" width="28" height="18" rx="4" fill="#ffffff" fill-opacity="0.08" stroke="#ffffff" stroke-opacity="0.25" stroke-width="0.8"/>
+    <text x="64" y="12.5" text-anchor="middle" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700">TS</text>
+
+    <rect x="84" y="0" width="66" height="18" rx="4" fill="#ffffff" fill-opacity="0.08" stroke="#ffffff" stroke-opacity="0.25" stroke-width="0.8"/>
+    <text x="117" y="12.5" text-anchor="middle" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700">Express</text>
+
+    <rect x="0" y="24" width="40" height="18" rx="4" fill="#ffffff" fill-opacity="0.08" stroke="#ffffff" stroke-opacity="0.25" stroke-width="0.8"/>
+    <text x="20" y="36.5" text-anchor="middle" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700">Vite</text>
+
+    <rect x="46" y="24" width="60" height="18" rx="4" fill="#ffffff" fill-opacity="0.08" stroke="#ffffff" stroke-opacity="0.25" stroke-width="0.8"/>
+    <text x="76" y="36.5" text-anchor="middle" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700">Tailwind</text>
+
+    <rect x="112" y="24" width="38" height="18" rx="4" fill="#ffffff" fill-opacity="0.08" stroke="#ffffff" stroke-opacity="0.25" stroke-width="0.8"/>
+    <text x="131" y="36.5" text-anchor="middle" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700">REST</text>
+  </g>
+
+  <!-- Bottom CTA Pill -->
+  <g transform="translate(10, 248)">
+    <rect x="0" y="0" width="150" height="22" rx="11" fill="#ffffff" fill-opacity="0.15" stroke="#ffffff" stroke-width="1.2"/>
+    <text x="75" y="15" text-anchor="middle" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="700" letter-spacing="0.4">
+      ⚡ EXPLORE PLATFORM ↗
+    </text>
+  </g>
+</svg>

@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 76" width="100%" height="76" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <linearGradient id="hdrBgLight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.98"/>
+      <stop offset="50%" stop-color="#f4f4f5" stop-opacity="0.92"/>
+      <stop offset="100%" stop-color="#e4e4e7" stop-opacity="0.98"/>
+    </linearGradient>
+
+    <!-- Liquid Glass Refractive Edge Bevel -->
+    <linearGradient id="hdrBorderLight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
+      <stop offset="25%" stop-color="#a1a1aa" stop-opacity="0.6"/>
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="75%" stop-color="#71717a" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.9"/>
+    </linearGradient>
+
+    <!-- Specular Rim Highlight -->
+    <linearGradient id="hdrGlassRimLight" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.6"/>
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.6"/>
+    </linearGradient>
+
+    <linearGradient id="hdrSheenLight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.75"/>
+      <stop offset="40%" stop-color="#ffffff" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+
+    <linearGradient id="hdrSweepLight" x1="-100%" y1="0%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#09090b" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#09090b" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#09090b" stop-opacity="0"/>
+      <animate attributeName="x1" values="-100%;200%" dur="7s" repeatCount="indefinite"/>
+      <animate attributeName="x2" values="0%;300%" dur="7s" repeatCount="indefinite"/>
+    </linearGradient>
+
+    <filter id="hdrGlowLight" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="hdrAmbientBlurLight" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="16"/>
+    </filter>
+  </defs>
+
+  <!-- Ambient Liquid Caustics -->
+  <circle cx="80" cy="38" r="45" fill="#ffffff" opacity="0.7" filter="url(#hdrAmbientBlurLight)">
+    <animate attributeName="cx" values="80;120;80" dur="6s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="450" cy="38" r="45" fill="#e4e4e7" opacity="0.5" filter="url(#hdrAmbientBlurLight)">
+    <animate attributeName="cx" values="450;420;450" dur="8s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="800" cy="38" r="45" fill="#f4f4f5" opacity="0.6" filter="url(#hdrAmbientBlurLight)">
+    <animate attributeName="cx" values="800;760;800" dur="7s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Outer Frosted Glass Container -->
+  <rect x="2" y="2" width="876" height="72" rx="14" fill="url(#hdrBgLight)" stroke="url(#hdrBorderLight)" stroke-width="1.4"/>
+  <rect x="2" y="2" width="876" height="72" rx="14" fill="url(#hdrSheenLight)"/>
+  <rect x="2" y="2" width="876" height="72" rx="14" fill="url(#hdrSweepLight)"/>
+  <line x1="16" y1="2" x2="864" y2="2" stroke="url(#hdrGlassRimLight)" stroke-width="2.4" stroke-linecap="round"/>
+
+  <!-- Left Black & White Liquid Glass Crystal Gem -->
+  <g transform="translate(24, 23)" filter="url(#hdrGlowLight)">
+    <polygon points="15,0 30,15 15,30 0,15" fill="#09090b">
+      <animate attributeName="fill" values="#09090b;#3f3f46;#18181b;#52525b;#09090b" dur="6s" repeatCount="indefinite"/>
+    </polygon>
+    <polygon points="15,4 26,15 15,26 4,15" fill="#ffffff" opacity="0.95"/>
+    <circle cx="15" cy="15" r="4" fill="#09090b">
+      <animate attributeName="r" values="3;5;3" dur="2s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.75;1;0.75" dur="2s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- Title & Subtitle -->
+  <text x="68" y="34" fill="#09090b" font-family="'JetBrains Mono', 'Segoe UI', Inter, sans-serif" font-size="16" font-weight="800" letter-spacing="0.8">
+    FEATURED PROJECTS &amp; LABS
+  </text>
+  <text x="68" y="54" fill="#52525b" font-family="'Segoe UI', Inter, -apple-system, sans-serif" font-size="12" font-weight="500" letter-spacing="0.2">
+    Production Platforms · Microservices · JVM Engineering · Web Audio DSP · Liquid Glass
+  </text>
+
+  <!-- Right Frosted Glass Telemetry Pill -->
+  <g transform="translate(685, 20)">
+    <rect x="0" y="0" width="170" height="34" rx="17" fill="#ffffff" fill-opacity="0.9" stroke="#cbd5e1" stroke-width="1.2"/>
+    <circle cx="18" cy="17" r="4.5" fill="#09090b" filter="url(#hdrGlowLight)">
+      <animate attributeName="opacity" values="0.4;1;0.4" dur="1.5s" repeatCount="indefinite"/>
+      <animate attributeName="r" values="3.5;5;3.5" dur="1.5s" repeatCount="indefinite"/>
+    </circle>
+    <text x="32" y="21" fill="#09090b" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" letter-spacing="0.5">
+      5 REPOS ONLINE
+    </text>
+  </g>
+</svg>

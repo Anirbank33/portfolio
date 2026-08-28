@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 170" width="160" height="170">
+  <defs>
+    <!-- 3D Platform Gradients -->
+    <linearGradient id="platTop1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0ea5e9"/>
+      <stop offset="50%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+    <linearGradient id="platLeft1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0369a1"/>
+      <stop offset="100%" stop-color="#082f49"/>
+    </linearGradient>
+    <linearGradient id="platRight1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#075985"/>
+      <stop offset="100%" stop-color="#031f33"/>
+    </linearGradient>
+
+    <!-- 3D Mug Gradients -->
+    <linearGradient id="mugBody" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0369a1"/>
+      <stop offset="25%" stop-color="#0284c7"/>
+      <stop offset="50%" stop-color="#38bdf8"/>
+      <stop offset="80%" stop-color="#00f0ff"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+    <linearGradient id="mugInner" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b"/>
+      <stop offset="50%" stop-color="#311042"/>
+      <stop offset="100%" stop-color="#451a03"/>
+    </linearGradient>
+    <linearGradient id="coffeeSurface" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#78350f"/>
+      <stop offset="50%" stop-color="#b45309"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+
+    <!-- Hologram & Glow -->
+    <linearGradient id="holoCard" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f0ff" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#6366f1" stop-opacity="0.75"/>
+    </linearGradient>
+    <radialGradient id="cyanShadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#00f0ff" stop-opacity="0.45"/>
+      <stop offset="60%" stop-color="#0284c7" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#0284c7" stop-opacity="0"/>
+    </radialGradient>
+
+    <filter id="glowCyan" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Dynamic Ground Shadow -->
+  <ellipse cx="80" cy="154" rx="46" ry="10" fill="url(#cyanShadow)">
+    <animate attributeName="rx" values="42;48;42" dur="3s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.7;1;0.7" dur="3s" repeatCount="indefinite"/>
+  </ellipse>
+
+  <!-- 3D Floating Rig -->
+  <g>
+    <animateTransform attributeName="transform" type="translate" values="0,0; 0,-7; 0,0" dur="3s" repeatCount="indefinite"/>
+
+    <!-- 3D Isometric Platform -->
+    <!-- Top Face -->
+    <polygon points="80,120 132,142 80,164 28,142" fill="url(#platTop1)"/>
+    <!-- Left Face -->
+    <polygon points="28,142 80,164 80,169 28,147" fill="url(#platLeft1)"/>
+    <!-- Right Face -->
+    <polygon points="80,164 132,142 132,147 80,169" fill="url(#platRight1)"/>
+    <!-- Neon Edge Trim -->
+    <polyline points="28,142 80,164 132,142" fill="none" stroke="#00f0ff" stroke-width="1.2" opacity="0.9"/>
+
+    <!-- 3D Coffee Mug Assembly -->
+    <g filter="url(#glowCyan)">
+      <!-- Handle behind -->
+      <path d="M 52 82 C 34 82, 34 106, 54 108" fill="none" stroke="#0284c7" stroke-width="5" stroke-linecap="round"/>
+      <path d="M 52 82 C 36 82, 36 106, 54 108" fill="none" stroke="#00f0ff" stroke-width="2" stroke-linecap="round"/>
+
+      <!-- Mug Outer Body -->
+      <path d="M 54 74 L 58 114 Q 80 125 102 114 L 106 74 Z" fill="url(#mugBody)"/>
+
+      <!-- Mug Base Curve -->
+      <ellipse cx="80" cy="114" rx="22" ry="7" fill="#0369a1"/>
+
+      <!-- Mug Rim & Liquid Interior -->
+      <ellipse cx="80" cy="74" rx="26" ry="11" fill="url(#mugInner)"/>
+      <ellipse cx="80" cy="76" rx="23" ry="9" fill="url(#coffeeSurface)"/>
+
+      <!-- Foam swirl -->
+      <ellipse cx="82" cy="76" rx="14" ry="5" fill="#fef3c7" opacity="0.45"/>
+
+      <!-- 3D Java Logo on Mug Face -->
+      <g transform="translate(73, 87) scale(0.7)">
+        <path d="M 4 2 Q 14 6 12 14 Q 7 20 18 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M 12 3 Q 22 7 20 15 Q 15 21 26 25" fill="none" stroke="#00f0ff" stroke-width="2.2" stroke-linecap="round"/>
+      </g>
+    </g>
+
+    <!-- Rising 3D Steam Trails -->
+    <path d="M 72 65 Q 66 48 76 34 Q 84 22 74 12" fill="none" stroke="#00f0ff" stroke-width="2" stroke-linecap="round" opacity="0">
+      <animate attributeName="opacity" values="0;0.8;0" dur="2.4s" repeatCount="indefinite"/>
+      <animate attributeName="stroke-dasharray" values="0 50; 50 0" dur="2.4s" repeatCount="indefinite"/>
+    </path>
+    <path d="M 86 65 Q 94 50 84 36 Q 76 25 88 14" fill="none" stroke="#38bdf8" stroke-width="2.2" stroke-linecap="round" opacity="0">
+      <animate attributeName="opacity" values="0;0.9;0" dur="2.8s" begin="0.7s" repeatCount="indefinite"/>
+      <animate attributeName="stroke-dasharray" values="0 50; 50 0" dur="2.8s" begin="0.7s" repeatCount="indefinite"/>
+    </path>
+
+    <!-- 3D Holographic Request Badge -->
+    <g transform="translate(98, 48) rotate(-8)">
+      <rect x="0" y="0" width="46" height="24" rx="4" fill="url(#holoCard)" opacity="0.92" stroke="#ffffff" stroke-width="0.8"/>
+      <text x="23" y="11" fill="#ffffff" font-family="'JetBrains Mono', Consolas, monospace" font-size="7.5" font-weight="800" text-anchor="middle">CLIENT</text>
+      <text x="23" y="20" fill="#ffffff" font-family="'JetBrains Mono', Consolas, monospace" font-size="6.5" font-weight="700" text-anchor="middle">GET /api</text>
+    </g>
+
+    <!-- 3D Orbiting Data Crystals -->
+    <polygon points="120,78 124,84 120,90 116,84" fill="#00f0ff">
+      <animateTransform attributeName="transform" type="translate" values="0,0; 4,-4; 0,0" dur="2s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite"/>
+    </polygon>
+    <polygon points="40,96 44,101 40,106 36,101" fill="#67e8f9">
+      <animateTransform attributeName="transform" type="translate" values="0,0; -3,-5; 0,0" dur="2.5s" begin="0.3s" repeatCount="indefinite"/>
+    </polygon>
+
+    <!-- Outgoing Data Pulse Stream towards right -->
+    <circle cx="128" cy="116" r="3.2" fill="#00f0ff" filter="url(#glowCyan)">
+      <animate attributeName="cx" values="112;152;112" dur="1.8s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.2;1;0.2" dur="1.8s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+</svg>

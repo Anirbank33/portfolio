@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 85" width="100%" height="85" preserveAspectRatio="xMidYMid meet">
+  <style>
+    @keyframes wave {
+      0%, 100% { transform: rotate(0deg); }
+      20% { transform: rotate(14deg); }
+      40% { transform: rotate(-8deg); }
+      60% { transform: rotate(14deg); }
+      80% { transform: rotate(-4deg); }
+    }
+    .wave-hand {
+      display: inline-block;
+      transform-origin: 70% 70%;
+      animation: wave 2.2s infinite ease-in-out;
+    }
+    .name-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', Roboto, sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      fill: #0f172a;
+    }
+    .role-text {
+      font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', 'Courier New', monospace;
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      fill: #0284c7;
+    }
+    .cursor {
+      animation: blink 0.85s infinite;
+      fill: #0284c7;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    @media (prefers-color-scheme: dark) {
+      .name-title { fill: #ffffff; }
+      .role-text { fill: #38bdf8; }
+      .cursor { fill: #00f0ff; }
+    }
+    @keyframes slideRole1 {
+      0%, 21% { opacity: 1; transform: translateY(0); }
+      24% { opacity: 0; transform: translateY(-8px); }
+      24.01%, 96.99% { opacity: 0; transform: translateY(8px); }
+      97%, 100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideRole2 {
+      0%, 24% { opacity: 0; transform: translateY(8px); }
+      25%, 46% { opacity: 1; transform: translateY(0); }
+      49% { opacity: 0; transform: translateY(-8px); }
+      49.01%, 100% { opacity: 0; transform: translateY(8px); }
+    }
+    @keyframes slideRole3 {
+      0%, 49% { opacity: 0; transform: translateY(8px); }
+      50%, 71% { opacity: 1; transform: translateY(0); }
+      74% { opacity: 0; transform: translateY(-8px); }
+      74.01%, 100% { opacity: 0; transform: translateY(8px); }
+    }
+    @keyframes slideRole4 {
+      0%, 74% { opacity: 0; transform: translateY(8px); }
+      75%, 96% { opacity: 1; transform: translateY(0); }
+      99% { opacity: 0; transform: translateY(-8px); }
+      99.01%, 100% { opacity: 0; transform: translateY(8px); }
+    }
+    .r1 { animation: slideRole1 12s infinite ease-in-out; }
+    .r2 { animation: slideRole2 12s infinite ease-in-out; }
+    .r3 { animation: slideRole3 12s infinite ease-in-out; }
+    .r4 { animation: slideRole4 12s infinite ease-in-out; }
+  </style>
+
+  <!-- Name Header with Animated Waving Hand -->
+  <g transform="translate(425, 34)">
+    <text class="name-title" text-anchor="middle">
+      Hi, I'm Anirban Kar <tspan class="wave-hand">👋</tspan>
+    </text>
+  </g>
+
+  <!-- Dynamic Changing Profile Roles -->
+  <g transform="translate(425, 68)">
+    <g class="r1">
+      <text class="role-text" text-anchor="middle">
+        ⚡ Backend Software Engineer <tspan class="cursor">|</tspan>
+      </text>
+    </g>
+    <g class="r2">
+      <text class="role-text" text-anchor="middle">
+        ☕ Java · Spring Boot · Microservices <tspan class="cursor">|</tspan>
+      </text>
+    </g>
+    <g class="r3">
+      <text class="role-text" text-anchor="middle">
+        🌐 Distributed Systems · REST APIs <tspan class="cursor">|</tspan>
+      </text>
+    </g>
+    <g class="r4">
+      <text class="role-text" text-anchor="middle">
+        🚀 High-Performance Cloud Architecture <tspan class="cursor">|</tspan>
+      </text>
+    </g>
+  </g>
+</svg>
