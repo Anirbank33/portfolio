@@ -1,17 +1,16 @@
 /**
  * ANIRBAN KAR - DEVELOPER PORTFOLIO ENGINE
- * Interactive Features · Live GitHub Telemetry · Terminal Shell · Theme Toggle
+ * Interactive Neon Particles · 3D Tilt · Photo Hologram · Terminal CLI
  */
 
 (function () {
   'use strict';
 
-  // State
   const GITHUB_USERNAME = 'Anirbank33';
   let currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
 
   /* ==========================================================================
-     1. THEME MANAGER
+     1. THEME MANAGER & SYNC
      ========================================================================== */
   const themeToggleBtn = document.getElementById('theme-toggle');
 
@@ -21,9 +20,7 @@
     localStorage.setItem('theme', theme);
 
     const metaScheme = document.querySelector('meta[name="color-scheme"]');
-    if (metaScheme) {
-      metaScheme.content = theme;
-    }
+    if (metaScheme) metaScheme.content = theme;
 
     // Toggle pictures for SVG light/dark if explicit override is set
     const pictureSources = document.querySelectorAll('picture');
@@ -32,11 +29,7 @@
       const lightSource = pic.querySelector('source[media*="light"]');
       const img = pic.querySelector('img');
       if (darkSource && lightSource && img) {
-        if (theme === 'light') {
-          img.src = lightSource.srcset;
-        } else {
-          img.src = darkSource.srcset;
-        }
+        img.src = theme === 'light' ? lightSource.srcset : darkSource.srcset;
       }
     });
   }
@@ -48,7 +41,6 @@
     });
   }
 
-  // React to OS Theme Changes if user hasn't explicitly set localStorage
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
     if (!localStorage.getItem('theme')) {
       applyTheme(e.matches ? 'dark' : 'light');
@@ -56,7 +48,170 @@
   });
 
   /* ==========================================================================
-     2. GITHUB LIVE TELEMETRY FETCHER
+     2. INTERACTIVE NEON PARTICLES CANVAS
+     ========================================================================== */
+  const canvas = document.getElementById('canvas-particles');
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    const particles = [];
+    const PARTICLE_COUNT = Math.min(Math.floor(window.innerWidth / 20), 45);
+    const COLORS = ['#38bdf8', '#818cf8', '#c084fc', '#f43f5e', '#34d399', '#fbbf24'];
+
+    const mouse = { x: null, y: null, radius: 140 };
+
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+
+    window.addEventListener('mouseout', () => {
+      mouse.x = null;
+      mouse.y = null;
+    });
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.vx = (Math.random() - 0.5) * 0.75;
+        this.vy = (Math.random() - 0.5) * 0.75;
+        this.radius = Math.random() * 2.2 + 1.2;
+        this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
+        this.baseAlpha = Math.random() * 0.4 + 0.3;
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        if (this.x < 0) this.x = width;
+        if (this.x > width) this.x = 0;
+        if (this.y < 0) this.y = height;
+        if (this.y > height) this.y = 0;
+
+        // Mouse repulsion
+        if (mouse.x !== null && mouse.y !== null) {
+          const dx = this.x - mouse.x;
+          const dy = this.y - mouse.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < mouse.radius) {
+            const force = (mouse.radius - dist) / mouse.radius;
+            this.x += (dx / dist) * force * 3;
+            this.y += (dy / dist) * force * 3;
+          }
+        }
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.globalAlpha = this.baseAlpha;
+        ctx.shadowBlur = 12;
+        ctx.shadowColor = this.color;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      }
+    }
+
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      particles.push(new Particle());
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, width, height);
+
+      // Connect near particles
+      for (let a = 0; a < particles.length; a++) {
+        for (let b = a + 1; b < particles.length; b++) {
+          const dx = particles[a].x - particles[b].x;
+          const dy = particles[a].y - particles[b].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 130) {
+            ctx.beginPath();
+            ctx.moveTo(particles[a].x, particles[a].y);
+            ctx.lineTo(particles[b].x, particles[b].y);
+            ctx.strokeStyle = particles[a].color;
+            ctx.globalAlpha = (1 - dist / 130) * 0.25;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        }
+      }
+
+      particles.forEach((p) => {
+        p.update();
+        p.draw();
+      });
+
+      requestAnimationFrame(animateParticles);
+    }
+
+    animateParticles();
+  }
+
+  /* ==========================================================================
+     3. 3D TACTILE CARD TILT EFFECT
+     ========================================================================== */
+  const tiltCards = document.querySelectorAll('.tilt-card');
+
+  tiltCards.forEach((card) => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const rotateX = ((y - centerY) / centerY) * -7;
+      const rotateY = ((x - centerX) / centerX) * 7;
+
+      card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-4px)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+    });
+  });
+
+  /* ==========================================================================
+     4. INTERACTIVE TOP-LEFT PHOTO SWITCHER
+     ========================================================================== */
+  const heroProfilePhoto = document.getElementById('hero-profile-photo');
+  const photos = [
+    'assets/images/anirban-portrait.jpg',
+    'assets/images/anirban-photo-2.jpg',
+    'assets/images/anirban-photo-3.jpg'
+  ];
+  let photoIndex = 0;
+
+  if (heroProfilePhoto) {
+    heroProfilePhoto.style.cursor = 'pointer';
+    heroProfilePhoto.title = 'Click to switch photo & trigger hologram scan!';
+
+    heroProfilePhoto.addEventListener('click', () => {
+      photoIndex = (photoIndex + 1) % photos.length;
+      heroProfilePhoto.style.opacity = '0.3';
+      heroProfilePhoto.style.filter = 'brightness(2) contrast(1.5) hue-rotate(90deg)';
+
+      setTimeout(() => {
+        heroProfilePhoto.src = photos[photoIndex];
+        heroProfilePhoto.style.opacity = '1';
+        heroProfilePhoto.style.filter = '';
+      }, 200);
+    });
+  }
+
+  /* ==========================================================================
+     5. GITHUB LIVE TELEMETRY FETCHER & METRIC COUNT-UP
      ========================================================================== */
   const apiPublicRepos = document.getElementById('api-public-repos');
   const apiFollowers = document.getElementById('api-followers');
@@ -66,13 +221,11 @@
   const refreshStatsBtn = document.getElementById('refresh-stats');
 
   async function fetchGitHubStats() {
-    if (refreshStatsBtn) {
-      refreshStatsBtn.classList.add('rotating');
-    }
+    if (refreshStatsBtn) refreshStatsBtn.classList.add('rotating');
 
     try {
       const res = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}`);
-      if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
+      if (!res.ok) throw new Error(`GitHub API: ${res.status}`);
       const data = await res.json();
 
       if (data.public_repos !== undefined && apiPublicRepos) {
@@ -99,15 +252,11 @@
     }
   }
 
-  if (refreshStatsBtn) {
-    refreshStatsBtn.addEventListener('click', fetchGitHubStats);
-  }
-
-  // Initial fetch
+  if (refreshStatsBtn) refreshStatsBtn.addEventListener('click', fetchGitHubStats);
   fetchGitHubStats();
 
   /* ==========================================================================
-     3. PROJECT FILTER TABS
+     6. PROJECT FILTER TABS
      ========================================================================== */
   const filterBtns = document.querySelectorAll('.filter-btn');
   const projectCards = document.querySelectorAll('.project-card');
@@ -129,7 +278,6 @@
         if (filter === 'all' || cat === filter) {
           card.style.display = 'flex';
           card.style.opacity = '1';
-          card.style.transform = 'translateY(0)';
         } else {
           card.style.display = 'none';
         }
@@ -138,7 +286,7 @@
   });
 
   /* ==========================================================================
-     4. INTERACTIVE TERMINAL EMULATOR (CLI)
+     7. INTERACTIVE TERMINAL EMULATOR (CLI)
      ========================================================================== */
   const cliInput = document.getElementById('cli-input');
   const cliOutput = document.getElementById('cli-output');
@@ -217,16 +365,13 @@
     div.className = 'cli-line';
     div.innerHTML = lineHtml;
     cliOutput.appendChild(div);
-    if (cliScreen) {
-      cliScreen.scrollTop = cliScreen.scrollHeight;
-    }
+    if (cliScreen) cliScreen.scrollTop = cliScreen.scrollHeight;
   }
 
   function runTerminalCommand(rawCmd) {
     const cmd = rawCmd.trim().toLowerCase();
     if (!cmd) return;
 
-    // Echo command
     appendCliOutput(`<span class="prompt-user">visitor@anirbankar</span>:<span class="prompt-dir">~</span>$ <span class="cli-cmd-echo">${escapeHtml(cmd)}</span>`);
 
     if (cmd === 'clear') {
@@ -247,9 +392,7 @@
   }
 
   window.runTerminalCommand = function (cmd) {
-    if (cliInput) {
-      cliInput.value = cmd;
-    }
+    if (cliInput) cliInput.value = cmd;
     runTerminalCommand(cmd);
   };
 
@@ -258,16 +401,16 @@
     let count = 0;
     const interval = setInterval(() => {
       let line = '';
-      for (let i = 0; i < 48; i++) {
+      for (let i = 0; i < 50; i++) {
         line += chars.charAt(Math.floor(Math.random() * chars.length));
       }
       appendCliOutput(`<span style="color:#27c93f; font-size:0.75rem; letter-spacing:3px;">${line}</span>`);
       count++;
-      if (count > 12) {
+      if (count > 14) {
         clearInterval(interval);
-        appendCliOutput(`<span style="color:#58a6ff;">[Matrix link disconnected. Welcome back to bash.]</span>`);
+        appendCliOutput(`<span style="color:#58a6ff;">[Matrix connection stabilized. Welcome back to terminal.]</span>`);
       }
-    }, 80);
+    }, 70);
   }
 
   function escapeHtml(str) {
@@ -303,9 +446,7 @@
     });
 
     if (cliScreen) {
-      cliScreen.addEventListener('click', () => {
-        cliInput.focus();
-      });
+      cliScreen.addEventListener('click', () => cliInput.focus());
     }
   }
 
@@ -316,7 +457,7 @@
   }
 
   /* ==========================================================================
-     5. CONTACT MESSAGE COMPOSER & CLIPBOARD COPY
+     8. CONTACT MESSAGE COMPOSER & CLIPBOARD COPY
      ========================================================================== */
   const contactName = document.getElementById('contact-name');
   const contactSubject = document.getElementById('contact-subject');
@@ -346,10 +487,12 @@
       navigator.clipboard.writeText(email).then(() => {
         const orig = copyBtnText.textContent;
         copyBtnText.textContent = 'Copied to Clipboard! ✓';
-        btnCopyInfo.style.borderColor = 'var(--accent-emerald)';
+        btnCopyInfo.style.borderColor = 'var(--neon-emerald)';
+        btnCopyInfo.style.boxShadow = '0 0 15px rgba(52, 211, 153, 0.4)';
         setTimeout(() => {
           copyBtnText.textContent = orig;
           btnCopyInfo.style.borderColor = '';
+          btnCopyInfo.style.boxShadow = '';
         }, 2500);
       }).catch(() => {
         window.prompt('Copy email manually:', email);
@@ -358,7 +501,7 @@
   }
 
   /* ==========================================================================
-     6. MOBILE MENU TOGGLE
+     9. MOBILE MENU TOGGLE
      ========================================================================== */
   const mobileToggle = document.getElementById('mobile-toggle');
   const navLinks = document.getElementById('nav-links');
@@ -369,7 +512,6 @@
       mobileToggle.setAttribute('aria-expanded', isOpen);
     });
 
-    // Close menu when clicking on any nav link
     navLinks.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', () => {
         navLinks.classList.remove('open');
@@ -379,7 +521,7 @@
   }
 
   /* ==========================================================================
-     7. SCROLL SPY FOR ACTIVE NAVIGATION LINK
+     10. SCROLL SPY
      ========================================================================== */
   const sections = document.querySelectorAll('section[id]');
   const allNavLinks = document.querySelectorAll('.nav-link:not(.cta-link)');

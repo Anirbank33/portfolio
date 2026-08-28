@@ -12,19 +12,19 @@
   <meta name="author" content="Anirban Kar" />
   <meta name="keywords" content="Anirban Kar, Anirbank33, Backend Engineer, Java, Spring Boot, Microservices, PostgreSQL, Bengaluru, Portfolio, Distributed Systems, Software Developer" />
 
-  <!-- Open Graph / Facebook / LinkedIn -->
+  <!-- Open Graph / LinkedIn -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://anirbank33.github.io/portfolio/" />
   <meta property="og:title" content="Anirban Kar | Backend Software Engineer" />
   <meta property="og:description" content="Building resilient distributed systems, high-throughput APIs, and scalable backend infrastructure." />
-  <meta property="og:image" content="https://avatars.githubusercontent.com/u/81949869?v=4" />
+  <meta property="og:image" content="assets/images/anirban-portrait.jpg" />
 
   <!-- Twitter / X -->
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:url" content="https://anirbank33.github.io/portfolio/" />
   <meta property="twitter:title" content="Anirban Kar | Backend Software Engineer" />
   <meta property="twitter:description" content="Backend Software Engineer · Java · Spring Boot · Microservices · APIs · Bengaluru" />
-  <meta property="twitter:image" content="https://avatars.githubusercontent.com/u/81949869?v=4" />
+  <meta property="twitter:image" content="assets/images/anirban-portrait.jpg" />
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
@@ -52,11 +52,15 @@
 </head>
 <body>
 
-  <!-- Background Animated Canvas/Mesh -->
+  <!-- Interactive Neon Particle Canvas -->
+  <canvas id="canvas-particles" class="particles-canvas" aria-hidden="true"></canvas>
+
+  <!-- Background Animated Aurora/Mesh -->
   <div class="bg-mesh" aria-hidden="true">
     <div class="mesh-blob blob-1"></div>
     <div class="mesh-blob blob-2"></div>
     <div class="mesh-blob blob-3"></div>
+    <div class="mesh-blob blob-4"></div>
     <div class="grid-overlay"></div>
   </div>
 
@@ -64,6 +68,10 @@
   <header class="navbar" id="navbar">
     <div class="container nav-container">
       <a href="#hero" class="brand-logo" aria-label="Anirban Kar Home">
+        <div class="nav-avatar-mini" title="Anirban Kar">
+          <img src="assets/images/anirban-portrait.jpg" alt="Anirban Kar" />
+          <span class="nav-avatar-ring"></span>
+        </div>
         <span class="logo-terminal">&gt;_</span>
         <span class="logo-name">anirban<span class="accent-dot">.kar</span></span>
         <span class="badge-status">
@@ -114,13 +122,51 @@
     <section class="hero-section" id="hero">
       <div class="container hero-grid">
         <div class="hero-content">
+          
+          <!-- TOP-LEFT ANIMATED PHOTO SHOWCASE -->
+          <div class="hero-top-left-profile" id="top-left-profile">
+            <div class="hologram-avatar-wrap">
+              <div class="cyber-glow-aura"></div>
+              <div class="cyber-ring ring-1"></div>
+              <div class="cyber-ring ring-2"></div>
+              <div class="cyber-ring ring-3"></div>
+              <div class="scan-beam"></div>
+              
+              <div class="avatar-photo-frame">
+                <img src="assets/images/anirban-portrait.jpg" alt="Anirban Kar" class="hologram-avatar-img" id="hero-profile-photo" />
+                <div class="hologram-overlay"></div>
+              </div>
+
+              <!-- Orbiting Interactive Technology Satellites -->
+              <div class="orbit-badge orbit-1" title="Java 21 Core">
+                <span class="orbit-icon">☕</span> Java 21
+              </div>
+              <div class="orbit-badge orbit-2" title="Spring Boot Microservices">
+                <span class="orbit-icon">🍃</span> Spring
+              </div>
+              <div class="orbit-badge orbit-3" title="Real-Time Status">
+                <span class="orbit-pulse"></span> Online
+              </div>
+            </div>
+
+            <div class="hero-profile-meta">
+              <div class="meta-greeting">
+                <span class="wave-emoji">👋</span> Hello world, I'm
+              </div>
+              <h2 class="meta-name">Anirban Kar</h2>
+              <div class="meta-title-tag">
+                <span class="pulse-spark">⚡</span> Backend Engineer · Bengaluru
+              </div>
+            </div>
+          </div>
+
           <div class="hero-eyebrow">
-            <span class="eyebrow-pill">☕ JVM &amp; Distributed Systems Engineer</span>
+            <span class="eyebrow-pill rainbow-border">☕ JVM &amp; Distributed Systems Engineer</span>
             <span class="location-tag">📍 Bengaluru, India</span>
           </div>
 
           <h1 class="hero-title">
-            Architecting <span class="gradient-text">resilient</span> backend engines &amp; cloud APIs.
+            Architecting <span class="gradient-text animated-gradient">resilient</span> backend engines &amp; cloud APIs.
           </h1>
 
           <p class="hero-description">
@@ -130,36 +176,36 @@
           </p>
 
           <!-- Quick Metrics Bar -->
-          <div class="hero-metrics">
+          <div class="hero-metrics neon-card-glow">
             <div class="metric-card">
-              <span class="metric-num" id="hero-repo-count">23+</span>
+              <span class="metric-num count-up" data-target="23" id="hero-repo-count">23+</span>
               <span class="metric-lbl">Public Repos</span>
             </div>
             <div class="metric-card">
-              <span class="metric-num">52</span>
+              <span class="metric-num count-up" data-target="52">52</span>
               <span class="metric-lbl">Weeks Active</span>
             </div>
             <div class="metric-card">
-              <span class="metric-num">REST / JVM</span>
+              <span class="metric-num highlight-accent">REST / JVM</span>
               <span class="metric-lbl">Core Focus</span>
             </div>
             <div class="metric-card">
-              <span class="metric-num">100%</span>
+              <span class="metric-num highlight-green">100%</span>
               <span class="metric-lbl">Open Source</span>
             </div>
           </div>
 
           <!-- Hero Action Buttons -->
           <div class="hero-actions">
-            <a href="#projects" class="btn btn-primary">
+            <a href="#projects" class="btn btn-primary pulse-btn">
               <span>View Projects</span>
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
             </a>
-            <a href="https://github.com/Anirbank33" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            <a href="https://github.com/Anirbank33" target="_blank" rel="noopener noreferrer" class="btn btn-secondary glass-btn">
               <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
               <span>GitHub (@Anirbank33)</span>
             </a>
-            <a href="#terminal" class="btn btn-ghost">
+            <a href="#terminal" class="btn btn-ghost glow-hover">
               <code>&gt; open CLI</code>
             </a>
           </div>
@@ -182,7 +228,7 @@
 
         <!-- Hero Visual Showcase -->
         <div class="hero-visual">
-          <div class="terminal-mockup">
+          <div class="terminal-mockup tilt-card">
             <div class="mockup-header">
               <div class="mockup-dots">
                 <span class="dot red"></span>
@@ -212,22 +258,71 @@
       </div>
     </section>
 
+    <!-- MOVING TECH STREAM (CONTINUOUS MARQUEE) -->
+    <div class="marquee-section" aria-hidden="true">
+      <div class="marquee-track track-forward">
+        <div class="marquee-content">
+          <span class="marquee-pill">☕ Java 21 LTS</span>
+          <span class="marquee-pill">🍃 Spring Boot 3</span>
+          <span class="marquee-pill">🚀 Microservices Architecture</span>
+          <span class="marquee-pill">🐘 PostgreSQL</span>
+          <span class="marquee-pill">⚡ Redis In-Memory Cache</span>
+          <span class="marquee-pill">🐳 Docker Containers</span>
+          <span class="marquee-pill">🌐 High-Throughput REST APIs</span>
+          <span class="marquee-pill">🛡️ Spring Security &amp; JWT</span>
+          <span class="marquee-pill">☕ Java 21 LTS</span>
+          <span class="marquee-pill">🍃 Spring Boot 3</span>
+          <span class="marquee-pill">🚀 Microservices Architecture</span>
+          <span class="marquee-pill">🐘 PostgreSQL</span>
+          <span class="marquee-pill">⚡ Redis In-Memory Cache</span>
+          <span class="marquee-pill">🐳 Docker Containers</span>
+          <span class="marquee-pill">🌐 High-Throughput REST APIs</span>
+          <span class="marquee-pill">🛡️ Spring Security &amp; JWT</span>
+        </div>
+      </div>
+      <div class="marquee-track track-reverse">
+        <div class="marquee-content">
+          <span class="marquee-pill">💻 TypeScript 5</span>
+          <span class="marquee-pill">🟢 Node.js &amp; Express</span>
+          <span class="marquee-pill">⚛️ React &amp; Vite</span>
+          <span class="marquee-pill">⚙️ JVM Concurrency &amp; Threads</span>
+          <span class="marquee-pill">🐬 MySQL Relational</span>
+          <span class="marquee-pill">🍃 MongoDB</span>
+          <span class="marquee-pill">🔄 GitHub Actions CI/CD</span>
+          <span class="marquee-pill">📡 WebSockets &amp; Web Audio</span>
+          <span class="marquee-pill">💻 TypeScript 5</span>
+          <span class="marquee-pill">🟢 Node.js &amp; Express</span>
+          <span class="marquee-pill">⚛️ React &amp; Vite</span>
+          <span class="marquee-pill">⚙️ JVM Concurrency &amp; Threads</span>
+          <span class="marquee-pill">🐬 MySQL Relational</span>
+          <span class="marquee-pill">🍃 MongoDB</span>
+          <span class="marquee-pill">🔄 GitHub Actions CI/CD</span>
+          <span class="marquee-pill">📡 WebSockets &amp; Web Audio</span>
+        </div>
+      </div>
+    </div>
+
     <!-- Architecture & Pipeline Section -->
     <section class="section pipeline-section" id="pipeline">
       <div class="container">
         <div class="section-header text-center">
           <span class="section-subtitle">System Design &amp; Flow</span>
-          <h2 class="section-title">End-to-End Distributed Architecture</h2>
+          <h2 class="section-title">End-to-End <span class="gradient-text">Distributed Architecture</span></h2>
           <p class="section-lead">
-            How I architect backend services from client ingress to database persistence and telemetry.
+            Real-time animated packet flow from client ingress to database persistence and telemetry.
           </p>
         </div>
 
-        <div class="pipeline-flow-wrapper">
+        <div class="pipeline-flow-wrapper neon-box">
+          <!-- Laser Beam Data Stream Animation -->
+          <div class="pipeline-laser-track" aria-hidden="true">
+            <div class="laser-packet"></div>
+          </div>
+
           <div class="pipeline-grid">
             <!-- Node 1: Client -->
-            <div class="pipeline-card" data-step="01">
-              <div class="pipeline-icon-box">
+            <div class="pipeline-card tilt-card" data-step="01">
+              <div class="pipeline-icon-box floating-icon">
                 <img src="assets/svg/java-coffee.svg" alt="Client Node" class="pipeline-svg" />
               </div>
               <div class="step-num">01 / INGRESS</div>
@@ -242,11 +337,13 @@
               </div>
             </div>
 
-            <div class="pipeline-arrow" aria-hidden="true">➜</div>
+            <div class="pipeline-arrow" aria-hidden="true">
+              <span class="arrow-glow">➜</span>
+            </div>
 
             <!-- Node 2: Gateway -->
-            <div class="pipeline-card" data-step="02">
-              <div class="pipeline-icon-box">
+            <div class="pipeline-card tilt-card" data-step="02">
+              <div class="pipeline-icon-box floating-icon">
                 <img src="assets/svg/server-animation.svg" alt="API Gateway" class="pipeline-svg" />
               </div>
               <div class="step-num">02 / GATEWAY</div>
@@ -261,11 +358,13 @@
               </div>
             </div>
 
-            <div class="pipeline-arrow" aria-hidden="true">➜</div>
+            <div class="pipeline-arrow" aria-hidden="true">
+              <span class="arrow-glow">➜</span>
+            </div>
 
             <!-- Node 3: Database -->
-            <div class="pipeline-card" data-step="03">
-              <div class="pipeline-icon-box">
+            <div class="pipeline-card tilt-card" data-step="03">
+              <div class="pipeline-icon-box floating-icon">
                 <img src="assets/svg/database-animation.svg" alt="Distributed Database Engine" class="pipeline-svg" />
               </div>
               <div class="step-num">03 / PERSISTENCE</div>
@@ -280,11 +379,13 @@
               </div>
             </div>
 
-            <div class="pipeline-arrow" aria-hidden="true">➜</div>
+            <div class="pipeline-arrow" aria-hidden="true">
+              <span class="arrow-glow">➜</span>
+            </div>
 
             <!-- Node 4: Telemetry -->
-            <div class="pipeline-card" data-step="04">
-              <div class="pipeline-icon-box">
+            <div class="pipeline-card tilt-card" data-step="04">
+              <div class="pipeline-icon-box floating-icon">
                 <img src="assets/svg/terminal-animation.svg" alt="Telemetry and Metrics" class="pipeline-svg" />
               </div>
               <div class="step-num">04 / OBSERVABILITY</div>
@@ -313,7 +414,7 @@
         <div class="section-header">
           <div class="header-left">
             <span class="section-subtitle">Portfolio Showcase</span>
-            <h2 class="section-title">Featured Engineering Projects</h2>
+            <h2 class="section-title">Featured <span class="gradient-text">Engineering Projects</span></h2>
             <p class="section-lead">Production-grade systems, REST APIs, frontend trackers, and open-source tools.</p>
           </div>
 
@@ -328,7 +429,7 @@
 
         <div class="projects-grid" id="projects-grid">
           <!-- Project 1: Medical Department Tracker -->
-          <article class="project-card" data-category="fullstack">
+          <article class="project-card tilt-card" data-category="fullstack">
             <div class="project-preview-wrap">
               <picture>
                 <source media="(prefers-color-scheme: dark)" srcset="assets/svg/project-card-medical-tracker.svg" />
@@ -368,7 +469,7 @@
           </article>
 
           <!-- Project 2: Backend Demo / Modular REST API -->
-          <article class="project-card" data-category="backend">
+          <article class="project-card tilt-card" data-category="backend">
             <div class="project-preview-wrap">
               <picture>
                 <source media="(prefers-color-scheme: dark)" srcset="assets/svg/project-card-backend-demo.svg" />
@@ -408,7 +509,7 @@
           </article>
 
           <!-- Project 3: GitHub Activity Telemetry Dashboard -->
-          <article class="project-card" data-category="systems">
+          <article class="project-card tilt-card" data-category="systems">
             <div class="project-preview-wrap">
               <picture>
                 <source media="(prefers-color-scheme: dark)" srcset="assets/svg/project-card-github-activity.svg" />
@@ -452,7 +553,7 @@
           </article>
 
           <!-- Project 4: Java Core & JVM Concurrency Troubleshooting -->
-          <article class="project-card" data-category="backend">
+          <article class="project-card tilt-card" data-category="backend">
             <div class="project-preview-wrap">
               <picture>
                 <source media="(prefers-color-scheme: dark)" srcset="assets/svg/project-card-java-troubleshooting.svg" />
@@ -492,7 +593,7 @@
           </article>
 
           <!-- Project 5: Cool Tracks from 90s -->
-          <article class="project-card" data-category="systems">
+          <article class="project-card tilt-card" data-category="systems">
             <div class="project-preview-wrap">
               <picture>
                 <source media="(prefers-color-scheme: dark)" srcset="assets/svg/project-card-cool-tracks.svg" />
@@ -531,7 +632,7 @@
           </article>
 
           <!-- Project 6: TinDog & Modern Web Apps -->
-          <article class="project-card" data-category="fullstack">
+          <article class="project-card tilt-card" data-category="fullstack">
             <div class="project-preview-wrap fallback-preview">
               <div class="preview-brand-icon">🐾</div>
               <div class="project-badge">Web Architecture</div>
@@ -573,14 +674,14 @@
       <div class="container">
         <div class="section-header text-center">
           <span class="section-subtitle">Core Proficiencies</span>
-          <h2 class="section-title">Technical Competencies &amp; Stack</h2>
+          <h2 class="section-title">Technical <span class="gradient-text">Competencies &amp; Stack</span></h2>
           <p class="section-lead">
             Languages, frameworks, and infrastructure tools I leverage to build robust software.
           </p>
         </div>
 
         <!-- Moving Tech Stack Banner -->
-        <div class="skills-banner-wrap">
+        <div class="skills-banner-wrap neon-box">
           <picture>
             <source media="(prefers-color-scheme: dark)" srcset="assets/svg/skills-icons-moving.svg" />
             <source media="(prefers-color-scheme: light)" srcset="assets/svg/skills-icons-moving-light.svg" />
@@ -591,7 +692,7 @@
         <!-- Skills Categories Grid -->
         <div class="skills-matrix-grid">
           <!-- Category 1 -->
-          <div class="matrix-card">
+          <div class="matrix-card tilt-card">
             <div class="matrix-header">
               <span class="matrix-icon">☕</span>
               <h3>Core Languages</h3>
@@ -618,7 +719,7 @@
           </div>
 
           <!-- Category 2 -->
-          <div class="matrix-card">
+          <div class="matrix-card tilt-card">
             <div class="matrix-header">
               <span class="matrix-icon">⚙️</span>
               <h3>Backend &amp; Frameworks</h3>
@@ -645,7 +746,7 @@
           </div>
 
           <!-- Category 3 -->
-          <div class="matrix-card">
+          <div class="matrix-card tilt-card">
             <div class="matrix-header">
               <span class="matrix-icon">🗄️</span>
               <h3>Data &amp; Persistence</h3>
@@ -672,7 +773,7 @@
           </div>
 
           <!-- Category 4 -->
-          <div class="matrix-card">
+          <div class="matrix-card tilt-card">
             <div class="matrix-header">
               <span class="matrix-icon">🚀</span>
               <h3>DevOps &amp; Infrastructure</h3>
@@ -706,7 +807,7 @@
       <div class="container">
         <div class="section-header text-center">
           <span class="section-subtitle">Real-Time Activity</span>
-          <h2 class="section-title">GitHub Telemetry &amp; Stats</h2>
+          <h2 class="section-title">GitHub <span class="gradient-text">Telemetry &amp; Stats</span></h2>
           <p class="section-lead">
             Live metrics dynamically synchronized from the GitHub REST API for <code>@Anirbank33</code>.
           </p>
@@ -714,7 +815,7 @@
 
         <div class="telemetry-grid">
           <!-- Real-Time Metrics Card -->
-          <div class="telemetry-card live-card">
+          <div class="telemetry-card live-card tilt-card">
             <div class="live-card-header">
               <div class="live-badge">
                 <span class="pulse-indicator"></span>
@@ -728,15 +829,15 @@
             <div class="live-stats-rows">
               <div class="live-stat-item">
                 <span class="stat-lbl">Public Repositories</span>
-                <span class="stat-val" id="api-public-repos">23</span>
+                <span class="stat-val highlight-cyan" id="api-public-repos">23</span>
               </div>
               <div class="live-stat-item">
                 <span class="stat-lbl">Followers</span>
-                <span class="stat-val" id="api-followers">2</span>
+                <span class="stat-val highlight-magenta" id="api-followers">2</span>
               </div>
               <div class="live-stat-item">
                 <span class="stat-lbl">Following</span>
-                <span class="stat-val" id="api-following">8</span>
+                <span class="stat-val highlight-amber" id="api-following">8</span>
               </div>
               <div class="live-stat-item">
                 <span class="stat-lbl">Account Age</span>
@@ -753,14 +854,14 @@
             </div>
 
             <div class="live-card-footer">
-              <a href="https://github.com/Anirbank33" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-secondary w-100">
+              <a href="https://github.com/Anirbank33" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-secondary w-100 glow-hover">
                 View Raw GitHub Profile ↗
               </a>
             </div>
           </div>
 
           <!-- Dynamic GitHub Stats Banner -->
-          <div class="telemetry-card stats-images-card">
+          <div class="telemetry-card stats-images-card tilt-card">
             <div class="card-inner-title">Verified GitHub Developer Metrics</div>
             <div class="metrics-visuals">
               <picture>
@@ -776,7 +877,7 @@
               </picture>
             </div>
             <div class="telemetry-cta-bar">
-              <a href="https://anirbank33.github.io/github-activity-2021-2026/" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
+              <a href="https://anirbank33.github.io/github-activity-2021-2026/" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm glow-hover">
                 Explore Full Multi-Year Activity Telemetry ↗
               </a>
             </div>
@@ -790,13 +891,13 @@
       <div class="container">
         <div class="section-header text-center">
           <span class="section-subtitle">Interactive Shell</span>
-          <h2 class="section-title">Developer Command Line Interface</h2>
+          <h2 class="section-title">Developer <span class="gradient-text">Command Line Interface</span></h2>
           <p class="section-lead">
-            Explore Anirban's background, projects, and skills through an in-browser terminal emulator. Type <code>help</code> to begin.
+            Explore Anirban's background, projects, and skills through an in-browser terminal emulator. Type <code>help</code> or try <code>matrix</code> for cyber rain!
           </p>
         </div>
 
-        <div class="cli-container">
+        <div class="cli-container neon-box">
           <div class="cli-chrome">
             <div class="cli-buttons">
               <span class="cli-dot red"></span>
@@ -822,7 +923,7 @@ Backend Software Engineer · Bengaluru · Java &amp; Spring
 Type 'help' to view available system commands.
                 </pre>
               </div>
-              <div class="cli-line info-line">Quick shortcuts: <span class="cli-tag" onclick="window.runTerminalCommand('skills')">skills</span> · <span class="cli-tag" onclick="window.runTerminalCommand('projects')">projects</span> · <span class="cli-tag" onclick="window.runTerminalCommand('experience')">experience</span> · <span class="cli-tag" onclick="window.runTerminalCommand('hire')">hire</span> · <span class="cli-tag" onclick="window.runTerminalCommand('contact')">contact</span></div>
+              <div class="cli-line info-line">Quick shortcuts: <span class="cli-tag" onclick="window.runTerminalCommand('skills')">skills</span> · <span class="cli-tag" onclick="window.runTerminalCommand('projects')">projects</span> · <span class="cli-tag" onclick="window.runTerminalCommand('experience')">experience</span> · <span class="cli-tag" onclick="window.runTerminalCommand('matrix')">matrix ⚡</span> · <span class="cli-tag" onclick="window.runTerminalCommand('hire')">hire</span> · <span class="cli-tag" onclick="window.runTerminalCommand('contact')">contact</span></div>
             </div>
 
             <div class="cli-prompt-line">
@@ -840,7 +941,7 @@ Type 'help' to view available system commands.
         <div class="about-grid">
           <div class="about-bio">
             <span class="section-subtitle">Background &amp; Passion</span>
-            <h2 class="section-title">Engineering with Purpose &amp; Precision</h2>
+            <h2 class="section-title">Engineering with <span class="gradient-text">Purpose &amp; Precision</span></h2>
             <div class="bio-text">
               <p>
                 I am a backend-focused software engineer based in <strong>Bengaluru, Karnataka</strong>. My primary 
@@ -859,21 +960,21 @@ Type 'help' to view available system commands.
             </div>
 
             <div class="bio-highlights">
-              <div class="highlight-item">
+              <div class="highlight-item tilt-card">
                 <span class="highlight-icon">⚡</span>
                 <div>
                   <strong>Low Latency &amp; Concurrency</strong>
                   <p>Multithreading, thread pooling, and non-blocking IO design.</p>
                 </div>
               </div>
-              <div class="highlight-item">
+              <div class="highlight-item tilt-card">
                 <span class="highlight-icon">🛡️</span>
                 <div>
                   <strong>Enterprise API Design</strong>
                   <p>Idempotency, OpenAPI specification, JWT security, and resilient error patterns.</p>
                 </div>
               </div>
-              <div class="highlight-item">
+              <div class="highlight-item tilt-card">
                 <span class="highlight-icon">📦</span>
                 <div>
                   <strong>Cloud-Native Ready</strong>
@@ -884,10 +985,11 @@ Type 'help' to view available system commands.
           </div>
 
           <div class="about-card-side">
-            <div class="about-profile-card">
+            <div class="about-profile-card tilt-card neon-card-glow">
               <div class="profile-avatar-wrap">
-                <img src="https://avatars.githubusercontent.com/u/81949869?v=4" alt="Anirban Kar" class="profile-avatar" />
-                <div class="avatar-ring"></div>
+                <img src="assets/images/anirban-portrait.jpg" alt="Anirban Kar" class="profile-avatar" />
+                <div class="avatar-ring ring-spin-slow"></div>
+                <div class="avatar-ring-outer ring-spin-reverse"></div>
               </div>
               <h3 class="profile-card-name">Anirban Kar</h3>
               <p class="profile-card-title">Backend Software Engineer</p>
@@ -919,10 +1021,10 @@ Type 'help' to view available system commands.
     <!-- Contact & Connect Section -->
     <section class="section contact-section" id="contact">
       <div class="container">
-        <div class="contact-box">
+        <div class="contact-box neon-box">
           <div class="contact-header text-center">
             <span class="section-subtitle">Let's Collaborate</span>
-            <h2 class="section-title">Ready to build something impactful?</h2>
+            <h2 class="section-title">Ready to build something <span class="gradient-text">impactful</span>?</h2>
             <p class="section-lead">
               I am actively looking for Backend Engineering, Distributed Systems, and Java/Spring roles in Bengaluru or Remote.
             </p>
@@ -930,7 +1032,7 @@ Type 'help' to view available system commands.
 
           <div class="contact-grid">
             <div class="contact-channel-cards">
-              <a href="mailto:anirbankar23@gmail.com" class="channel-card">
+              <a href="mailto:anirbankar23@gmail.com" class="channel-card tilt-card">
                 <div class="channel-icon mail-icon">
                   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                 </div>
@@ -941,7 +1043,7 @@ Type 'help' to view available system commands.
                 <span class="channel-arrow">↗</span>
               </a>
 
-              <a href="https://www.linkedin.com/in/anirban-kar-23645414a/" target="_blank" rel="noopener noreferrer" class="channel-card">
+              <a href="https://www.linkedin.com/in/anirban-kar-23645414a/" target="_blank" rel="noopener noreferrer" class="channel-card tilt-card">
                 <div class="channel-icon in-icon">
                   <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                 </div>
@@ -952,7 +1054,7 @@ Type 'help' to view available system commands.
                 <span class="channel-arrow">↗</span>
               </a>
 
-              <a href="https://github.com/Anirbank33" target="_blank" rel="noopener noreferrer" class="channel-card">
+              <a href="https://github.com/Anirbank33" target="_blank" rel="noopener noreferrer" class="channel-card tilt-card">
                 <div class="channel-icon gh-icon">
                   <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
                 </div>
@@ -965,7 +1067,7 @@ Type 'help' to view available system commands.
             </div>
 
             <!-- Quick Email / Copy Composer -->
-            <div class="composer-card">
+            <div class="composer-card tilt-card">
               <h3>Quick Message Composer</h3>
               <p>Type your message below to send directly via your mail client or copy formatted text:</p>
               
@@ -983,11 +1085,11 @@ Type 'help' to view available system commands.
                   <textarea id="contact-body" rows="4" placeholder="Hi Anirban, I checked your GitHub projects and would like to connect regarding an opportunity..."></textarea>
                 </div>
                 <div class="composer-actions">
-                  <button id="btn-send-mail" class="btn btn-primary">
+                  <button id="btn-send-mail" class="btn btn-primary pulse-btn">
                     <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                     <span>Open Email Client</span>
                   </button>
-                  <button id="btn-copy-info" class="btn btn-secondary">
+                  <button id="btn-copy-info" class="btn btn-secondary glow-hover">
                     <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                     <span id="copy-btn-text">Copy Email</span>
                   </button>
