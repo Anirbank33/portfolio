@@ -937,4 +937,515 @@
     });
   });
 
+  /* ==========================================================================
+     13. AUTONOMOUS AI COPILOT AGENT (A.N.I.R.B.A.N)
+     ========================================================================== */
+  const aiLauncher = document.getElementById('ai-chat-launcher');
+  const aiChatWindow = document.getElementById('ai-chat-window');
+  const aiCloseBtn = document.getElementById('ai-close-btn');
+  const aiClearBtn = document.getElementById('ai-clear-btn');
+  const aiKeyToggleBtn = document.getElementById('ai-key-toggle-btn');
+  const aiSettingsDrawer = document.getElementById('ai-settings-drawer');
+  const aiSettingsCloseBtn = document.getElementById('ai-settings-close-btn');
+  const aiGeminiKeyInput = document.getElementById('ai-gemini-key-input');
+  const aiSaveKeyBtn = document.getElementById('ai-save-key-btn');
+  const aiKeyStatus = document.getElementById('ai-key-status');
+  const aiMessagesWrap = document.getElementById('ai-messages-wrap');
+  const aiInputForm = document.getElementById('ai-input-form');
+  const aiChatInput = document.getElementById('ai-chat-input');
+  const aiChipsBar = document.getElementById('ai-chips-bar');
+
+  let savedGeminiKey = localStorage.getItem('anirban_gemini_api_key') || '';
+  if (aiGeminiKeyInput && savedGeminiKey) {
+    aiGeminiKeyInput.value = savedGeminiKey;
+    if (aiKeyStatus) aiKeyStatus.textContent = 'Active: Custom Gemini API key saved ✓';
+  }
+
+  // Anirban Kar Knowledge Graph
+  const KNOWLEDGE = {
+    name: 'Anirban Kar',
+    handle: '@Anirbank33',
+    role: 'Backend Software Engineer & Systems Architect',
+    location: 'Bengaluru, Karnataka, India',
+    email: 'anirbankar23@gmail.com',
+    linkedin: 'https://www.linkedin.com/in/anirban-kar-23645414a/',
+    github: 'https://github.com/Anirbank33',
+    status: 'Open to Engineering Opportunities in Bengaluru or Remote',
+    coreStack: [
+      'Java 17 & 21 LTS', 'Spring Boot 3', 'Spring Cloud', 'Microservices',
+      'PostgreSQL', 'MySQL', 'Redis In-Memory Cache', 'Docker Containerization',
+      'RESTful APIs', 'Node.js & Express', 'TypeScript', 'WebSockets', 'Hibernate/JPA'
+    ],
+    projects: [
+      {
+        name: 'Wardline Medical Operations Tracker',
+        category: 'Full Stack & Enterprise Systems',
+        stack: 'React, Vite, TypeScript, Express REST',
+        desc: 'Enterprise hospital department workflow tracker designed for high-concurrency ward operations, doctor scheduling, and real-time patient status transitions.',
+        url: 'https://github.com/Anirbank33/medical-department-tracker'
+      },
+      {
+        name: 'Modular Express REST API Engine',
+        category: 'Backend Architecture',
+        stack: 'Node.js, Express.js, REST API, JSON Schema',
+        desc: 'High-throughput Node.js documents REST API featuring layered service architecture, centralized error handling, and robust schema validation.',
+        url: 'https://github.com/Anirbank33/backend-demo'
+      },
+      {
+        name: 'GitHub Activity & Commit Telemetry (2021-2026)',
+        category: 'Live Telemetry & Data Viz',
+        stack: 'HTML5, Canvas, GitHub API, GitHub Pages',
+        desc: 'Multi-year contribution visualizer and commit telemetry dashboard parsing year-over-year commit history and active repository timelines.',
+        url: 'https://anirbank33.github.io/github-activity-2021-2026/'
+      },
+      {
+        name: 'Java Core & JVM Concurrency Troubleshooting',
+        category: 'JVM Engineering & Concurrency',
+        stack: 'Java 17/21, JVM Profiling, Threads, Memory',
+        desc: 'Deep engineering lab investigating JVM heap behavior, thread contention diagnostics, deadlock prevention, and low-latency synchronization.',
+        url: 'https://github.com/Anirbank33/java-core-troubleshooting'
+      },
+      {
+        name: '90s Bollywood Audio Player & Streamer',
+        category: 'Web Audio API & Systems',
+        stack: 'TypeScript, Web Audio API, Procedural Audio',
+        desc: 'Nostalgic media streaming engine with procedural audio controls, spectrum visualizers, and stateful playback management in TypeScript.',
+        url: 'https://github.com/Anirbank33/Cool-tracks-form-90-s'
+      },
+      {
+        name: 'TinDog Web Platform',
+        category: 'Frontend & Responsive Architecture',
+        stack: 'HTML5, Responsive CSS Grid/Flex, JavaScript',
+        desc: 'High-fidelity consumer web application built with responsive geometry, touch gestures, and optimized asset delivery.',
+        url: 'https://github.com/Anirbank33/tindog'
+      }
+    ],
+    architecture: '4-node distributed system flow: [01/Client Ingress] -> [02/Gateway Routing & Circuit Breaker] -> [03/ACID Persistence & Redis Cache] -> [04/JVM Telemetry & Healthchecks].'
+  };
+
+  const WELCOME_MSG = `Greetings, explorer! 🌌 I am **A.N.I.R.B.A.N** (*Autonomous Neural Interface for Resident Backend Architecture & Navigation*), the official AI Copilot for **Anirban Kar**.
+
+I can answer questions about Anirban's **Java 21 & Spring Boot systems**, **distributed architectures**, **featured projects**, and **engineering background** — or even control the portfolio for you!
+
+What would you like to explore?`;
+
+  function appendChatMessage(sender, htmlContent, actionButtons = []) {
+    if (!aiMessagesWrap) return null;
+    const msgDiv = document.createElement('div');
+    msgDiv.className = `ai-msg ${sender}`;
+
+    const bubble = document.createElement('div');
+    bubble.className = 'ai-msg-bubble';
+    bubble.innerHTML = htmlContent;
+
+    if (actionButtons && actionButtons.length > 0) {
+      const actionsDiv = document.createElement('div');
+      actionsDiv.className = 'ai-msg-actions';
+      actionButtons.forEach((btn) => {
+        const b = document.createElement('button');
+        b.className = 'ai-action-btn';
+        b.innerHTML = btn.label;
+        b.addEventListener('click', btn.onClick);
+        actionsDiv.appendChild(b);
+      });
+      bubble.appendChild(actionsDiv);
+    }
+
+    const time = document.createElement('div');
+    time.className = 'ai-msg-time';
+    const now = new Date();
+    time.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    msgDiv.appendChild(bubble);
+    msgDiv.appendChild(time);
+    aiMessagesWrap.appendChild(msgDiv);
+    aiMessagesWrap.scrollTop = aiMessagesWrap.scrollHeight;
+    return bubble;
+  }
+
+  function showTypingIndicator() {
+    if (!aiMessagesWrap) return null;
+    const typing = document.createElement('div');
+    typing.className = 'ai-msg bot ai-typing';
+    typing.id = 'ai-typing-temp';
+    typing.innerHTML = `
+      <div class="ai-typing-indicator">
+        <span class="ai-typing-dot"></span>
+        <span class="ai-typing-dot"></span>
+        <span class="ai-typing-dot"></span>
+      </div>
+    `;
+    aiMessagesWrap.appendChild(typing);
+    aiMessagesWrap.scrollTop = aiMessagesWrap.scrollHeight;
+    return typing;
+  }
+
+  function removeTypingIndicator() {
+    const el = document.getElementById('ai-typing-temp');
+    if (el) el.remove();
+  }
+
+  // Autonomous Page Actions
+  function scrollToSection(selector) {
+    const el = document.querySelector(selector);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  // Intelligent Built-in Neural Engine
+  function generateLocalResponse(rawQuery) {
+    const q = rawQuery.toLowerCase().trim();
+
+    // 1. Warp Drive
+    if (q.includes('warp') || q.includes('lightspeed') || q.includes('hyperdrive')) {
+      if (typeof window.toggleWarpMode === 'function') {
+        const isWarp = window.toggleWarpMode();
+        return {
+          text: `🚀 **Hyperspace Warp Drive ${isWarp ? 'ENGAGED' : 'DISENGAGED'}!**\n\nThe radial starfield velocity matrix has shifted. Look at the canvas streaks across space! Type 'warp' again or press **W** to toggle anytime.`,
+          actions: [
+            { label: '✨ Toggle Warp Again', onClick: () => window.toggleWarpMode && window.toggleWarpMode() }
+          ]
+        };
+      }
+    }
+
+    // 2. Meteor Shower
+    if (q.includes('meteor') || q.includes('shooting star') || q.includes('shower')) {
+      if (typeof window.triggerMeteorShower === 'function') {
+        window.triggerMeteorShower(7);
+        return {
+          text: `✨ **Multi-spectral Meteor Shower incoming!** Look up at the cosmic sky — 7 shooting stars are streaking across your viewport right now!`,
+          actions: [
+            { label: '🌠 Another Shower!', onClick: () => window.triggerMeteorShower && window.triggerMeteorShower(6) }
+          ]
+        };
+      }
+    }
+
+    // 3. Theme Toggle
+    if (q.includes('theme') || q.includes('dark mode') || q.includes('light mode')) {
+      const themeBtn = document.getElementById('theme-toggle');
+      if (themeBtn) themeBtn.click();
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      return {
+        text: `🌗 Switched display matrix to **${current.toUpperCase()}** mode! The ambient starlight and nebula shaders have re-calibrated.`,
+        actions: []
+      };
+    }
+
+    // 4. Who is Anirban / Bio / About
+    if (q.includes('who') || q.includes('about') || q.includes('background') || q.includes('bio') || q.includes('anirban')) {
+      return {
+        text: `**Anirban Kar** (${KNOWLEDGE.handle}) is a **Backend Software Engineer & Systems Architect** based in **${KNOWLEDGE.location}**.\n\nHe specializes in building resilient, high-throughput distributed systems, low-latency microservices with **Java 21 & Spring Boot 3**, robust RESTful APIs, and transactional SQL data stores. He is deeply passionate about JVM memory profiling and concurrency.`,
+        actions: [
+          { label: '🚀 View Projects', onClick: () => scrollToSection('#projects') },
+          { label: '📜 Read Full Bio', onClick: () => scrollToSection('#about') },
+          { label: '💼 Why Hire Him?', onClick: () => handleUserSend('Why should I hire Anirban?') }
+        ]
+      };
+    }
+
+    // 5. Featured Projects
+    if (q.includes('project') || q.includes('repo') || q.includes('wardline') || q.includes('work') || q.includes('portfolio') || q.includes('build')) {
+      scrollToSection('#projects');
+      return {
+        text: `Here are **Anirban's Featured Engineering Projects** (scrolled to view!):\n\n` +
+          `1. **Wardline Medical Department Tracker** (*React, TS, Express REST*)\n` +
+          `   Enterprise hospital ward workflow tracker with state synchronization.\n` +
+          `2. **Modular Express REST API Engine** (*Node.js, Express, CRUD*)\n` +
+          `   High-throughput REST API featuring layered service architecture & validation.\n` +
+          `3. **GitHub Commit Telemetry (2021-2026)** (*Data Viz, Pages*)\n` +
+          `   Multi-year contribution dashboard visualizer.\n` +
+          `4. **Java Core & JVM Concurrency Lab** (*Java 21, JVM Memory*)\n` +
+          `   Engineering lab for thread contention, deadlocks, and heap profiling.\n` +
+          `5. **90s Bollywood Audio Player** (*TypeScript, Web Audio API*)\n` +
+          `   Procedural audio engine with real-time spectrum visualization.`,
+        actions: [
+          { label: '💻 Open Wardline Repo', onClick: () => window.open('https://github.com/Anirbank33/medical-department-tracker', '_blank') },
+          { label: '⚙️ Open Java Core Lab', onClick: () => window.open('https://github.com/Anirbank33/java-core-troubleshooting', '_blank') },
+          { label: '📊 View Live Telemetry', onClick: () => scrollToSection('#telemetry') }
+        ]
+      };
+    }
+
+    // 6. Tech Stack & Skills
+    if (q.includes('skill') || q.includes('tech') || q.includes('stack') || q.includes('java') || q.includes('spring') || q.includes('database') || q.includes('docker')) {
+      scrollToSection('#skills');
+      return {
+        text: `**Anirban's Core Technical Proficiencies:**\n\n` +
+          `• **Languages:** Java (17/21 LTS), TypeScript, JavaScript (ES6+), ANSI SQL\n` +
+          `• **Backend Frameworks:** Spring Boot 3, Spring Cloud, Express.js, Node.js, Hibernate/JPA\n` +
+          `• **Persistence & Caching:** PostgreSQL, MySQL, Redis, MongoDB\n` +
+          `• **Architecture:** Microservices, Distributed Systems, RESTful APIs, WebSockets, JWT Auth\n` +
+          `• **DevOps & Diagnostics:** Docker, Git, GitHub Actions CI/CD, JVM Thread Profiling, Linux Shell`,
+        actions: [
+          { label: '🏛️ Architecture Flow', onClick: () => scrollToSection('#pipeline') },
+          { label: '💻 Interactive Terminal', onClick: () => scrollToSection('#terminal') }
+        ]
+      };
+    }
+
+    // 7. Why Hire Anirban
+    if (q.includes('hire') || q.includes('why') || q.includes('opportunity') || q.includes('job') || q.includes('role') || q.includes('salary') || q.includes('joining')) {
+      scrollToSection('#contact');
+      return {
+        text: `**Why Hire Anirban Kar?**\n\n` +
+          `✓ **Deep JVM & Concurrency Mastery**: Strong grasp of Java 21 features (Virtual Threads, Pattern Matching), thread scheduling, and JVM memory tuning.\n` +
+          `✓ **Production-Grade Microservices**: Proven track record implementing Spring Boot 3 services, rate limiting, and resilient gateways.\n` +
+          `✓ **Data Integrity & Speed**: Experience designing high-speed Redis caches and ACID relational schemas with PostgreSQL.\n` +
+          `✓ **Immediate Availability**: Actively seeking Backend Engineer / Software Engineer roles in **Bengaluru** or **Remote**!`,
+        actions: [
+          { label: '✉️ Send Email to Anirban', onClick: () => window.location.href = `mailto:${KNOWLEDGE.email}?subject=Engineering%20Opportunity` },
+          { label: '🔗 Connect on LinkedIn', onClick: () => window.open(KNOWLEDGE.linkedin, '_blank') }
+        ]
+      };
+    }
+
+    // 8. Architecture & Pipeline
+    if (q.includes('arch') || q.includes('pipeline') || q.includes('flow') || q.includes('gateway') || q.includes('distributed')) {
+      scrollToSection('#pipeline');
+      return {
+        text: `**4-Node Distributed Systems Architecture:**\n\n` +
+          `1. **[01 / Ingress]**: HTTP/2 & WebSocket client requests, payload sanitization, JWT authorization tokens, and API rate limiting.\n` +
+          `2. **[02 / Gateway]**: Spring Cloud & Express Gateway with routing, load balancing, circuit breaker patterns, and request interceptors.\n` +
+          `3. **[03 / Persistence]**: PostgreSQL/MySQL ACID transactions with high-speed Redis in-memory cache layer.\n` +
+          `4. **[04 / Telemetry]**: Real-time Prometheus metrics, automated logging, and JVM thread telemetry.`,
+        actions: [
+          { label: '⚡ View Pipeline Flow', onClick: () => scrollToSection('#pipeline') }
+        ]
+      };
+    }
+
+    // 9. Contact / Email / LinkedIn
+    if (q.includes('contact') || q.includes('email') || q.includes('linkedin') || q.includes('reach') || q.includes('message') || q.includes('call')) {
+      scrollToSection('#contact');
+      return {
+        text: `**Get in Touch with Anirban Kar:**\n\n` +
+          `• **Email:** [${KNOWLEDGE.email}](mailto:${KNOWLEDGE.email})\n` +
+          `• **LinkedIn:** [linkedin.com/in/anirban-kar-23645414a](${KNOWLEDGE.linkedin})\n` +
+          `• **GitHub:** [github.com/Anirbank33](${KNOWLEDGE.github})\n` +
+          `• **Location:** Bengaluru, Karnataka, India\n\n` +
+          `Feel free to send a direct message or use the Quick Email Composer on this page!`,
+        actions: [
+          { label: '📋 Copy Email Address', onClick: () => {
+            navigator.clipboard.writeText(KNOWLEDGE.email);
+            appendChatMessage('bot', '✅ Copied `anirbankar23@gmail.com` to clipboard!');
+          }},
+          { label: '✉️ Open Mail Client', onClick: () => window.location.href = `mailto:${KNOWLEDGE.email}` }
+        ]
+      };
+    }
+
+    // 10. Jokes & Easter Eggs
+    if (q.includes('joke') || q.includes('funny') || q.includes('humor')) {
+      const jokes = [
+        "Why do Java developers wear glasses? Because they don't C#! 🤓☕",
+        "There are 10 types of people in the world: those who understand binary, and those who don't! 👾",
+        "A SQL query walks into a bar, walks up to two tables and asks: 'Can I join you?' 🍺",
+        "Why was the microservice afraid of commitment? Because it didn't support two-phase commit! 🍃"
+      ];
+      return {
+        text: jokes[Math.floor(Math.random() * jokes.length)],
+        actions: [
+          { label: 'Tell Another Joke', onClick: () => handleUserSend('Tell me another joke') }
+        ]
+      };
+    }
+
+    // 11. Greetings & Pleasantries
+    if (q.includes('hello') || q.includes('hi') || q.includes('hey') || q.includes('greet') || q === 'yo') {
+      return {
+        text: `Hello there! 👋 I am **A.N.I.R.B.A.N AI**. How can I help you learn about Anirban's engineering journey, inspect his projects, or connect with him for job opportunities?`,
+        actions: [
+          { label: '🚀 Top Projects', onClick: () => handleUserSend('What are his featured projects?') },
+          { label: '💼 Why Hire Him?', onClick: () => handleUserSend('Why should I hire Anirban?') }
+        ]
+      };
+    }
+
+    // Default Fallback
+    return {
+      text: `That's an interesting question! As Anirban's portfolio copilot, I specialize in his **Java 21 backend stack**, **Spring Boot microservices**, **featured engineering repositories**, and **professional experience**.\n\n` +
+        `You can also connect Google's live **Gemini API** in the header settings (⚙️) for open-ended questions, or reach out to Anirban directly at **[${KNOWLEDGE.email}](mailto:${KNOWLEDGE.email})**.`,
+      actions: [
+        { label: '🚀 View Projects', onClick: () => scrollToSection('#projects') },
+        { label: '☕ Skills Stack', onClick: () => scrollToSection('#skills') },
+        { label: '📬 Contact Info', onClick: () => scrollToSection('#contact') }
+      ]
+    };
+  }
+
+  // Live Gemini API Calling (Optional)
+  async function callGeminiApi(userPrompt, apiKey) {
+    const SYSTEM_PROMPT = `You are A.N.I.R.B.A.N, the highly intelligent and witty AI Copilot representing Anirban Kar (@Anirbank33) on his developer portfolio website.
+Anirban is a Backend Software Engineer & Systems Architect based in Bengaluru, India.
+His stack is Java 17/21, Spring Boot 3, Spring Cloud, PostgreSQL, Redis, Docker, Microservices, Node.js, Express, and REST APIs.
+His projects include:
+1. Wardline Medical Operations Tracker (React, TS, Express REST)
+2. Modular Express REST API Engine (Node.js, Express)
+3. GitHub Commit Telemetry (2021-2026)
+4. Java Core & JVM Concurrency Troubleshooting (Java 21)
+5. 90s Bollywood Audio Player & Streamer (TypeScript Web Audio)
+6. TinDog responsive web platform
+His email is anirbankar23@gmail.com, and he is actively open to Backend Engineering roles in Bengaluru or Remote.
+Respond in concise, helpful, aesthetic Markdown. Use friendly tech humor when appropriate.`;
+
+    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${encodeURIComponent(apiKey)}`;
+
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [
+          { role: 'user', parts: [{ text: `${SYSTEM_PROMPT}\n\nVisitor question: ${userPrompt}` }] }
+        ]
+      })
+    });
+
+    if (!res.ok) {
+      const errData = await res.json().catch(() => ({}));
+      throw new Error(errData.error?.message || `HTTP ${res.status}`);
+    }
+
+    const data = await res.json();
+    const candidate = data.candidates?.[0]?.content?.parts?.[0]?.text;
+    if (!candidate) throw new Error('No response text generated by Gemini');
+    return candidate;
+  }
+
+  // Format Markdown to clean HTML safely
+  function formatMarkdown(text) {
+    let html = escapeHtml(text);
+    // Bold **text**
+    html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    // Italic *text*
+    html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+    // Inline code `code`
+    html = html.replace(/`(.*?)`/g, '<code>$1</code>');
+    // Links [text](url)
+    html = html.replace(/\[(.*?)\]\((https?:\/\/.*?|mailto:.*?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+    // Line breaks
+    html = html.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br/>');
+    return `<p>${html}</p>`;
+  }
+
+  // Handle User Message Submission
+  async function handleUserSend(textToSend) {
+    const rawText = textToSend || (aiChatInput ? aiChatInput.value : '');
+    const userQuery = rawText.trim();
+    if (!userQuery) return;
+
+    if (aiChatInput) aiChatInput.value = '';
+
+    // Append User Bubble
+    appendChatMessage('user', escapeHtml(userQuery));
+
+    // Show Typing Indicator
+    showTypingIndicator();
+
+    const apiKey = localStorage.getItem('anirban_gemini_api_key');
+
+    if (apiKey) {
+      try {
+        const geminiAnswer = await callGeminiApi(userQuery, apiKey);
+        removeTypingIndicator();
+        appendChatMessage('bot', formatMarkdown(geminiAnswer));
+        return;
+      } catch (err) {
+        console.warn('Gemini API call failed, falling back to built-in neural engine:', err);
+      }
+    }
+
+    // Built-in intelligent response with realistic simulated thinking
+    setTimeout(() => {
+      removeTypingIndicator();
+      const res = generateLocalResponse(userQuery);
+      appendChatMessage('bot', formatMarkdown(res.text), res.actions);
+    }, 450);
+  }
+
+  // Event Listeners for AI Chat UI
+  let hasOpenedChat = false;
+
+  if (aiLauncher && aiChatWindow) {
+    aiLauncher.addEventListener('click', () => {
+      const isOpen = aiChatWindow.classList.toggle('open');
+      aiLauncher.classList.toggle('orb-active', isOpen);
+      aiChatWindow.setAttribute('aria-hidden', !isOpen);
+
+      if (isOpen && !hasOpenedChat) {
+        hasOpenedChat = true;
+        appendChatMessage('bot', formatMarkdown(WELCOME_MSG));
+      }
+
+      if (isOpen && aiChatInput) {
+        setTimeout(() => aiChatInput.focus(), 150);
+      }
+    });
+  }
+
+  if (aiCloseBtn && aiChatWindow) {
+    aiCloseBtn.addEventListener('click', () => {
+      aiChatWindow.classList.remove('open');
+      aiChatWindow.setAttribute('aria-hidden', 'true');
+      if (aiLauncher) aiLauncher.classList.remove('orb-active');
+    });
+  }
+
+  if (aiClearBtn && aiMessagesWrap) {
+    aiClearBtn.addEventListener('click', () => {
+      aiMessagesWrap.innerHTML = '';
+      appendChatMessage('bot', formatMarkdown(WELCOME_MSG));
+    });
+  }
+
+  // Settings Drawer Toggle
+  if (aiKeyToggleBtn && aiSettingsDrawer) {
+    aiKeyToggleBtn.addEventListener('click', () => {
+      aiSettingsDrawer.classList.toggle('open');
+    });
+  }
+
+  if (aiSettingsCloseBtn && aiSettingsDrawer) {
+    aiSettingsCloseBtn.addEventListener('click', () => {
+      aiSettingsDrawer.classList.remove('open');
+    });
+  }
+
+  // Save Gemini Key
+  if (aiSaveKeyBtn && aiGeminiKeyInput) {
+    aiSaveKeyBtn.addEventListener('click', () => {
+      const keyVal = aiGeminiKeyInput.value.trim();
+      if (keyVal) {
+        localStorage.setItem('anirban_gemini_api_key', keyVal);
+        if (aiKeyStatus) aiKeyStatus.textContent = 'Key saved securely in your browser! ✓';
+        setTimeout(() => {
+          if (aiSettingsDrawer) aiSettingsDrawer.classList.remove('open');
+        }, 1200);
+      } else {
+        localStorage.removeItem('anirban_gemini_api_key');
+        if (aiKeyStatus) aiKeyStatus.textContent = 'Cleared custom key. Using built-in AI engine.';
+      }
+    });
+  }
+
+  // Chips Bar Listener
+  if (aiChipsBar) {
+    aiChipsBar.querySelectorAll('.ai-chip').forEach((chip) => {
+      chip.addEventListener('click', () => {
+        const prompt = chip.getAttribute('data-prompt');
+        if (prompt) handleUserSend(prompt);
+      });
+    });
+  }
+
+  // Form Submit Listener
+  if (aiInputForm) {
+    aiInputForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      handleUserSend();
+    });
+  }
+
 })();
