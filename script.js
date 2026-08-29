@@ -940,6 +940,7 @@
   /* ==========================================================================
      13. AUTONOMOUS AI COPILOT AGENT (A.N.I.R.B.A.N)
      ========================================================================== */
+  // Floating AI elements
   const aiLauncher = document.getElementById('ai-chat-launcher');
   const aiChatWindow = document.getElementById('ai-chat-window');
   const aiCloseBtn = document.getElementById('ai-close-btn');
@@ -954,6 +955,21 @@
   const aiInputForm = document.getElementById('ai-input-form');
   const aiChatInput = document.getElementById('ai-chat-input');
   const aiChipsBar = document.getElementById('ai-chips-bar');
+  const aiTeaser = document.getElementById('ai-speech-teaser');
+  const aiTeaserClose = document.getElementById('ai-teaser-close');
+
+  // On-page embedded AI elements
+  const embedAiMessages = document.getElementById('embed-ai-messages');
+  const embedAiForm = document.getElementById('embed-ai-form');
+  const embedAiInput = document.getElementById('embed-ai-input');
+  const embedAiClearBtn = document.getElementById('embed-ai-clear-btn');
+  const embedPromptsRow = document.getElementById('embed-prompts-row');
+  const embedAiChips = document.querySelectorAll('.embed-ai-chip');
+
+  // Navigation & Hero triggers
+  const heroAiBtn = document.getElementById('hero-ai-btn');
+  const navAiBtn = document.getElementById('nav-ai-btn');
+  const navAiLink = document.querySelector('.nav-ai-link');
 
   let savedGeminiKey = localStorage.getItem('anirban_gemini_api_key') || '';
   if (aiGeminiKeyInput && savedGeminiKey) {
@@ -1029,8 +1045,8 @@ I can answer questions about Anirban's **Java 21 & Spring Boot systems**, **dist
 
 What would you like to explore?`;
 
-  function appendChatMessage(sender, htmlContent, actionButtons = []) {
-    if (!aiMessagesWrap) return null;
+  function appendChatMessage(targetWrap, sender, htmlContent, actionButtons = []) {
+    if (!targetWrap) return null;
     const msgDiv = document.createElement('div');
     msgDiv.className = `ai-msg ${sender}`;
 
@@ -1058,16 +1074,16 @@ What would you like to explore?`;
 
     msgDiv.appendChild(bubble);
     msgDiv.appendChild(time);
-    aiMessagesWrap.appendChild(msgDiv);
-    aiMessagesWrap.scrollTop = aiMessagesWrap.scrollHeight;
+    targetWrap.appendChild(msgDiv);
+    targetWrap.scrollTop = targetWrap.scrollHeight;
     return bubble;
   }
 
-  function showTypingIndicator() {
-    if (!aiMessagesWrap) return null;
+  function showTypingIndicator(targetWrap) {
+    if (!targetWrap) return null;
     const typing = document.createElement('div');
     typing.className = 'ai-msg bot ai-typing';
-    typing.id = 'ai-typing-temp';
+    typing.id = targetWrap === embedAiMessages ? 'embed-typing-temp' : 'ai-typing-temp';
     typing.innerHTML = `
       <div class="ai-typing-indicator">
         <span class="ai-typing-dot"></span>
@@ -1075,13 +1091,14 @@ What would you like to explore?`;
         <span class="ai-typing-dot"></span>
       </div>
     `;
-    aiMessagesWrap.appendChild(typing);
-    aiMessagesWrap.scrollTop = aiMessagesWrap.scrollHeight;
+    targetWrap.appendChild(typing);
+    targetWrap.scrollTop = targetWrap.scrollHeight;
     return typing;
   }
 
-  function removeTypingIndicator() {
-    const el = document.getElementById('ai-typing-temp');
+  function removeTypingIndicator(targetWrap) {
+    const id = targetWrap === embedAiMessages ? 'embed-typing-temp' : 'ai-typing-temp';
+    const el = document.getElementById(id);
     if (el) el.remove();
   }
 
@@ -1141,7 +1158,7 @@ What would you like to explore?`;
         actions: [
           { label: '🚀 View Projects', onClick: () => scrollToSection('#projects') },
           { label: '📜 Read Full Bio', onClick: () => scrollToSection('#about') },
-          { label: '💼 Why Hire Him?', onClick: () => handleUserSend('Why should I hire Anirban?') }
+          { label: '💼 Why Hire Him?', onClick: () => handleSendToActive(null, 'Why should I hire Anirban Kar?') }
         ]
       };
     }
@@ -1230,7 +1247,7 @@ What would you like to explore?`;
         actions: [
           { label: '📋 Copy Email Address', onClick: () => {
             navigator.clipboard.writeText(KNOWLEDGE.email);
-            appendChatMessage('bot', '✅ Copied `anirbankar23@gmail.com` to clipboard!');
+            alert('Copied anirbankar23@gmail.com to clipboard!');
           }},
           { label: '✉️ Open Mail Client', onClick: () => window.location.href = `mailto:${KNOWLEDGE.email}` }
         ]
@@ -1248,7 +1265,7 @@ What would you like to explore?`;
       return {
         text: jokes[Math.floor(Math.random() * jokes.length)],
         actions: [
-          { label: 'Tell Another Joke', onClick: () => handleUserSend('Tell me another joke') }
+          { label: 'Tell Another Joke', onClick: () => handleSendToActive(null, 'Tell me another joke') }
         ]
       };
     }
@@ -1258,8 +1275,8 @@ What would you like to explore?`;
       return {
         text: `Hello there! 👋 I am **A.N.I.R.B.A.N AI**. How can I help you learn about Anirban's engineering journey, inspect his projects, or connect with him for job opportunities?`,
         actions: [
-          { label: '🚀 Top Projects', onClick: () => handleUserSend('What are his featured projects?') },
-          { label: '💼 Why Hire Him?', onClick: () => handleUserSend('Why should I hire Anirban?') }
+          { label: '🚀 Top Projects', onClick: () => handleSendToActive(null, 'What are your featured projects?') },
+          { label: '💼 Why Hire Him?', onClick: () => handleSendToActive(null, 'Why should I hire Anirban?') }
         ]
       };
     }
@@ -1317,56 +1334,101 @@ Respond in concise, helpful, aesthetic Markdown. Use friendly tech humor when ap
   // Format Markdown to clean HTML safely
   function formatMarkdown(text) {
     let html = escapeHtml(text);
-    // Bold **text**
     html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-    // Italic *text*
     html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
-    // Inline code `code`
     html = html.replace(/`(.*?)`/g, '<code>$1</code>');
-    // Links [text](url)
     html = html.replace(/\[(.*?)\]\((https?:\/\/.*?|mailto:.*?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
-    // Line breaks
     html = html.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br/>');
     return `<p>${html}</p>`;
   }
 
-  // Handle User Message Submission
-  async function handleUserSend(textToSend) {
-    const rawText = textToSend || (aiChatInput ? aiChatInput.value : '');
-    const userQuery = rawText.trim();
-    if (!userQuery) return;
+  // Unified Handler for message sending to a specific container
+  async function handleConversation(targetWrap, inputEl, userQuery) {
+    const query = userQuery || (inputEl ? inputEl.value.trim() : '');
+    if (!query || !targetWrap) return;
 
-    if (aiChatInput) aiChatInput.value = '';
+    if (inputEl) inputEl.value = '';
 
-    // Append User Bubble
-    appendChatMessage('user', escapeHtml(userQuery));
+    // Append User message
+    appendChatMessage(targetWrap, 'user', escapeHtml(query));
 
-    // Show Typing Indicator
-    showTypingIndicator();
+    // Show Typing indicator
+    showTypingIndicator(targetWrap);
 
     const apiKey = localStorage.getItem('anirban_gemini_api_key');
 
     if (apiKey) {
       try {
-        const geminiAnswer = await callGeminiApi(userQuery, apiKey);
-        removeTypingIndicator();
-        appendChatMessage('bot', formatMarkdown(geminiAnswer));
+        const geminiAnswer = await callGeminiApi(query, apiKey);
+        removeTypingIndicator(targetWrap);
+        appendChatMessage(targetWrap, 'bot', formatMarkdown(geminiAnswer));
         return;
       } catch (err) {
         console.warn('Gemini API call failed, falling back to built-in neural engine:', err);
       }
     }
 
-    // Built-in intelligent response with realistic simulated thinking
+    // Built-in intelligent response
     setTimeout(() => {
-      removeTypingIndicator();
-      const res = generateLocalResponse(userQuery);
-      appendChatMessage('bot', formatMarkdown(res.text), res.actions);
+      removeTypingIndicator(targetWrap);
+      const res = generateLocalResponse(query);
+      appendChatMessage(targetWrap, 'bot', formatMarkdown(res.text), res.actions);
     }, 450);
   }
 
-  // Event Listeners for AI Chat UI
-  let hasOpenedChat = false;
+  function handleSendToActive(targetWrap, text) {
+    const wrap = targetWrap || (aiChatWindow && aiChatWindow.classList.contains('open') ? aiMessagesWrap : embedAiMessages);
+    const input = wrap === aiMessagesWrap ? aiChatInput : embedAiInput;
+    handleConversation(wrap, input, text);
+  }
+
+  // 1. Initialize On-Page Embedded AI Copilot immediately on load!
+  if (embedAiMessages) {
+    appendChatMessage(embedAiMessages, 'bot', formatMarkdown(WELCOME_MSG), [
+      { label: '🚀 View Projects', onClick: () => scrollToSection('#projects') },
+      { label: '☕ Skills Stack', onClick: () => scrollToSection('#skills') },
+      { label: '✨ Engage Warp Speed', onClick: () => window.toggleWarpMode && window.toggleWarpMode() }
+    ]);
+  }
+
+  // On-page embedded form submit
+  if (embedAiForm) {
+    embedAiForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      handleConversation(embedAiMessages, embedAiInput);
+    });
+  }
+
+  // On-page prompt pills
+  if (embedPromptsRow) {
+    embedPromptsRow.querySelectorAll('.prompt-pill').forEach((pill) => {
+      pill.addEventListener('click', () => {
+        const q = pill.getAttribute('data-query');
+        if (q) handleConversation(embedAiMessages, embedAiInput, q);
+      });
+    });
+  }
+
+  // On-page sidebar chips
+  if (embedAiChips) {
+    embedAiChips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        const q = chip.getAttribute('data-query');
+        if (q) handleConversation(embedAiMessages, embedAiInput, q);
+      });
+    });
+  }
+
+  // On-page clear button
+  if (embedAiClearBtn && embedAiMessages) {
+    embedAiClearBtn.addEventListener('click', () => {
+      embedAiMessages.innerHTML = '';
+      appendChatMessage(embedAiMessages, 'bot', formatMarkdown(WELCOME_MSG));
+    });
+  }
+
+  // 2. Floating Launcher & Modal Events
+  let hasOpenedFloatingChat = false;
 
   if (aiLauncher && aiChatWindow) {
     aiLauncher.addEventListener('click', () => {
@@ -1374,9 +1436,11 @@ Respond in concise, helpful, aesthetic Markdown. Use friendly tech humor when ap
       aiLauncher.classList.toggle('orb-active', isOpen);
       aiChatWindow.setAttribute('aria-hidden', !isOpen);
 
-      if (isOpen && !hasOpenedChat) {
-        hasOpenedChat = true;
-        appendChatMessage('bot', formatMarkdown(WELCOME_MSG));
+      if (aiTeaser) aiTeaser.style.display = 'none';
+
+      if (isOpen && !hasOpenedFloatingChat) {
+        hasOpenedFloatingChat = true;
+        appendChatMessage(aiMessagesWrap, 'bot', formatMarkdown(WELCOME_MSG));
       }
 
       if (isOpen && aiChatInput) {
@@ -1396,11 +1460,44 @@ Respond in concise, helpful, aesthetic Markdown. Use friendly tech humor when ap
   if (aiClearBtn && aiMessagesWrap) {
     aiClearBtn.addEventListener('click', () => {
       aiMessagesWrap.innerHTML = '';
-      appendChatMessage('bot', formatMarkdown(WELCOME_MSG));
+      appendChatMessage(aiMessagesWrap, 'bot', formatMarkdown(WELCOME_MSG));
     });
   }
 
-  // Settings Drawer Toggle
+  // Floating Input Form
+  if (aiInputForm) {
+    aiInputForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      handleConversation(aiMessagesWrap, aiChatInput);
+    });
+  }
+
+  // Floating Chips
+  if (aiChipsBar) {
+    aiChipsBar.querySelectorAll('.ai-chip').forEach((chip) => {
+      chip.addEventListener('click', () => {
+        const prompt = chip.getAttribute('data-prompt');
+        if (prompt) handleConversation(aiMessagesWrap, aiChatInput, prompt);
+      });
+    });
+  }
+
+  // Teaser bubble close
+  if (aiTeaserClose && aiTeaser) {
+    aiTeaserClose.addEventListener('click', (e) => {
+      e.stopPropagation();
+      aiTeaser.style.display = 'none';
+    });
+  }
+
+  // Show floating teaser after 1.8s
+  setTimeout(() => {
+    if (aiTeaser && !hasOpenedFloatingChat) {
+      aiTeaser.style.opacity = '1';
+    }
+  }, 1800);
+
+  // Settings Drawer Toggle & Key Save
   if (aiKeyToggleBtn && aiSettingsDrawer) {
     aiKeyToggleBtn.addEventListener('click', () => {
       aiSettingsDrawer.classList.toggle('open');
@@ -1413,7 +1510,6 @@ Respond in concise, helpful, aesthetic Markdown. Use friendly tech humor when ap
     });
   }
 
-  // Save Gemini Key
   if (aiSaveKeyBtn && aiGeminiKeyInput) {
     aiSaveKeyBtn.addEventListener('click', () => {
       const keyVal = aiGeminiKeyInput.value.trim();
@@ -1430,22 +1526,17 @@ Respond in concise, helpful, aesthetic Markdown. Use friendly tech humor when ap
     });
   }
 
-  // Chips Bar Listener
-  if (aiChipsBar) {
-    aiChipsBar.querySelectorAll('.ai-chip').forEach((chip) => {
-      chip.addEventListener('click', () => {
-        const prompt = chip.getAttribute('data-prompt');
-        if (prompt) handleUserSend(prompt);
+  // 3. Navbar & Hero trigger smooth scrolling
+  [heroAiBtn, navAiBtn, navAiLink].forEach((btn) => {
+    if (btn) {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        scrollToSection('#ai-agent');
+        if (embedAiInput) {
+          setTimeout(() => embedAiInput.focus(), 350);
+        }
       });
-    });
-  }
-
-  // Form Submit Listener
-  if (aiInputForm) {
-    aiInputForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      handleUserSend();
-    });
-  }
+    }
+  });
 
 })();

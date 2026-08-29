@@ -102,10 +102,20 @@
         <a href="#skills" class="nav-link">Skills</a>
         <a href="#telemetry" class="nav-link">Telemetry</a>
         <a href="#terminal" class="nav-link">CLI</a>
+        <a href="#ai-agent" class="nav-link nav-ai-link">
+          <span class="ai-pulse-dot"></span>
+          <span>Ask AI</span>
+        </a>
         <a href="#contact" class="nav-link cta-link">Get in Touch</a>
       </nav>
 
       <div class="nav-controls">
+        <!-- Prominent AI Agent Trigger Button -->
+        <a href="#ai-agent" class="btn-nav-ai" id="nav-ai-btn" aria-label="Open AI Copilot" title="Interact with A.N.I.R.B.A.N AI Agent">
+          <span class="nav-ai-icon">🤖</span>
+          <span class="nav-ai-text">AI Copilot</span>
+        </a>
+
         <!-- Interactive Hyperspace Warp Speed Toggle -->
         <button id="warp-toggle" class="btn-warp" aria-label="Engage Hyperspace Warp Drive" title="Engage Hyperspace Warp Speed Mode">
           <span class="warp-icon">🚀</span>
@@ -216,6 +226,10 @@
 
           <!-- Hero Action Buttons -->
           <div class="hero-actions">
+            <a href="#ai-agent" class="btn btn-ai-hero pulse-btn" id="hero-ai-btn" title="Talk with A.N.I.R.B.A.N AI Copilot">
+              <span class="ai-sparkle">🤖</span>
+              <span>Chat with AI Agent</span>
+            </a>
             <a href="#projects" class="btn btn-primary pulse-btn">
               <span>View Projects</span>
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
@@ -989,6 +1003,124 @@ Type 'help' to view available system commands.
       <img src="assets/svg/space-divider.svg" alt="" />
     </div>
 
+    <!-- ==========================================================================
+         AI MISSION COPILOT SECTION (A.N.I.R.B.A.N)
+         ========================================================================== -->
+    <section class="section ai-agent-section space-reveal" id="ai-agent">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-badge ai-neon-badge">
+            <span class="pulse-beacon-sm"></span>
+            AUTONOMOUS NEURAL INTERFACE
+          </span>
+          <h2 class="section-title">
+            Meet <span class="gradient-text">A.N.I.R.B.A.N</span> AI Copilot
+          </h2>
+          <p class="section-lead">
+            An interactive resident AI agent trained on Anirban Kar's backend engineering stack, Java 21 architecture, featured repositories, and real-time portfolio navigation.
+          </p>
+        </div>
+
+        <div class="ai-copilot-card neon-card-glow">
+          <!-- Left Sidebar / Capabilities -->
+          <div class="ai-copilot-sidebar">
+            <div class="ai-bot-profile">
+              <div class="ai-bot-avatar">
+                <span class="ai-bot-icon">🤖</span>
+                <span class="ai-bot-ring ring-1"></span>
+                <span class="ai-bot-ring ring-2"></span>
+              </div>
+              <div class="ai-bot-meta">
+                <h3 class="ai-bot-name">A.N.I.R.B.A.N</h3>
+                <span class="ai-bot-status">
+                  <span class="status-dot"></span>
+                  Online · Resident Copilot v2.5
+                </span>
+              </div>
+            </div>
+
+            <p class="ai-bot-desc">
+              Ask me anything about Anirban's Java 21 LTS systems, Spring Boot microservices, open-source repositories, or ask me to control the website!
+            </p>
+
+            <div class="ai-capabilities-box">
+              <span class="cap-title">Agent Capabilities:</span>
+              <ul class="cap-list">
+                <li>⚡ Deep Stack &amp; Concurrency Intel</li>
+                <li>🚀 Repository &amp; Project Diagnostics</li>
+                <li>🎯 Autonomous Page Navigation</li>
+                <li>🌌 Hyperspace &amp; Meteor Controls</li>
+                <li>💼 Recruiter &amp; Role Evaluation</li>
+              </ul>
+            </div>
+
+            <div class="ai-sidebar-chips">
+              <span class="cap-title">Quick Inquiries:</span>
+              <div class="quick-inquiries-list">
+                <button class="embed-ai-chip" data-query="Who is Anirban Kar?">👋 Who is Anirban?</button>
+                <button class="embed-ai-chip" data-query="Explain his Java 21 and Spring Boot stack">☕ Java 21 &amp; Spring Stack</button>
+                <button class="embed-ai-chip" data-query="What are your featured projects?">🚀 Featured Projects</button>
+                <button class="embed-ai-chip" data-query="Why should I hire Anirban Kar?">💼 Why Hire Him?</button>
+                <button class="embed-ai-chip" data-query="Engage hyperspace warp speed">✨ Warp Speed Mode</button>
+                <button class="embed-ai-chip" data-query="How can I contact Anirban?">📬 Contact &amp; Email</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main Chat Console -->
+          <div class="ai-copilot-main">
+            <div class="ai-console-header">
+              <div class="console-tab active">
+                <span class="tab-dot"></span>
+                <span>Active Conversation Stream</span>
+              </div>
+              <div class="console-actions">
+                <button class="console-btn" id="embed-ai-clear-btn" title="Clear conversation">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                  <span>Reset</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Messages Log -->
+            <div class="embed-ai-messages" id="embed-ai-messages" role="log" aria-live="polite">
+              <!-- Initial Welcome Message rendered dynamically -->
+            </div>
+
+            <!-- Prompt Suggestions -->
+            <div class="embed-ai-prompts-row" id="embed-prompts-row">
+              <button class="prompt-pill" data-query="Who is Anirban Kar?">Who is Anirban?</button>
+              <button class="prompt-pill" data-query="Show me his featured projects">Featured Projects 🚀</button>
+              <button class="prompt-pill" data-query="Why should I hire him?">Why Hire Him? 💼</button>
+              <button class="prompt-pill" data-query="Engage hyperspace warp speed">Warp Speed ✨</button>
+              <button class="prompt-pill" data-query="Tell me a Java joke">Java Joke ☕</button>
+            </div>
+
+            <!-- Input Bar -->
+            <form class="embed-ai-input-bar" id="embed-ai-form">
+              <input 
+                type="text" 
+                id="embed-ai-input" 
+                class="embed-ai-input" 
+                placeholder="Ask Anirban's AI anything... (or ask to navigate to projects, warp speed, etc.)" 
+                autocomplete="off"
+                aria-label="Message input for AI copilot"
+              />
+              <button type="submit" id="embed-ai-send" class="btn btn-primary embed-ai-send-btn">
+                <span>Send</span>
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cosmic Wave Divider -->
+    <div class="cosmic-divider" aria-hidden="true">
+      <img src="assets/svg/space-divider.svg" alt="" />
+    </div>
+
     <!-- About Section -->
     <section class="section about-section space-reveal" id="about">
       <div class="container">
@@ -1187,23 +1319,34 @@ Type 'help' to view available system commands.
        ========================================================================== -->
   <aside class="ai-agent-container" id="ai-agent-container" aria-label="AI Portfolio Assistant">
     
-    <!-- Floating AI Launcher Orb -->
-    <button class="ai-launcher-orb" id="ai-chat-launcher" aria-label="Open Anirban's AI Assistant" title="Chat with Anirban's AI Copilot">
-      <div class="orb-hologram">
-        <span class="orb-ring ring-outer"></span>
-        <span class="orb-ring ring-inner"></span>
-        <div class="orb-core">
-          <svg class="orb-icon" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 2a2 2 0 0 1 2 2v1h1a3 3 0 0 1 3 3v2a3 3 0 0 1 3 3v2a3 3 0 0 1-3 3v1a3 3 0 0 1-3 3h-2v1a2 2 0 1 1-4 0v-1H7a3 3 0 0 1-3-3v-1a3 3 0 0 1-3-3v-2a3 3 0 0 1 3-3V8a3 3 0 0 1 3-3h1V4a2 2 0 0 1 2-2z"/>
-            <circle cx="9" cy="12" r="1.5" fill="currentColor"/>
-            <circle cx="15" cy="12" r="1.5" fill="currentColor"/>
-            <path d="M9 16c1 .8 2 1 3 1s2-.2 3-1" stroke-linecap="round"/>
-          </svg>
-        </div>
+    <!-- Floating AI Launcher Orb with Visible Pill & Greeting Bubble -->
+    <div class="ai-launcher-group">
+      <div class="ai-speech-teaser" id="ai-speech-teaser" role="status">
+        <span class="teaser-sparkle">✨</span>
+        <span class="teaser-text">Ask Anirban's AI anything!</span>
+        <button class="teaser-close" id="ai-teaser-close" aria-label="Dismiss message">✕</button>
       </div>
-      <span class="orb-status-dot" title="AI Agent Active"></span>
-      <span class="orb-badge-label">AI Copilot</span>
-    </button>
+
+      <button class="ai-launcher-orb" id="ai-chat-launcher" aria-label="Open Anirban's AI Assistant" title="Chat with Anirban's AI Copilot">
+        <div class="orb-hologram">
+          <span class="orb-ring ring-outer"></span>
+          <span class="orb-ring ring-inner"></span>
+          <div class="orb-core">
+            <svg class="orb-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2a2 2 0 0 1 2 2v1h1a3 3 0 0 1 3 3v2a3 3 0 0 1 3 3v2a3 3 0 0 1-3 3v1a3 3 0 0 1-3 3h-2v1a2 2 0 1 1-4 0v-1H7a3 3 0 0 1-3-3v-1a3 3 0 0 1-3-3v-2a3 3 0 0 1 3-3V8a3 3 0 0 1 3-3h1V4a2 2 0 0 1 2-2z"/>
+              <circle cx="9" cy="12" r="1.5" fill="currentColor"/>
+              <circle cx="15" cy="12" r="1.5" fill="currentColor"/>
+              <path d="M9 16c1 .8 2 1 3 1s2-.2 3-1" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+        <span class="orb-status-dot" title="AI Agent Active"></span>
+        <span class="orb-visible-pill">
+          <span class="pill-dot"></span>
+          <span>Ask AI</span>
+        </span>
+      </button>
+    </div>
 
     <!-- AI Chat Window -->
     <div class="ai-chat-window" id="ai-chat-window" role="dialog" aria-labelledby="ai-chat-title" aria-hidden="true">
