@@ -17,14 +17,14 @@
   <meta property="og:url" content="https://anirbank33.github.io/portfolio/" />
   <meta property="og:title" content="Anirban Kar | Backend Software Engineer" />
   <meta property="og:description" content="Building resilient distributed systems, high-throughput APIs, and scalable backend infrastructure." />
-  <meta property="og:image" content="assets/images/anirban-portrait.jpg" />
+  <meta property="og:image" content="assets/images/anirban-pixar-avatar.jpg" />
 
   <!-- Twitter / X -->
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:url" content="https://anirbank33.github.io/portfolio/" />
   <meta property="twitter:title" content="Anirban Kar | Backend Software Engineer" />
   <meta property="twitter:description" content="Backend Software Engineer · Java · Spring Boot · Microservices · APIs · Bengaluru" />
-  <meta property="twitter:image" content="assets/images/anirban-portrait.jpg" />
+  <meta property="twitter:image" content="assets/images/anirban-pixar-avatar.jpg" />
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
@@ -48,7 +48,7 @@
     })();
   </script>
 
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=3d-pixar-v2" />
 </head>
 <body>
 
@@ -83,8 +83,8 @@
   <header class="navbar" id="navbar">
     <div class="container nav-container">
       <a href="#hero" class="brand-logo" aria-label="Anirban Kar Home">
-        <div class="nav-avatar-mini" title="Anirban Kar">
-          <img src="assets/images/anirban-portrait.jpg" alt="Anirban Kar" />
+        <div class="nav-avatar-mini" title="Anirban Kar — 3D Pixar Animated Avatar">
+          <img src="assets/images/anirban-pixar-animated.webp" alt="Anirban Kar" />
           <span class="nav-avatar-ring"></span>
         </div>
         <span class="logo-terminal">&gt;_</span>
@@ -156,12 +156,12 @@
           
           <!-- TOP-LEFT ANIMATED PHOTO SHOWCASE -->
           <div class="hero-top-left-profile" id="top-left-profile">
-            <div class="hologram-avatar-wrap">
+            <div class="hologram-avatar-wrap" id="hologram-avatar-wrap">
               <div class="cyber-glow-aura"></div>
               <div class="cyber-ring ring-1"></div>
               <div class="cyber-ring ring-2"></div>
-              <div class="avatar-photo-frame">
-                <img src="assets/images/anirban-portrait.jpg" alt="Anirban Kar" class="hologram-avatar-img" id="hero-profile-photo" />
+              <div class="avatar-photo-frame" id="avatar-photo-frame" title="Click to cycle 3D Pixar Animation &amp; Photos">
+                <img src="assets/images/anirban-pixar-animated.webp" alt="Anirban Kar — 3D Pixar Animation &amp; Moving Art" class="hologram-avatar-img" id="hero-profile-photo" />
                 <div class="scan-beam"></div>
                 <div class="hologram-overlay"></div>
               </div>
@@ -185,6 +185,11 @@
               <h2 class="meta-name">Anirban Kar</h2>
               <div class="meta-title-tag">
                 <span class="pulse-spark">⚡</span> Backend Engineer · Bengaluru
+              </div>
+              <div class="avatar-switcher-hint" id="avatar-switcher-hint" title="Click the photo frame to switch art style">
+                <span class="switcher-icon">✨</span>
+                <span>Art:</span>
+                <span class="switcher-tag" id="current-photo-label">3D Pixar (Moving Art)</span>
               </div>
             </div>
           </div>
@@ -1173,7 +1178,7 @@ Type 'help' to view available system commands.
           <div class="about-card-side">
             <div class="about-profile-card tilt-card neon-card-glow">
               <div class="profile-avatar-wrap">
-                <img src="assets/images/anirban-portrait.jpg" alt="Anirban Kar" class="profile-avatar" />
+                <img src="assets/images/anirban-pixar-animated.webp" alt="Anirban Kar — 3D Pixar Avatar" class="profile-avatar" />
                 <div class="avatar-ring ring-spin-slow"></div>
                 <div class="avatar-ring-outer ring-spin-reverse"></div>
               </div>
@@ -1440,6 +1445,6 @@ Type 'help' to view available system commands.
     </div>
   </aside>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=3d-pixar-v2"></script>
 </body>
 </html>

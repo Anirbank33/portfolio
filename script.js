@@ -472,28 +472,85 @@
   });
 
   /* ==========================================================================
-     4. TOP-LEFT AVATAR PHOTO SWITCHER
+     4. TOP-LEFT 3D PIXAR AVATAR & MOVING ART INTERACTION
      ========================================================================== */
   const heroProfilePhoto = document.getElementById('hero-profile-photo');
-  const photos = [
-    'assets/images/anirban-portrait.jpg',
-    'assets/images/anirban-photo-2.jpg',
-    'assets/images/anirban-photo-3.jpg'
-  ];
-  let photoIndex = 0;
+  const photoFrame = document.getElementById('avatar-photo-frame') || (heroProfilePhoto ? heroProfilePhoto.parentElement : null);
+  const avatarWrap = document.getElementById('hologram-avatar-wrap') || document.querySelector('.hologram-avatar-wrap');
+  const currentPhotoLabel = document.getElementById('current-photo-label');
 
-  if (heroProfilePhoto) {
-    heroProfilePhoto.parentElement.addEventListener('click', () => {
-      photoIndex = (photoIndex + 1) % photos.length;
-      heroProfilePhoto.style.opacity = '0.3';
-      heroProfilePhoto.style.filter = 'brightness(1.8) hue-rotate(90deg)';
+  const avatarGallery = [
+    {
+      src: 'assets/images/anirban-pixar-animated.webp',
+      alt: 'Anirban Kar — 3D Pixar Animation & Moving Art',
+      label: '✨ 3D Pixar (Moving Art)'
+    },
+    {
+      src: 'assets/images/anirban-pixar-wave.jpg',
+      alt: 'Anirban Kar — 3D Pixar Cyber Wave',
+      label: '👋 3D Pixar Cyber Wave'
+    },
+    {
+      src: 'assets/images/anirban-pixar-avatar.jpg',
+      alt: 'Anirban Kar — 3D Pixar Studio Character',
+      label: '🎨 3D Pixar Studio'
+    },
+    {
+      src: 'assets/images/anirban-portrait.jpg',
+      alt: 'Anirban Kar — Real Life Portrait',
+      label: '📸 Real Life Portrait'
+    }
+  ];
+
+  let currentAvatarIdx = 0;
+
+  if (heroProfilePhoto && photoFrame) {
+    // Click on avatar to cycle styles with 3D flip & cyber hologram effect
+    photoFrame.addEventListener('click', () => {
+      currentAvatarIdx = (currentAvatarIdx + 1) % avatarGallery.length;
+      const current = avatarGallery[currentAvatarIdx];
+
+      photoFrame.style.transition = 'transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), filter 0.25s ease';
+      photoFrame.style.transform = 'scale(0.92) rotateY(90deg)';
+      photoFrame.style.filter = 'brightness(2) drop-shadow(0 0 20px var(--neon-cyan))';
 
       setTimeout(() => {
-        heroProfilePhoto.src = photos[photoIndex];
-        heroProfilePhoto.style.opacity = '1';
-        heroProfilePhoto.style.filter = '';
-      }, 180);
+        heroProfilePhoto.src = current.src;
+        heroProfilePhoto.alt = current.alt;
+
+        if (currentPhotoLabel) {
+          currentPhotoLabel.textContent = current.label;
+          currentPhotoLabel.style.transform = 'scale(1.15)';
+          currentPhotoLabel.style.borderColor = 'var(--neon-cyan)';
+          setTimeout(() => {
+            currentPhotoLabel.style.transform = 'scale(1)';
+          }, 220);
+        }
+
+        photoFrame.style.transform = 'scale(1) rotateY(0deg)';
+        photoFrame.style.filter = '';
+      }, 160);
     });
+
+    // Dynamic 3D interactive moving art parallax on mouse movement
+    if (avatarWrap) {
+      avatarWrap.addEventListener('mousemove', (e) => {
+        const rect = avatarWrap.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+
+        const tiltX = (y / (rect.height / 2)) * -14;
+        const tiltY = (x / (rect.width / 2)) * 14;
+
+        photoFrame.style.transition = 'transform 0.08s ease-out';
+        photoFrame.style.transform = `perspective(600px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) scale3d(1.05, 1.05, 1.05)`;
+      });
+
+      avatarWrap.addEventListener('mouseleave', () => {
+        photoFrame.style.transition = 'transform 0.35s ease';
+        photoFrame.style.transform = 'perspective(600px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      });
+    }
   }
 
   /* ==========================================================================

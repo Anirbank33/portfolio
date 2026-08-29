@@ -338,12 +338,19 @@ button {
 
 .nav-avatar-mini {
   position: relative;
-  width: 36px;
-  height: 36px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: transform 0.25s ease;
+}
+
+.nav-avatar-mini:hover {
+  transform: scale(1.08);
 }
 
 .nav-avatar-mini img {
@@ -352,11 +359,12 @@ button {
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid var(--neon-cyan);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.45);
 }
 
 .nav-avatar-ring {
   position: absolute;
-  inset: -3px;
+  inset: -4px;
   border: 1.5px dashed var(--neon-magenta);
   border-radius: 50%;
   animation: rotateRing 10s linear infinite;
@@ -530,40 +538,41 @@ button {
 .hero-top-left-profile {
   display: flex;
   align-items: center;
-  gap: 1.8rem;
-  margin-bottom: 1.8rem;
+  gap: 2.2rem;
+  margin-bottom: 2rem;
 }
 
 .hologram-avatar-wrap {
   position: relative;
-  width: 106px;
-  height: 106px;
+  width: 138px;
+  height: 138px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  perspective: 800px;
   animation: floatAvatar 4s ease-in-out infinite alternate;
 }
 
 @keyframes floatAvatar {
   0% { transform: translateY(0px); }
-  50% { transform: translateY(-5px); }
+  50% { transform: translateY(-6px); }
   100% { transform: translateY(-1px); }
 }
 
 .cyber-glow-aura {
   position: absolute;
-  inset: -10px;
+  inset: -14px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(56, 189, 248, 0.4) 0%, rgba(244, 63, 94, 0.25) 55%, transparent 75%);
-  filter: blur(12px);
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.45) 0%, rgba(244, 63, 94, 0.3) 55%, transparent 75%);
+  filter: blur(16px);
   z-index: 0;
   animation: pulseAura 3s ease-in-out infinite alternate;
 }
 
 @keyframes pulseAura {
   0% { transform: scale(0.92); opacity: 0.55; }
-  100% { transform: scale(1.12); opacity: 0.95; }
+  100% { transform: scale(1.15); opacity: 0.95; }
 }
 
 .cyber-ring {
@@ -573,13 +582,13 @@ button {
 }
 
 .ring-1 {
-  inset: -6px;
+  inset: -8px;
   border: 2px dashed var(--neon-cyan);
   animation: rotateRing 8s linear infinite;
 }
 
 .ring-2 {
-  inset: -13px;
+  inset: -16px;
   border: 1.5px dotted var(--neon-magenta);
   animation: rotateRingRev 14s linear infinite;
 }
@@ -597,19 +606,24 @@ button {
 /* Avatar Photo Frame with Perfect Internal Scan Mask */
 .avatar-photo-frame {
   position: relative;
-  width: 94px;
-  height: 94px;
+  width: 122px;
+  height: 122px;
   border-radius: 50%;
   overflow: hidden;
   z-index: 2;
-  box-shadow: 0 0 20px rgba(56, 189, 248, 0.45);
-  border: 3px solid #ffffff;
+  box-shadow: 0 0 25px rgba(56, 189, 248, 0.55), 0 0 50px rgba(244, 63, 94, 0.25);
+  border: 3.5px solid #ffffff;
   cursor: pointer;
-  transition: transform 0.25s ease;
+  transform-style: preserve-3d;
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease;
 }
 
 [data-theme="dark"] .avatar-photo-frame {
-  border-color: #1e293b;
+  border-color: rgba(56, 189, 248, 0.85);
+}
+
+.avatar-photo-frame:hover {
+  box-shadow: 0 0 35px rgba(56, 189, 248, 0.8), 0 0 65px rgba(244, 63, 94, 0.45);
 }
 
 .hologram-avatar-img {
@@ -621,7 +635,7 @@ button {
 }
 
 .avatar-photo-frame:hover .hologram-avatar-img {
-  transform: scale(1.06);
+  transform: scale(1.08);
 }
 
 /* Scanning beam inside the circular frame */
@@ -632,7 +646,7 @@ button {
   width: 100%;
   height: 3px;
   background: linear-gradient(90deg, transparent, var(--neon-cyan), #ffffff, var(--neon-magenta), transparent);
-  box-shadow: 0 0 8px var(--neon-cyan);
+  box-shadow: 0 0 10px var(--neon-cyan);
   opacity: 0.85;
   z-index: 4;
   pointer-events: none;
@@ -652,10 +666,10 @@ button {
   z-index: 5;
   background: var(--bg-glass-strong);
   backdrop-filter: blur(8px);
-  padding: 0.22rem 0.55rem;
+  padding: 0.25rem 0.65rem;
   border-radius: var(--radius-full);
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   font-weight: 700;
   color: var(--text-primary);
   border: 1px solid var(--border-medium);
@@ -666,21 +680,21 @@ button {
 
 .orbit-1 {
   top: -8px;
-  right: -16px;
+  right: -24px;
   border-color: rgba(56, 189, 248, 0.4);
   color: var(--neon-cyan);
 }
 
 .orbit-2 {
   bottom: -6px;
-  left: -12px;
+  left: -20px;
   border-color: rgba(52, 211, 153, 0.4);
   color: var(--neon-emerald);
 }
 
 .orbit-3 {
-  bottom: 8px;
-  right: -24px;
+  bottom: 12px;
+  right: -32px;
   border-color: rgba(244, 63, 94, 0.4);
 }
 
@@ -692,6 +706,27 @@ button {
   background: var(--neon-emerald);
   box-shadow: 0 0 6px var(--neon-emerald);
   margin-right: 3px;
+}
+
+.avatar-switcher-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.5rem;
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.switcher-tag {
+  background: rgba(56, 189, 248, 0.12);
+  color: var(--neon-cyan);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 0.15rem 0.55rem;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  font-size: 0.7rem;
+  transition: all 0.2s ease;
 }
 
 .hero-profile-meta {
