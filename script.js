@@ -1595,5 +1595,35 @@ Respond in concise, helpful, aesthetic Markdown. Use friendly tech humor when ap
       });
     }
   });
+  // 4. Hero Compact Connected Actions Interactive Controller
+  (function initConnectedActionsStream() {
+    const streamWrap = document.getElementById('hero-actions-stream');
+    if (!streamWrap) return;
+
+    // Interactive cursor holographic flare tracking
+    streamWrap.addEventListener('mousemove', (e) => {
+      const rect = streamWrap.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      streamWrap.style.setProperty('--stream-mx', `${x.toFixed(1)}%`);
+      streamWrap.style.setProperty('--stream-my', `${y.toFixed(1)}%`);
+    });
+
+    streamWrap.addEventListener('mouseleave', () => {
+      streamWrap.style.setProperty('--stream-mx', '50%');
+      streamWrap.style.setProperty('--stream-my', '50%');
+    });
+
+    // High-speed energetic packet pulse surge on button click
+    const actionBtns = streamWrap.querySelectorAll('.compact-action-btn, .sub-action-pill');
+    actionBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        streamWrap.classList.add('stream-pulsing');
+        setTimeout(() => {
+          streamWrap.classList.remove('stream-pulsing');
+        }, 900);
+      });
+    });
+  })();
 
 })();

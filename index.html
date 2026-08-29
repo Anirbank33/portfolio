@@ -48,7 +48,7 @@
     })();
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=3d-pixar-v2" />
+  <link rel="stylesheet" href="styles.css?v=connected-actions-v3" />
 </head>
 <body>
 
@@ -229,38 +229,206 @@
             </div>
           </div>
 
-          <!-- Hero Action Buttons -->
-          <div class="hero-actions">
-            <a href="#ai-agent" class="btn btn-ai-hero pulse-btn" id="hero-ai-btn" title="Talk with A.N.I.R.B.A.N AI Copilot">
-              <span class="ai-sparkle">🤖</span>
-              <span>Chat with AI Agent</span>
-            </a>
-            <a href="#projects" class="btn btn-primary pulse-btn">
-              <span>View Projects</span>
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-            </a>
-            <a href="https://github.com/Anirbank33" target="_blank" rel="noopener noreferrer" class="btn btn-secondary glass-btn">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-              <span>GitHub (@Anirbank33)</span>
-            </a>
-            <a href="#terminal" class="btn btn-ghost glow-hover">
-              <code>&gt; open CLI</code>
-            </a>
-          </div>
+          <!-- Compact Connected Cyber Actions Stream -->
+          <div class="hero-actions-stream-wrap hero-actions" id="hero-actions-stream" aria-label="Interactive Quick Actions">
+            <div class="actions-stream-header">
+              <div class="actions-stream-label">
+                <span class="stream-pulse-dot"></span>
+                <span class="stream-label-text">INGRESS ACTIONS</span>
+              </div>
+              <div class="actions-stream-meta">
+                <span class="stream-meta-flow">
+                  <span class="meta-dot"></span>
+                  <span class="meta-txt">DOTTED SIGNAL STREAM</span>
+                </span>
+                <span class="stream-meta-badge">6 NODES ONLINE</span>
+              </div>
+            </div>
 
-          <div class="hero-socials">
-            <a href="https://www.linkedin.com/in/anirban-kar-23645414a/" target="_blank" rel="noopener noreferrer" class="social-chip" title="LinkedIn">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-              <span>LinkedIn</span>
-            </a>
-            <a href="https://x.com/3anir33" target="_blank" rel="noopener noreferrer" class="social-chip" title="X / Twitter">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-              <span>@3anir33</span>
-            </a>
-            <a href="mailto:anirbankar23@gmail.com" class="social-chip" title="Direct Email">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-              <span>anirbankar23@gmail.com</span>
-            </a>
+            <nav class="hero-connected-actions" id="hero-connected-actions" aria-label="Quick Actions Navigation">
+              <!-- Action 1: AI Copilot -->
+              <div class="action-node-wrapper" data-index="0">
+                <span class="node-port port-in"></span>
+                <a href="#ai-agent" class="compact-action-btn action-ai-copilot" id="hero-ai-btn" title="Launch A.N.I.R.B.A.N AI Copilot">
+                  <span class="btn-ambient-glow"></span>
+                  <span class="btn-border-beam"></span>
+                  <span class="btn-sheen-sweep"></span>
+                  <span class="action-icon-pill">
+                    <span class="action-emoji">🤖</span>
+                    <span class="action-status-ring"></span>
+                  </span>
+                  <span class="action-text">AI Copilot</span>
+                  <span class="action-badge-live">LIVE</span>
+                </a>
+                <span class="node-port port-out"></span>
+              </div>
+
+              <!-- Dotted Connector 1 -> 2 -->
+              <div class="action-connector" aria-hidden="true">
+                <div class="connector-line-wrap">
+                  <svg class="connector-svg" width="38" height="12" viewBox="0 0 38 12" fill="none">
+                    <line x1="2" y1="6" x2="30" y2="6" class="connector-dotted-line" stroke-dasharray="2 4" stroke-linecap="round" stroke-width="1.8" />
+                    <circle class="connector-flowing-packet" cx="2" cy="6" r="2.4" />
+                    <polygon points="30,3.5 35,6 30,8.5" class="connector-arrow-head" />
+                  </svg>
+                  <span class="traveling-packet-bead"></span>
+                  <div class="connector-micro-dots">
+                    <span class="micro-dot md-1"></span>
+                    <span class="micro-dot md-2"></span>
+                    <span class="micro-dot md-3"></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Action 2: Projects -->
+              <div class="action-node-wrapper" data-index="1">
+                <span class="node-port port-in"></span>
+                <a href="#projects" class="compact-action-btn action-projects" title="Explore Featured Engineering Projects">
+                  <span class="btn-ambient-glow"></span>
+                  <span class="btn-sheen-sweep"></span>
+                  <span class="action-icon-pill">
+                    <span class="action-emoji">🚀</span>
+                  </span>
+                  <span class="action-text">Projects</span>
+                  <span class="action-badge-metric">23+</span>
+                </a>
+                <span class="node-port port-out"></span>
+              </div>
+
+              <!-- Dotted Connector 2 -> 3 -->
+              <div class="action-connector" aria-hidden="true">
+                <div class="connector-line-wrap">
+                  <svg class="connector-svg" width="38" height="12" viewBox="0 0 38 12" fill="none">
+                    <line x1="2" y1="6" x2="30" y2="6" class="connector-dotted-line" stroke-dasharray="2 4" stroke-linecap="round" stroke-width="1.8" />
+                    <circle class="connector-flowing-packet" cx="2" cy="6" r="2.4" />
+                    <polygon points="30,3.5 35,6 30,8.5" class="connector-arrow-head" />
+                  </svg>
+                  <span class="traveling-packet-bead"></span>
+                  <div class="connector-micro-dots">
+                    <span class="micro-dot md-1"></span>
+                    <span class="micro-dot md-2"></span>
+                    <span class="micro-dot md-3"></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Action 3: Architecture Pipeline -->
+              <div class="action-node-wrapper" data-index="2">
+                <span class="node-port port-in"></span>
+                <a href="#pipeline" class="compact-action-btn action-pipeline" title="Explore Spring &amp; Distributed Architecture">
+                  <span class="btn-ambient-glow"></span>
+                  <span class="btn-sheen-sweep"></span>
+                  <span class="action-icon-pill">
+                    <span class="action-emoji">⚡</span>
+                  </span>
+                  <span class="action-text">Architecture</span>
+                </a>
+                <span class="node-port port-out"></span>
+              </div>
+
+              <!-- Dotted Connector 3 -> 4 -->
+              <div class="action-connector" aria-hidden="true">
+                <div class="connector-line-wrap">
+                  <svg class="connector-svg" width="38" height="12" viewBox="0 0 38 12" fill="none">
+                    <line x1="2" y1="6" x2="30" y2="6" class="connector-dotted-line" stroke-dasharray="2 4" stroke-linecap="round" stroke-width="1.8" />
+                    <circle class="connector-flowing-packet" cx="2" cy="6" r="2.4" />
+                    <polygon points="30,3.5 35,6 30,8.5" class="connector-arrow-head" />
+                  </svg>
+                  <span class="traveling-packet-bead"></span>
+                  <div class="connector-micro-dots">
+                    <span class="micro-dot md-1"></span>
+                    <span class="micro-dot md-2"></span>
+                    <span class="micro-dot md-3"></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Action 4: GitHub Profile -->
+              <div class="action-node-wrapper" data-index="3">
+                <span class="node-port port-in"></span>
+                <a href="https://github.com/Anirbank33" target="_blank" rel="noopener noreferrer" class="compact-action-btn action-github" title="Visit GitHub (@Anirbank33)">
+                  <span class="btn-ambient-glow"></span>
+                  <span class="btn-sheen-sweep"></span>
+                  <span class="action-icon-pill">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" class="action-svg-icon"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                  </span>
+                  <span class="action-text">GitHub</span>
+                  <span class="action-badge-dim">@Anirbank33</span>
+                </a>
+                <span class="node-port port-out"></span>
+              </div>
+
+              <!-- Dotted Connector 4 -> 5 -->
+              <div class="action-connector" aria-hidden="true">
+                <div class="connector-line-wrap">
+                  <svg class="connector-svg" width="38" height="12" viewBox="0 0 38 12" fill="none">
+                    <line x1="2" y1="6" x2="30" y2="6" class="connector-dotted-line" stroke-dasharray="2 4" stroke-linecap="round" stroke-width="1.8" />
+                    <circle class="connector-flowing-packet" cx="2" cy="6" r="2.4" />
+                    <polygon points="30,3.5 35,6 30,8.5" class="connector-arrow-head" />
+                  </svg>
+                  <span class="traveling-packet-bead"></span>
+                  <div class="connector-micro-dots">
+                    <span class="micro-dot md-1"></span>
+                    <span class="micro-dot md-2"></span>
+                    <span class="micro-dot md-3"></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Action 5: Interactive Terminal -->
+              <div class="action-node-wrapper" data-index="4">
+                <span class="node-port port-in"></span>
+                <a href="#terminal" class="compact-action-btn action-cli" title="Open Interactive CLI Terminal">
+                  <span class="btn-ambient-glow"></span>
+                  <span class="btn-sheen-sweep"></span>
+                  <span class="action-icon-pill">
+                    <code class="action-cli-prompt">&gt;_</code>
+                  </span>
+                  <span class="action-text">CLI</span>
+                </a>
+                <span class="node-port port-out"></span>
+              </div>
+
+              <!-- Dotted Connector 5 -> 6 -->
+              <div class="action-connector" aria-hidden="true">
+                <div class="connector-line-wrap">
+                  <svg class="connector-svg" width="38" height="12" viewBox="0 0 38 12" fill="none">
+                    <line x1="2" y1="6" x2="30" y2="6" class="connector-dotted-line" stroke-dasharray="2 4" stroke-linecap="round" stroke-width="1.8" />
+                    <circle class="connector-flowing-packet" cx="2" cy="6" r="2.4" />
+                    <polygon points="30,3.5 35,6 30,8.5" class="connector-arrow-head" />
+                  </svg>
+                  <span class="traveling-packet-bead"></span>
+                  <div class="connector-micro-dots">
+                    <span class="micro-dot md-1"></span>
+                    <span class="micro-dot md-2"></span>
+                    <span class="micro-dot md-3"></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Action 6: Compact Quick Contact / Social Cluster -->
+              <div class="action-node-wrapper action-contact-cluster" data-index="5">
+                <span class="node-port port-in"></span>
+                <a href="#contact" class="compact-action-btn action-contact" title="Get in Touch with Anirban">
+                  <span class="btn-ambient-glow"></span>
+                  <span class="btn-sheen-sweep"></span>
+                  <span class="action-icon-pill">
+                    <span class="action-emoji">📬</span>
+                  </span>
+                  <span class="action-text">Contact</span>
+                </a>
+                <div class="sub-actions-dock">
+                  <a href="https://www.linkedin.com/in/anirban-kar-23645414a/" target="_blank" rel="noopener noreferrer" class="sub-action-pill" title="LinkedIn Profile">
+                    <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    <span>LinkedIn</span>
+                  </a>
+                  <a href="mailto:anirbankar23@gmail.com" class="sub-action-pill" title="Email anirbankar23@gmail.com">
+                    <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    <span>Email</span>
+                  </a>
+                </div>
+              </div>
+            </nav>
           </div>
         </div>
 
@@ -1445,6 +1613,6 @@ Type 'help' to view available system commands.
     </div>
   </aside>
 
-  <script src="script.js?v=3d-pixar-v2"></script>
+  <script src="script.js?v=connected-actions-v3"></script>
 </body>
 </html>

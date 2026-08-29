@@ -907,13 +907,772 @@ button {
   font-weight: 600;
 }
 
-/* Hero Action Buttons */
-.hero-actions {
+/* ==========================================================================
+   COMPACT CONNECTED CYBER ACTIONS STREAM (HERO TOP ACTIONS)
+   Futuristic, compact, interconnected nodes with animated dotted stream
+   ========================================================================== */
+
+.hero-actions-stream-wrap {
+  margin: 1.4rem 0 1.8rem 0;
+  padding: 0.75rem 1rem 0.85rem 1rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  max-width: 100%;
+}
+
+[data-theme="dark"] .hero-actions-stream-wrap,
+:root:not([data-theme="light"]) .hero-actions-stream-wrap {
+  background: rgba(12, 18, 34, 0.72);
+  border-color: rgba(56, 189, 248, 0.22);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 0 20px rgba(2, 132, 199, 0.08);
+}
+
+.hero-actions-stream-wrap:hover {
+  border-color: rgba(56, 189, 248, 0.4);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 0 0 30px rgba(56, 189, 248, 0.12);
+}
+
+/* Ambient Moving Energy Beam along the top border */
+.hero-actions-stream-wrap::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 50%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--neon-cyan), var(--neon-purple), transparent);
+  animation: streamBorderBeam 5s linear infinite;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+@keyframes streamBorderBeam {
+  0% { left: -60%; }
+  100% { left: 160%; }
+}
+
+/* Stream HUD Header */
+.actions-stream-header {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.65rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px dashed var(--border-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.actions-stream-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--neon-cyan);
+  font-weight: 700;
+}
+
+.stream-pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--neon-emerald);
+  box-shadow: 0 0 8px var(--neon-emerald);
+  animation: streamBeaconPulse 1.8s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes streamBeaconPulse {
+  0%, 100% { transform: scale(1); opacity: 1; box-shadow: 0 0 8px var(--neon-emerald); }
+  50% { transform: scale(1.4); opacity: 0.65; box-shadow: 0 0 16px var(--neon-emerald); }
+}
+
+.actions-stream-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: var(--text-muted);
+}
+
+.stream-meta-flow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.stream-meta-flow .meta-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--neon-cyan);
+  animation: metaDotPulse 1.4s infinite alternate;
+}
+
+@keyframes metaDotPulse {
+  from { opacity: 0.4; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1.2); }
+}
+
+.stream-meta-badge {
+  padding: 0.15rem 0.45rem;
+  background: rgba(5, 150, 105, 0.12);
+  color: var(--neon-emerald);
+  border: 1px solid rgba(5, 150, 105, 0.3);
+  border-radius: var(--radius-full);
+  font-size: 0.64rem;
+  font-weight: 600;
+}
+
+/* Connected Actions Rail / Flow */
+.hero-connected-actions {
+  display: flex;
+  align-items: center;
   flex-wrap: wrap;
-  margin-bottom: 2rem;
+  row-gap: 0.6rem;
+  column-gap: 0.25rem;
+  position: relative;
+}
+
+/* Action Node Wrapper with subtle staggered floating physics */
+.action-node-wrapper {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  animation: actionNodeFloat 3.8s ease-in-out infinite alternate;
+}
+
+.action-node-wrapper[data-index="0"] { animation-delay: 0s; }
+.action-node-wrapper[data-index="1"] { animation-delay: 0.4s; }
+.action-node-wrapper[data-index="2"] { animation-delay: 0.8s; }
+.action-node-wrapper[data-index="3"] { animation-delay: 1.2s; }
+.action-node-wrapper[data-index="4"] { animation-delay: 1.6s; }
+.action-node-wrapper[data-index="5"] { animation-delay: 2.0s; }
+
+@keyframes actionNodeFloat {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-3px); }
+}
+
+/* Compact Action Button Base */
+.compact-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  height: 35px;
+  padding: 0 0.8rem;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: var(--font-sans);
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  white-space: nowrap;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.22s ease,
+              border-color 0.22s ease,
+              background 0.22s ease,
+              color 0.22s ease;
+  user-select: none;
+}
+
+.compact-action-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  color: var(--text-primary);
+  z-index: 5;
+}
+
+/* Moving Light Sheen Sweep Effect on compact buttons */
+.btn-sheen-sweep {
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 70%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+  transform: skewX(-20deg);
+  pointer-events: none;
+  animation: actionSheenSweep 4.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+[data-theme="light"] .btn-sheen-sweep {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+}
+
+@keyframes actionSheenSweep {
+  0% { left: -120%; opacity: 0; }
+  15% { opacity: 0.8; }
+  35% { left: 160%; opacity: 0; }
+  100% { left: 160%; opacity: 0; }
+}
+
+/* Ambient glow under hover */
+.btn-ambient-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.compact-action-btn:hover .btn-ambient-glow {
+  opacity: 1;
+}
+
+/* 1. AI Copilot Node */
+.action-ai-copilot {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.16), rgba(168, 85, 247, 0.24));
+  border-color: rgba(56, 189, 248, 0.45);
+}
+
+[data-theme="light"] .action-ai-copilot {
+  background: linear-gradient(135deg, rgba(2, 132, 199, 0.12), rgba(124, 58, 237, 0.14));
+  border-color: rgba(2, 132, 199, 0.35);
+}
+
+.action-ai-copilot:hover {
+  border-color: var(--neon-cyan);
+  box-shadow: 0 6px 20px rgba(56, 189, 248, 0.4), 0 0 15px rgba(168, 85, 247, 0.35);
+}
+
+.action-ai-copilot .btn-ambient-glow {
+  background: radial-gradient(circle at center, rgba(56, 189, 248, 0.2), transparent 70%);
+}
+
+/* Rotating Border Beam for AI Copilot */
+.btn-border-beam {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(from var(--beam-angle, 0deg), transparent 60%, var(--neon-cyan) 85%, var(--neon-purple) 95%, transparent 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  animation: rotateBorderBeam 3.6s linear infinite;
+}
+
+@property --beam-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes rotateBorderBeam {
+  to { --beam-angle: 360deg; }
+}
+
+/* AI Copilot Radar Status Ring */
+.action-icon-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.action-status-ring {
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1px solid var(--neon-cyan);
+  animation: pingStatusRing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  pointer-events: none;
+}
+
+@keyframes pingStatusRing {
+  0% { transform: scale(0.85); opacity: 0.9; }
+  75%, 100% { transform: scale(1.7); opacity: 0; }
+}
+
+.action-badge-live {
+  font-size: 0.62rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  padding: 0.12rem 0.4rem;
+  border-radius: var(--radius-full);
+  background: rgba(56, 189, 248, 0.2);
+  color: var(--neon-cyan);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  letter-spacing: 0.04em;
+}
+
+/* 2. Projects Node */
+.action-projects {
+  background: linear-gradient(135deg, rgba(2, 132, 199, 0.1), rgba(99, 102, 241, 0.15));
+  border-color: rgba(2, 132, 199, 0.35);
+}
+
+.action-projects:hover {
+  border-color: var(--neon-cyan);
+  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.35), 0 0 12px rgba(99, 102, 241, 0.25);
+}
+
+.action-badge-metric {
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  padding: 0.1rem 0.38rem;
+  border-radius: var(--radius-full);
+  background: rgba(2, 132, 199, 0.15);
+  color: var(--neon-cyan);
+  border: 1px solid rgba(2, 132, 199, 0.3);
+}
+
+/* 3. Architecture Pipeline Node */
+.action-pipeline {
+  background: linear-gradient(135deg, rgba(5, 150, 105, 0.1), rgba(20, 184, 166, 0.16));
+  border-color: rgba(5, 150, 105, 0.35);
+}
+
+.action-pipeline:hover {
+  border-color: var(--neon-emerald);
+  box-shadow: 0 6px 20px rgba(5, 150, 105, 0.35), 0 0 12px rgba(20, 184, 166, 0.25);
+}
+
+/* 4. GitHub Profile Node */
+.action-github {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(244, 63, 94, 0.12));
+  border-color: rgba(168, 85, 247, 0.32);
+}
+
+.action-github:hover {
+  border-color: var(--neon-purple);
+  box-shadow: 0 6px 20px rgba(168, 85, 247, 0.35), 0 0 12px rgba(244, 63, 94, 0.25);
+}
+
+.action-svg-icon {
+  display: block;
+  fill: currentColor;
+}
+
+.action-badge-dim {
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+}
+
+/* 5. CLI Terminal Node */
+.action-cli {
+  background: linear-gradient(135deg, rgba(217, 119, 6, 0.1), rgba(245, 158, 11, 0.14));
+  border-color: rgba(217, 119, 6, 0.32);
+}
+
+.action-cli:hover {
+  border-color: var(--neon-amber);
+  box-shadow: 0 6px 20px rgba(217, 119, 6, 0.35), 0 0 12px rgba(245, 158, 11, 0.25);
+}
+
+.action-cli-prompt {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--neon-amber);
+  font-size: 0.8rem;
+}
+
+/* 6. Contact & Socials Cluster */
+.action-contact-cluster {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.action-contact {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.14));
+  border-color: rgba(99, 102, 241, 0.32);
+}
+
+.action-contact:hover {
+  border-color: #6366f1;
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.35);
+}
+
+.sub-actions-dock {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.sub-action-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  height: 28px;
+  padding: 0 0.6rem;
+  border-radius: var(--radius-full);
+  font-size: 0.74rem;
+  font-weight: 600;
+  font-family: var(--font-sans);
+  text-decoration: none;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sub-action-pill:hover {
+  transform: translateY(-2px);
+  border-color: var(--neon-cyan);
+  color: var(--neon-cyan);
+  box-shadow: 0 4px 10px rgba(56, 189, 248, 0.25);
+}
+
+/* ==========================================================================
+   DOTTED CONNECTOR WITH SMALL DOTTED ANIMATIONS
+   Connects the action buttons with an animated, flowing dotted packet stream
+   ========================================================================== */
+
+.action-connector {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.15rem;
+  flex-shrink: 0;
+  position: relative;
+  user-select: none;
+}
+
+.connector-line-wrap {
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 12px;
+}
+
+/* SVG Line with Crisp Dotted Pattern */
+.connector-svg {
+  display: block;
+  overflow: visible;
+  color: var(--neon-cyan);
+}
+
+.connector-dotted-line {
+  stroke: var(--neon-cyan);
+  stroke-opacity: 0.38;
+  stroke-dasharray: 2 4;
+  animation: dottedLineFlow 1.4s linear infinite;
+  transition: stroke-opacity 0.3s ease, stroke 0.3s ease;
+}
+
+@keyframes dottedLineFlow {
+  from { stroke-dashoffset: 12; }
+  to { stroke-dashoffset: 0; }
+}
+
+/* Traveling Animated Light Packet */
+.connector-flowing-packet {
+  fill: var(--neon-cyan);
+  filter: drop-shadow(0 0 4px var(--neon-cyan)) drop-shadow(0 0 7px var(--neon-cyan));
+  animation: packetSlideAcross 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  opacity: 0.95;
+  transition: filter 0.3s ease, fill 0.3s ease;
+}
+
+/* Staggered Packet Traveling Across Consecutive Connectors */
+.hero-connected-actions .action-connector:nth-of-type(1) .connector-flowing-packet {
+  animation-delay: 0s;
+}
+.hero-connected-actions .action-connector:nth-of-type(2) .connector-flowing-packet {
+  animation-delay: 0.3s;
+}
+.hero-connected-actions .action-connector:nth-of-type(3) .connector-flowing-packet {
+  animation-delay: 0.6s;
+}
+.hero-connected-actions .action-connector:nth-of-type(4) .connector-flowing-packet {
+  animation-delay: 0.9s;
+}
+.hero-connected-actions .action-connector:nth-of-type(5) .connector-flowing-packet {
+  animation-delay: 1.2s;
+}
+
+/* Hardware-Accelerated Traveling Luminous Packet Bead */
+.traveling-packet-bead {
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  width: 5px;
+  height: 5px;
+  margin-top: -2.5px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 6px var(--neon-cyan), 0 0 12px var(--neon-cyan), 0 0 18px #ffffff;
+  animation: packetSlideBead 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.hero-connected-actions .action-connector:nth-of-type(1) .traveling-packet-bead {
+  animation-delay: 0s;
+}
+.hero-connected-actions .action-connector:nth-of-type(2) .traveling-packet-bead {
+  animation-delay: 0.28s;
+}
+.hero-connected-actions .action-connector:nth-of-type(3) .traveling-packet-bead {
+  animation-delay: 0.56s;
+}
+.hero-connected-actions .action-connector:nth-of-type(4) .traveling-packet-bead {
+  animation-delay: 0.84s;
+}
+.hero-connected-actions .action-connector:nth-of-type(5) .traveling-packet-bead {
+  animation-delay: 1.12s;
+}
+
+@keyframes packetSlideBead {
+  0% {
+    transform: translateX(0) scale(0.6);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+    transform: translateX(3px) scale(1.1);
+  }
+  80% {
+    opacity: 1;
+    transform: translateX(24px) scale(1.1);
+  }
+  100% {
+    transform: translateX(28px) scale(0.6);
+    opacity: 0;
+  }
+}
+
+/* Node Connection Port Anchors on Action Node Wrappers */
+.node-port {
+  position: absolute;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  margin-top: -2.5px;
+  border-radius: 50%;
+  background: var(--neon-cyan);
+  box-shadow: 0 0 5px var(--neon-cyan), 0 0 8px var(--neon-cyan);
+  pointer-events: none;
+  opacity: 0.8;
+  transition: transform 0.25s ease, opacity 0.25s ease, box-shadow 0.25s ease;
+  z-index: 5;
+}
+
+.port-in {
+  left: -2.5px;
+}
+
+.port-out {
+  right: -2.5px;
+}
+
+.action-node-wrapper:hover .node-port {
+  opacity: 1;
+  transform: scale(1.4);
+  box-shadow: 0 0 8px #ffffff, 0 0 16px var(--neon-cyan);
+}
+
+@keyframes packetSlideAcross {
+  0% {
+    cx: 2px;
+    opacity: 0;
+    r: 1.5;
+  }
+  15% {
+    opacity: 1;
+    r: 2.4;
+  }
+  85% {
+    opacity: 1;
+    r: 2.4;
+  }
+  100% {
+    cx: 32px;
+    opacity: 0;
+    r: 1.5;
+  }
+}
+
+/* Directional Arrow Head */
+.connector-arrow-head {
+  fill: var(--neon-cyan);
+  opacity: 0.45;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  animation: arrowPulse 2s ease-in-out infinite;
+}
+
+@keyframes arrowPulse {
+  0%, 100% { opacity: 0.35; transform: translateX(0); }
+  50% { opacity: 0.85; transform: translateX(1.5px); }
+}
+
+/* Secondary Micro-Dots Cascade along the track */
+.connector-micro-dots {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 0 6px 0 2px;
+  pointer-events: none;
+}
+
+.connector-micro-dots .micro-dot {
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: var(--neon-cyan);
+  opacity: 0.35;
+  animation: microDotGlow 1.2s ease-in-out infinite;
+}
+
+.connector-micro-dots .md-1 { animation-delay: 0.1s; }
+.connector-micro-dots .md-2 { animation-delay: 0.35s; }
+.connector-micro-dots .md-3 { animation-delay: 0.6s; }
+
+@keyframes microDotGlow {
+  0%, 100% { transform: scale(1); opacity: 0.25; }
+  50% { transform: scale(1.6); opacity: 0.85; box-shadow: 0 0 4px var(--neon-cyan); }
+}
+
+/* Interactive Hover Feedback on Connectors */
+.action-node-wrapper:hover + .action-connector .connector-dotted-line {
+  stroke-opacity: 0.95;
+  stroke: var(--neon-cyan);
+  filter: drop-shadow(0 0 3px var(--neon-cyan));
+  animation-duration: 0.7s;
+}
+
+.action-node-wrapper:hover + .action-connector .connector-flowing-packet {
+  animation-duration: 0.8s;
+  fill: #ffffff;
+  filter: drop-shadow(0 0 6px var(--neon-cyan)) drop-shadow(0 0 10px #ffffff);
+}
+
+.action-node-wrapper:hover + .action-connector .traveling-packet-bead {
+  animation-duration: 0.7s;
+  background: #ffffff;
+  box-shadow: 0 0 10px #ffffff, 0 0 20px var(--neon-cyan), 0 0 30px var(--neon-purple);
+}
+
+.action-node-wrapper:hover + .action-connector .connector-arrow-head {
+  opacity: 1;
+  fill: var(--neon-cyan);
+}
+
+/* Interactive cursor holographic flare on stream wrap */
+.hero-actions-stream-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle 260px at var(--stream-mx, 50%) var(--stream-my, 50%), rgba(56, 189, 248, 0.12), transparent 70%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.hero-actions-stream-wrap:hover::after {
+  opacity: 1;
+}
+
+/* High-speed packet surge on click */
+.hero-actions-stream-wrap.stream-pulsing .connector-dotted-line {
+  stroke-opacity: 1;
+  animation-duration: 0.5s;
+  stroke: var(--neon-cyan);
+  filter: drop-shadow(0 0 5px var(--neon-cyan));
+}
+
+.hero-actions-stream-wrap.stream-pulsing .traveling-packet-bead {
+  animation-duration: 0.55s;
+  box-shadow: 0 0 12px #ffffff, 0 0 24px var(--neon-cyan);
+}
+
+/* Responsive Handling */
+@media (max-width: 992px) {
+  .hero-actions-stream-wrap {
+    margin: 1.2rem 0 1.5rem 0;
+    padding: 0.7rem 0.85rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-connected-actions {
+    gap: 0.3rem;
+  }
+  .action-connector {
+    padding: 0 0.05rem;
+  }
+  .connector-svg {
+    width: 26px;
+  }
+  .connector-dotted-line {
+    x2: 20;
+  }
+  .connector-arrow-head {
+    transform: translateX(-10px);
+  }
+  @keyframes packetSlideAcross {
+    0% { cx: 2px; opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { cx: 20px; opacity: 0; }
+  }
+}
+
+@media (max-width: 480px) {
+  .actions-stream-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+  .action-badge-dim {
+    display: none;
+  }
+  .connector-svg {
+    width: 18px;
+  }
+  .sub-actions-dock {
+    flex-wrap: wrap;
+  }
+}
+
+/* Reduced Motion Preference Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .hero-actions-stream-wrap::before,
+  .action-node-wrapper,
+  .btn-border-beam,
+  .btn-sheen-sweep,
+  .action-status-ring,
+  .connector-dotted-line,
+  .connector-flowing-packet,
+  .connector-arrow-head,
+  .connector-micro-dots .micro-dot,
+  .stream-pulse-dot,
+  .stream-meta-flow .meta-dot {
+    animation: none !important;
+  }
+  .connector-dotted-line {
+    stroke-opacity: 0.5;
+  }
+  .connector-flowing-packet {
+    display: none;
+  }
+}
+
+/* Legacy & General Button Styles */
+.hero-actions {
+  display: block;
 }
 
 .btn {
