@@ -2043,4 +2043,384 @@ button {
 
   .contact-box { padding: 2rem 1.2rem; }
   .composer-actions { flex-direction: column; }
+
+  /* Space Elements Mobile Adjustments */
+  .hero-astronaut-drift {
+    width: 90px;
+    height: 110px;
+    top: -45px;
+    right: -10px;
+  }
+
+  .celestial-planet {
+    width: 140px;
+    height: 100px;
+    top: 90px;
+    right: -15px;
+    opacity: 0.6;
+  }
+
+  .celestial-satellite {
+    display: none;
+  }
+
+  .cosmic-divider img {
+    height: 36px;
+  }
+
+  .btn-warp .warp-text {
+    display: none;
+  }
+
+  .btn-warp {
+    padding: 0.45rem 0.6rem;
+  }
+}
+
+/* ==========================================================================
+   COSMIC SPACE ANIMATIONS, CELESTIAL BODIES & TRANSITIONS ENGINE
+   ========================================================================== */
+
+/* ---------- 1. Cosmic Flight Progress Tracker ---------- */
+.cosmic-scroll-track {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.25);
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.cosmic-scroll-progress {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #38bdf8 0%, #818cf8 25%, #c084fc 50%, #f43f5e 75%, #fbbf24 100%);
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.9), 0 0 25px rgba(244, 63, 94, 0.7);
+  position: relative;
+  transition: width 0.08s linear;
+}
+
+.cosmic-rocket-marker {
+  position: absolute;
+  right: -12px;
+  top: -9px;
+  font-size: 15px;
+  filter: drop-shadow(0 0 10px #38bdf8) drop-shadow(0 0 20px #f43f5e);
+  transform: rotate(45deg);
+  display: inline-block;
+  pointer-events: none;
+  animation: rocketThrusterShudder 0.3s ease-in-out infinite alternate;
+}
+
+@keyframes rocketThrusterShudder {
+  0% { transform: rotate(45deg) translate(0, 0); }
+  100% { transform: rotate(45deg) translate(1px, -1px); }
+}
+
+/* ---------- 2. Hyperspace Warp Speed Button ---------- */
+.btn-warp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.42rem 0.95rem;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #f8fafc;
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(168, 85, 247, 0.3));
+  border: 1px solid rgba(56, 189, 248, 0.45);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.2);
+  user-select: none;
+}
+
+.btn-warp:hover {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.4), rgba(244, 63, 94, 0.4));
+  border-color: #f43f5e;
+  box-shadow: 0 0 25px rgba(244, 63, 94, 0.4), 0 0 15px rgba(56, 189, 248, 0.5);
+  transform: translateY(-1px) scale(1.03);
+}
+
+.btn-warp .warp-icon {
+  font-size: 0.95rem;
+  transition: transform 0.3s ease;
+}
+
+.btn-warp:hover .warp-icon {
+  transform: scale(1.2) rotate(-15deg);
+}
+
+.btn-warp.warp-active {
+  background: linear-gradient(135deg, #00f0ff 0%, #a855f7 50%, #f43f5e 100%);
+  color: #060911;
+  font-weight: 800;
+  border-color: #ffffff;
+  box-shadow: 0 0 28px rgba(0, 240, 255, 0.9), 0 0 45px rgba(244, 63, 94, 0.7);
+  animation: warpPulseGlow 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes warpPulseGlow {
+  0% { transform: scale(1); box-shadow: 0 0 20px rgba(0, 240, 255, 0.7), 0 0 35px rgba(244, 63, 94, 0.5); }
+  100% { transform: scale(1.05); box-shadow: 0 0 35px rgba(0, 240, 255, 1), 0 0 60px rgba(244, 63, 94, 0.85); }
+}
+
+/* ---------- 3. Floating Celestial Bodies (Planet & Satellite) ---------- */
+.celestial-body {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+  will-change: transform, opacity;
+}
+
+.celestial-planet {
+  top: 140px;
+  right: 2%;
+  width: 240px;
+  height: 170px;
+  opacity: 0.88;
+  animation: celestialPlanetDrift 16s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 35px rgba(168, 85, 247, 0.35));
+}
+
+.celestial-planet-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@keyframes celestialPlanetDrift {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(-20px, 35px) rotate(4deg); }
+  100% { transform: translate(15px, -20px) rotate(-3deg); }
+}
+
+.celestial-satellite {
+  top: 480px;
+  left: 2%;
+  width: 180px;
+  height: 120px;
+  opacity: 0.82;
+  animation: celestialSatelliteDrift 22s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 25px rgba(56, 189, 248, 0.3));
+}
+
+.celestial-satellite-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@keyframes celestialSatelliteDrift {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(30px, -45px) rotate(-6deg); }
+  100% { transform: translate(-25px, 20px) rotate(5deg); }
+}
+
+/* Light Theme tweaks for celestial bodies */
+[data-theme="light"] .celestial-planet {
+  opacity: 0.55;
+  filter: drop-shadow(0 0 25px rgba(124, 58, 237, 0.25));
+}
+[data-theme="light"] .celestial-satellite {
+  opacity: 0.5;
+}
+
+/* ---------- 4. Floating Hero Astronaut ---------- */
+.hero-visual {
+  position: relative;
+}
+
+.hero-astronaut-drift {
+  position: absolute;
+  top: -65px;
+  right: -30px;
+  width: 135px;
+  height: 160px;
+  z-index: 8;
+  pointer-events: none;
+  animation: heroAstroFloat 7s ease-in-out infinite;
+  filter: drop-shadow(0 16px 30px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 20px rgba(56, 189, 248, 0.4));
+  transform-origin: center center;
+}
+
+.hero-astronaut-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@keyframes heroAstroFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(4deg);
+  }
+  50% {
+    transform: translateY(-16px) rotate(-5deg);
+  }
+}
+
+/* ---------- 5. Cosmic Wave Dividers ---------- */
+.cosmic-divider {
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  margin: -4px 0;
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.cosmic-divider img {
+  width: 100%;
+  height: 55px;
+  object-fit: cover;
+  display: block;
+  filter: drop-shadow(0 0 16px rgba(56, 189, 248, 0.35));
+}
+
+.cosmic-divider.divider-flip {
+  transform: scaleY(-1);
+}
+
+/* ---------- 6. Smooth Scroll-Driven Reveal Transitions ---------- */
+.space-reveal {
+  opacity: 0;
+  transform: translateY(36px) scale(0.975);
+  filter: blur(6px);
+  transition:
+    opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+
+.space-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+/* Smooth Staggered Child Element Cascade */
+.pipeline-grid > .pipeline-card,
+.projects-grid > .project-card,
+.skills-matrix-grid > .matrix-card,
+.telemetry-grid > .telemetry-card {
+  opacity: 0;
+  transform: translateY(26px) scale(0.98);
+  transition:
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.space-reveal.revealed .pipeline-grid > .pipeline-card:nth-child(1),
+.space-reveal.revealed .projects-grid > .project-card:nth-child(1),
+.space-reveal.revealed .skills-matrix-grid > .matrix-card:nth-child(1),
+.space-reveal.revealed .telemetry-grid > .telemetry-card:nth-child(1) {
+  transition-delay: 0.08s;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.space-reveal.revealed .pipeline-grid > .pipeline-card:nth-child(3),
+.space-reveal.revealed .projects-grid > .project-card:nth-child(2),
+.space-reveal.revealed .skills-matrix-grid > .matrix-card:nth-child(2),
+.space-reveal.revealed .telemetry-grid > .telemetry-card:nth-child(2) {
+  transition-delay: 0.16s;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.space-reveal.revealed .pipeline-grid > .pipeline-card:nth-child(5),
+.space-reveal.revealed .projects-grid > .project-card:nth-child(3),
+.space-reveal.revealed .skills-matrix-grid > .matrix-card:nth-child(3) {
+  transition-delay: 0.24s;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.space-reveal.revealed .pipeline-grid > .pipeline-card:nth-child(7),
+.space-reveal.revealed .projects-grid > .project-card:nth-child(4),
+.space-reveal.revealed .skills-matrix-grid > .matrix-card:nth-child(4) {
+  transition-delay: 0.32s;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.space-reveal.revealed .projects-grid > .project-card:nth-child(5) {
+  transition-delay: 0.40s;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.space-reveal.revealed .projects-grid > .project-card:nth-child(6) {
+  transition-delay: 0.48s;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* ---------- 7. Cosmic Card Hover & Glow Animations ---------- */
+.project-card, .matrix-card, .pipeline-card, .telemetry-card, .composer-card {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.project-card:hover, .matrix-card:hover, .pipeline-card:hover, .telemetry-card:hover {
+  border-color: rgba(56, 189, 248, 0.55);
+  box-shadow: 0 16px 36px -8px rgba(56, 189, 248, 0.25), 0 0 30px rgba(168, 85, 247, 0.22);
+}
+
+/* Project Filter Tabs Cosmic Transition */
+.filter-btn {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.filter-btn.active {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.28), rgba(168, 85, 247, 0.38));
+  border-color: #38bdf8;
+  box-shadow: 0 0 18px rgba(56, 189, 248, 0.35);
+}
+
+/* Global Smooth HTML Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Body clipping to prevent any horizontal micro-scrollbars */
+body {
+  overflow-x: clip;
+}
+
+/* Hyperspace Warp Mode Screen Warp Flare */
+body.warp-engaged {
+  animation: warpSpeedJitter 0.15s ease-in-out infinite alternate;
+}
+
+@keyframes warpSpeedJitter {
+  0% { filter: hue-rotate(0deg) saturate(1.1); }
+  100% { filter: hue-rotate(8deg) saturate(1.25); }
+}
+
+/* ---------- 8. Reduced Motion Accessibility ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .space-reveal,
+  .pipeline-grid > .pipeline-card,
+  .projects-grid > .project-card,
+  .skills-matrix-grid > .matrix-card,
+  .telemetry-grid > .telemetry-card {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+  .celestial-planet, .celestial-satellite, .hero-astronaut-drift, .btn-warp {
+    animation: none !important;
+  }
+  body.warp-engaged {
+    animation: none !important;
+  }
 }

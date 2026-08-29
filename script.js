@@ -47,30 +47,73 @@
   });
 
   /* ==========================================================================
-     2. HIGH-PERFORMANCE NEON PARTICLES CANVAS (NO LAG, NO JANK)
+     2. HIGH-PERFORMANCE COSMIC SPACE CANVAS & WARP DRIVE ENGINE
      ========================================================================== */
   const canvas = document.getElementById('canvas-particles');
+  let toggleWarpMode = null;
+  let triggerMeteorShower = null;
+
   if (canvas) {
     const ctx = canvas.getContext('2d');
     let width, height;
+    let dpr = Math.min(window.devicePixelRatio || 1, 2);
 
     function resizeCanvas() {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = width + 'px';
+      canvas.style.height = height + 'px';
+      ctx.scale(dpr, dpr);
     }
 
     resizeCanvas();
-    window.addEventListener('resize', resizeCanvas, { passive: true });
+    window.addEventListener('resize', () => {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      resizeCanvas();
+    }, { passive: true });
 
-    const particles = [];
-    const PARTICLE_COUNT = Math.min(Math.floor(window.innerWidth / 35), 32);
-    const COLORS = ['#38bdf8', '#818cf8', '#c084fc', '#f43f5e', '#34d399', '#fbbf24'];
+    // Multi-spectral star palette
+    const STAR_COLORS = [
+      '#38bdf8', // Cyan
+      '#818cf8', // Indigo
+      '#a855f7', // Purple
+      '#f43f5e', // Rose
+      '#fbbf24', // Amber
+      '#34d399', // Emerald
+      '#ffffff', // Pure Starlight
+      '#00f0ff'  // Electric Aqua
+    ];
 
-    const mouse = { x: null, y: null, radius: 120 };
+    const STAR_COUNT = Math.min(Math.floor(window.innerWidth / 12), 150);
+    const stars = [];
+    const meteors = [];
+    const stardust = [];
+
+    let isWarpMode = false;
+    let currentWarpSpeed = 0;
+    let targetWarpSpeed = 0;
+
+    const mouse = { x: null, y: null, radius: 140 };
 
     window.addEventListener('mousemove', (e) => {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
+
+      // Emit subtle cosmic stardust wake
+      if (Math.random() < 0.35 && !isWarpMode) {
+        stardust.push({
+          x: e.clientX + (Math.random() - 0.5) * 14,
+          y: e.clientY + (Math.random() - 0.5) * 14,
+          vx: (Math.random() - 0.5) * 0.8,
+          vy: (Math.random() - 0.5) * 0.8,
+          radius: Math.random() * 2 + 1,
+          color: STAR_COLORS[Math.floor(Math.random() * STAR_COLORS.length)],
+          alpha: 0.8,
+          decay: Math.random() * 0.02 + 0.015
+        });
+      }
     }, { passive: true });
 
     window.addEventListener('mouseleave', () => {
@@ -78,92 +121,317 @@
       mouse.y = null;
     }, { passive: true });
 
-    class Particle {
+    class Star {
       constructor() {
+        this.reset(true);
+      }
+
+      reset(init = false) {
         this.x = Math.random() * width;
-        this.y = Math.random() * height;
-        this.vx = (Math.random() - 0.5) * 0.6;
-        this.vy = (Math.random() - 0.5) * 0.6;
-        this.radius = Math.random() * 2 + 1.2;
-        this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
-        this.baseAlpha = Math.random() * 0.35 + 0.25;
+        this.y = init ? Math.random() * height : 0;
+        this.depth = Math.random() * 2.5 + 0.5; // z-layer: 0.5 to 3.0
+        this.radius = (this.depth * 0.65) + Math.random() * 0.5;
+        this.vx = (Math.random() - 0.5) * (0.25 * this.depth);
+        this.vy = (Math.random() * 0.35 + 0.1) * this.depth;
+        this.color = STAR_COLORS[Math.floor(Math.random() * STAR_COLORS.length)];
+        this.baseAlpha = Math.random() * 0.45 + 0.35;
+        this.twinkleAngle = Math.random() * Math.PI * 2;
+        this.twinkleSpeed = Math.random() * 0.04 + 0.015;
       }
 
       update() {
-        this.x += this.vx;
-        this.y += this.vy;
+        if (currentWarpSpeed > 0.5) {
+          // Hyperspace warp motion: radial acceleration away from center
+          const cx = width / 2;
+          const cy = height / 2;
+          const dx = this.x - cx;
+          const dy = this.y - cy;
+          const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+          const speedFactor = (currentWarpSpeed * 0.9) * (dist / 350 + 0.5);
 
-        if (this.x < 0) this.x = width;
-        if (this.x > width) this.x = 0;
-        if (this.y < 0) this.y = height;
-        if (this.y > height) this.y = 0;
+          this.prevX = this.x;
+          this.prevY = this.y;
+          this.x += (dx / dist) * speedFactor;
+          this.y += (dy / dist) * speedFactor;
 
-        // Subtle mouse repulsion
-        if (mouse.x !== null && mouse.y !== null) {
-          const dx = this.x - mouse.x;
-          const dy = this.y - mouse.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < mouse.radius && dist > 0) {
-            const force = (mouse.radius - dist) / mouse.radius;
-            this.x += (dx / dist) * force * 2;
-            this.y += (dy / dist) * force * 2;
+          if (this.x < 0 || this.x > width || this.y < 0 || this.y > height) {
+            // Respawn near center
+            const angle = Math.random() * Math.PI * 2;
+            const r = Math.random() * 80 + 10;
+            this.x = cx + Math.cos(angle) * r;
+            this.y = cy + Math.sin(angle) * r;
+            this.prevX = this.x;
+            this.prevY = this.y;
+          }
+        } else {
+          // Peaceful cruising drift
+          this.prevX = this.x;
+          this.prevY = this.y;
+          this.x += this.vx;
+          this.y += this.vy;
+          this.twinkleAngle += this.twinkleSpeed;
+
+          if (this.x < 0) this.x = width;
+          if (this.x > width) this.x = 0;
+          if (this.y < 0) this.y = height;
+          if (this.y > height) this.y = 0;
+
+          // Interactive subtle mouse gravity
+          if (mouse.x !== null && mouse.y !== null) {
+            const dx = this.x - mouse.x;
+            const dy = this.y - mouse.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < mouse.radius && dist > 0) {
+              const force = (mouse.radius - dist) / mouse.radius;
+              this.x += (dx / dist) * force * 1.8;
+              this.y += (dy / dist) * force * 1.8;
+            }
           }
         }
       }
 
       draw() {
+        if (currentWarpSpeed > 1) {
+          // Draw warp streak beam
+          const alpha = Math.min(0.9, (currentWarpSpeed / 20));
+          ctx.beginPath();
+          ctx.moveTo(this.prevX || this.x, this.prevY || this.y);
+          ctx.lineTo(this.x, this.y);
+          ctx.strokeStyle = this.color;
+          ctx.lineWidth = Math.max(1.2, this.radius * (currentWarpSpeed / 12));
+          ctx.globalAlpha = alpha;
+          ctx.stroke();
+        } else {
+          // Draw calm glowing star with sinusoidal twinkle
+          const twinkle = Math.sin(this.twinkleAngle) * 0.25;
+          const alpha = Math.max(0.15, Math.min(1, this.baseAlpha + twinkle));
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+          ctx.fillStyle = this.color;
+          ctx.globalAlpha = alpha;
+          ctx.fill();
+
+          // Subtle corona on prominent foreground stars
+          if (this.depth > 2.2 && alpha > 0.6) {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius * 2.2, 0, Math.PI * 2);
+            ctx.fillStyle = this.color;
+            ctx.globalAlpha = alpha * 0.18;
+            ctx.fill();
+          }
+        }
+      }
+    }
+
+    // Populate Starfield
+    for (let i = 0; i < STAR_COUNT; i++) {
+      stars.push(new Star());
+    }
+
+    // Shooting Star / Meteor Engine
+    class Meteor {
+      constructor(customX, customY, customVx, customVy) {
+        this.x = customX !== undefined ? customX : Math.random() * width * 0.8 + width * 0.1;
+        this.y = customY !== undefined ? customY : Math.random() * (height * 0.35);
+        this.length = Math.random() * 90 + 60;
+        this.speed = Math.random() * 9 + 13;
+        this.angle = customVx !== undefined ? Math.atan2(customVy, customVx) : Math.PI / 4 + (Math.random() - 0.5) * 0.35;
+        this.vx = Math.cos(this.angle) * this.speed;
+        this.vy = Math.sin(this.angle) * this.speed;
+        this.color = STAR_COLORS[Math.floor(Math.random() * STAR_COLORS.length)];
+        this.opacity = 1;
+        this.decay = Math.random() * 0.014 + 0.012;
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.opacity -= this.decay;
+
+        // Sparkle stardust along the meteor tail
+        if (Math.random() < 0.4 && this.opacity > 0.2) {
+          stardust.push({
+            x: this.x - this.vx * 0.4 + (Math.random() - 0.5) * 6,
+            y: this.y - this.vy * 0.4 + (Math.random() - 0.5) * 6,
+            vx: (Math.random() - 0.5) * 0.6,
+            vy: (Math.random() - 0.5) * 0.6,
+            radius: Math.random() * 1.6 + 0.8,
+            color: this.color,
+            alpha: this.opacity * 0.8,
+            decay: 0.025
+          });
+        }
+      }
+
+      draw() {
+        if (this.opacity <= 0) return;
+        const tailX = this.x - Math.cos(this.angle) * this.length;
+        const tailY = this.y - Math.sin(this.angle) * this.length;
+
+        const grad = ctx.createLinearGradient(tailX, tailY, this.x, this.y);
+        grad.addColorStop(0, 'rgba(255, 255, 255, 0)');
+        grad.addColorStop(0.7, this.color);
+        grad.addColorStop(1, '#ffffff');
+
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
-        ctx.globalAlpha = this.baseAlpha;
+        ctx.moveTo(tailX, tailY);
+        ctx.lineTo(this.x, this.y);
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = 2.2;
+        ctx.globalAlpha = Math.max(0, this.opacity);
+        ctx.stroke();
+
+        // Blazing head flare
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, 2.8, 0, Math.PI * 2);
+        ctx.fillStyle = '#ffffff';
+        ctx.globalAlpha = Math.max(0, this.opacity);
         ctx.fill();
       }
     }
 
-    for (let i = 0; i < PARTICLE_COUNT; i++) {
-      particles.push(new Particle());
+    // Periodic natural shooting stars (every 2.8 - 4.5s)
+    let nextMeteorTime = Date.now() + 2500;
+    function scheduleNextMeteor() {
+      nextMeteorTime = Date.now() + Math.random() * 2000 + 2500;
     }
+
+    triggerMeteorShower = function (count = 6) {
+      for (let i = 0; i < count; i++) {
+        setTimeout(() => {
+          meteors.push(new Meteor(
+            Math.random() * width * 0.7,
+            Math.random() * (height * 0.4),
+            Math.random() * 6 + 10,
+            Math.random() * 6 + 8
+          ));
+        }, i * 220);
+      }
+    };
+
+    window.triggerMeteorShower = triggerMeteorShower;
+
+    // Toggle Hyperspace Warp Mode
+    toggleWarpMode = function () {
+      isWarpMode = !isWarpMode;
+      targetWarpSpeed = isWarpMode ? 22 : 0;
+
+      const warpBtn = document.getElementById('warp-toggle');
+      if (warpBtn) {
+        warpBtn.classList.toggle('warp-active', isWarpMode);
+        const textSpan = warpBtn.querySelector('.warp-text');
+        if (textSpan) {
+          textSpan.textContent = isWarpMode ? 'WARP: ENGAGED' : 'WARP SPEED';
+        }
+      }
+
+      document.body.classList.toggle('warp-engaged', isWarpMode);
+      return isWarpMode;
+    };
+
+    window.toggleWarpMode = toggleWarpMode;
+
+    const warpBtn = document.getElementById('warp-toggle');
+    if (warpBtn) {
+      warpBtn.addEventListener('click', toggleWarpMode);
+    }
+
+    // Keyboard shortcut 'W' (when not inside an input or textarea)
+    window.addEventListener('keydown', (e) => {
+      const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
+      if (activeTag !== 'input' && activeTag !== 'textarea' && (e.key === 'w' || e.key === 'W')) {
+        toggleWarpMode();
+      }
+    });
 
     let isVisible = true;
     document.addEventListener('visibilitychange', () => {
       isVisible = !document.hidden;
     });
 
-    function animateParticles() {
+    // Main Space Canvas Render Loop
+    function renderCosmicSpace() {
       if (!isVisible) {
-        requestAnimationFrame(animateParticles);
+        requestAnimationFrame(renderCosmicSpace);
         return;
       }
 
-      ctx.clearRect(0, 0, width, height);
+      // Smooth warp acceleration / deceleration
+      currentWarpSpeed += (targetWarpSpeed - currentWarpSpeed) * 0.08;
 
-      // Lightweight connecting lines
-      for (let a = 0; a < particles.length; a++) {
-        for (let b = a + 1; b < particles.length; b++) {
-          const dx = particles[a].x - particles[b].x;
-          const dy = particles[a].y - particles[b].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 115) {
-            ctx.beginPath();
-            ctx.moveTo(particles[a].x, particles[a].y);
-            ctx.lineTo(particles[b].x, particles[b].y);
-            ctx.strokeStyle = particles[a].color;
-            ctx.globalAlpha = (1 - dist / 115) * 0.18;
-            ctx.lineWidth = 1;
-            ctx.stroke();
+      // Clear or create radial speed blur
+      if (currentWarpSpeed > 2) {
+        ctx.fillStyle = currentTheme === 'light' ? 'rgba(248, 250, 252, 0.28)' : 'rgba(6, 9, 17, 0.28)';
+        ctx.fillRect(0, 0, width, height);
+      } else {
+        ctx.clearRect(0, 0, width, height);
+      }
+
+      // Constellation link lines between nearby stars (calm cruising mode)
+      if (currentWarpSpeed < 1) {
+        for (let a = 0; a < stars.length; a += 2) {
+          for (let b = a + 1; b < Math.min(a + 6, stars.length); b++) {
+            const dx = stars[a].x - stars[b].x;
+            const dy = stars[a].y - stars[b].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 100) {
+              ctx.beginPath();
+              ctx.moveTo(stars[a].x, stars[a].y);
+              ctx.lineTo(stars[b].x, stars[b].y);
+              ctx.strokeStyle = stars[a].color;
+              ctx.globalAlpha = (1 - dist / 100) * 0.15;
+              ctx.lineWidth = 0.8;
+              ctx.stroke();
+            }
           }
         }
       }
 
-      particles.forEach((p) => {
-        p.update();
-        p.draw();
+      // Update & Draw Stars
+      stars.forEach((star) => {
+        star.update();
+        star.draw();
       });
 
-      requestAnimationFrame(animateParticles);
+      // Spawn meteors periodically
+      if (Date.now() > nextMeteorTime && !isWarpMode) {
+        meteors.push(new Meteor());
+        scheduleNextMeteor();
+      }
+
+      // Update & Draw Meteors
+      for (let i = meteors.length - 1; i >= 0; i--) {
+        const m = meteors[i];
+        m.update();
+        m.draw();
+        if (m.opacity <= 0 || m.x > width + 100 || m.y > height + 100) {
+          meteors.splice(i, 1);
+        }
+      }
+
+      // Update & Draw Stardust Sparks
+      for (let i = stardust.length - 1; i >= 0; i--) {
+        const s = stardust[i];
+        s.x += s.vx;
+        s.y += s.vy;
+        s.alpha -= s.decay;
+
+        if (s.alpha <= 0) {
+          stardust.splice(i, 1);
+          continue;
+        }
+
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+        ctx.fillStyle = s.color;
+        ctx.globalAlpha = s.alpha;
+        ctx.fill();
+      }
+
+      requestAnimationFrame(renderCosmicSpace);
     }
 
-    animateParticles();
+    renderCosmicSpace();
   }
 
   /* ==========================================================================
@@ -323,8 +591,12 @@
   • about        - Read engineering philosophy & background
   • contact      - Socials, email, and location details
   • hire         - Summary of role preferences & key strengths
-  • clear        - Clear the terminal console
+  • warp         - 🚀 Engage/disengage Hyperspace Warp Drive Mode!
+  • space        - 🛰️ Real-time deep-space mission telemetry
+  • meteor       - ✨ Launch a multi-spectral shooting star meteor shower!
+  • universe     - 🌌 ASCII deep-space constellation diagram
   • matrix       - Trigger terminal matrix stream
+  • clear        - Clear the terminal console
   • sudo         - Execute as root superuser`,
 
     skills: `Technical Competencies:
@@ -356,6 +628,32 @@
   • Public Repos: 23+
   • Active Commits: 52-Week Continuous Telemetry
   • Status: Open to Engineering Opportunities (Bengaluru / Remote)`,
+
+    space: `[ORBITAL TELEMETRY & MISSION PROFILE]
+  • Mission Node     : Deep Space Station Bengaluru (@Anirbank33)
+  • Celestial Target : Distributed Systems & High-Throughput Cloud APIs
+  • Planetary Coords : 12.9716° N, 77.5946° E (Bengaluru, India)
+  • Primary Reactor  : OpenJDK 21 LTS + Spring Boot Reactive Engine
+  • Warp Generator   : Active (Press 'W' or run 'warp' to test lightspeed)
+  • Status           : 100% Nominal · Seeking Engineering Opportunities`,
+
+    warp: `[HYPERSPACE WARP GENERATOR]
+  Toggling radial hyperspace light-streak accelerator...
+  Hint: You can also tap the 'WARP SPEED' button in navbar or press 'W' key anywhere!`,
+
+    meteor: `[STELLAR PHENOMENON TRIGGERED]
+  Multi-spectral shooting star meteor shower incoming across canvas! ✨`,
+
+    stars: `[STELLAR PHENOMENON TRIGGERED]
+  Multi-spectral shooting star meteor shower incoming across canvas! ✨`,
+
+    universe: `
+              .                 *         .            *         .
+       *            .        ✨ COSMIC BACKEND UNIVERSE ✨         .
+             .          [ Java 21 · Spring Boot · PostgreSQL ]       *
+         .        *            .             *             .
+               ☕ Java ────────► 🍃 Spring Gateway ────────► 🐘 Postgres
+    `,
 
     about: `About Anirban Kar:
   Backend Software Engineer based in Bengaluru, Karnataka, India.
@@ -399,6 +697,22 @@
 
     if (cmd === 'matrix') {
       triggerMatrixEffect();
+      return;
+    }
+
+    if (cmd === 'warp' || cmd === 'hyperdrive') {
+      if (typeof window.toggleWarpMode === 'function') {
+        const active = window.toggleWarpMode();
+        appendCliOutput(`<span style="color:#00f0ff; font-weight:bold;">[HYPERSPACE WARP DRIVE ${active ? 'ENGAGED 🚀' : 'DISENGAGED 🛰️'}]</span>`);
+      }
+      return;
+    }
+
+    if (cmd === 'meteor' || cmd === 'meteors' || cmd === 'stars') {
+      if (typeof window.triggerMeteorShower === 'function') {
+        window.triggerMeteorShower(7);
+        appendCliOutput(`<span style="color:#f43f5e; font-weight:bold;">[METEOR SHOWER LAUNCHED: 7 multi-spectral shooting stars streaming across the sky! ✨]</span>`);
+      }
       return;
     }
 
@@ -563,5 +877,64 @@
       }
     });
   }, { passive: true });
+
+  /* ==========================================================================
+     11. COSMIC ORBITAL FLIGHT SCROLL PROGRESS TRACKER
+     ========================================================================== */
+  const cosmicScrollBar = document.getElementById('cosmic-scroll-bar');
+  const cosmicRocketMarker = document.getElementById('cosmic-rocket-marker');
+
+  function updateCosmicFlightProgress() {
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (docHeight <= 0) return;
+    const scrollFraction = Math.max(0, Math.min(1, window.scrollY / docHeight));
+    const percent = (scrollFraction * 100).toFixed(2);
+
+    if (cosmicScrollBar) {
+      cosmicScrollBar.style.width = `${percent}%`;
+    }
+    if (cosmicRocketMarker) {
+      const tilt = Math.min(65, Math.max(25, 45 + (scrollFraction - 0.5) * 20));
+      cosmicRocketMarker.style.transform = `rotate(${tilt}deg) scale(${1 + scrollFraction * 0.25})`;
+    }
+  }
+
+  window.addEventListener('scroll', updateCosmicFlightProgress, { passive: true });
+  updateCosmicFlightProgress();
+
+  /* ==========================================================================
+     12. SCROLL-DRIVEN COSMIC REVEAL TRANSITIONS
+     ========================================================================== */
+  const revealElements = document.querySelectorAll('.space-reveal');
+
+  if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.08,
+      rootMargin: '0px 0px -30px 0px'
+    });
+
+    revealElements.forEach((el) => {
+      revealObserver.observe(el);
+    });
+  } else {
+    revealElements.forEach((el) => el.classList.add('revealed'));
+  }
+
+  // Ensure elements in initial viewport are immediately visible
+  requestAnimationFrame(() => {
+    revealElements.forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.95) {
+        el.classList.add('revealed');
+      }
+    });
+  });
 
 })();

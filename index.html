@@ -52,16 +52,31 @@
 </head>
 <body>
 
-  <!-- Interactive Neon Particle Canvas -->
+  <!-- Cosmic Orbital Flight Scroll Tracker -->
+  <div class="cosmic-scroll-track" aria-hidden="true">
+    <div class="cosmic-scroll-progress" id="cosmic-scroll-bar">
+      <span class="cosmic-rocket-marker" id="cosmic-rocket-marker" title="Cruising Orbit">🚀</span>
+    </div>
+  </div>
+
+  <!-- Interactive Cosmic Nebula & Starfield Canvas -->
   <canvas id="canvas-particles" class="particles-canvas" aria-hidden="true"></canvas>
 
-  <!-- Background Animated Aurora/Mesh -->
+  <!-- Background Animated Aurora/Mesh & Floating Celestial Bodies -->
   <div class="bg-mesh" aria-hidden="true">
     <div class="mesh-blob blob-1"></div>
     <div class="mesh-blob blob-2"></div>
     <div class="mesh-blob blob-3"></div>
     <div class="mesh-blob blob-4"></div>
     <div class="grid-overlay"></div>
+
+    <!-- Floating Celestial Bodies -->
+    <div class="celestial-body celestial-planet" aria-hidden="true" title="Exoplanet Kepler-186f">
+      <img src="assets/svg/space-planet-ringed.svg" alt="" class="celestial-planet-img" />
+    </div>
+    <div class="celestial-body celestial-satellite" aria-hidden="true" title="Orbital Telemetry Probe">
+      <img src="assets/svg/space-satellite.svg" alt="" class="celestial-satellite-img" />
+    </div>
   </div>
 
   <!-- Navigation Bar -->
@@ -91,6 +106,12 @@
       </nav>
 
       <div class="nav-controls">
+        <!-- Interactive Hyperspace Warp Speed Toggle -->
+        <button id="warp-toggle" class="btn-warp" aria-label="Engage Hyperspace Warp Drive" title="Engage Hyperspace Warp Speed Mode">
+          <span class="warp-icon">🚀</span>
+          <span class="warp-text">WARP SPEED</span>
+        </button>
+
         <button id="theme-toggle" class="btn-icon" aria-label="Toggle light/dark theme" title="Toggle theme">
           <svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="5"></circle>
@@ -119,7 +140,7 @@
 
   <main>
     <!-- Hero Section -->
-    <section class="hero-section" id="hero">
+    <section class="hero-section space-reveal" id="hero">
       <div class="container hero-grid">
         <div class="hero-content">
           
@@ -226,6 +247,11 @@
 
         <!-- Hero Visual Showcase -->
         <div class="hero-visual">
+          <!-- Floating Aesthetic Space Astronaut -->
+          <div class="hero-astronaut-drift" aria-hidden="true" title="Cosmic Systems Explorer">
+            <img src="assets/svg/space-astronaut.svg" alt="Floating Astronaut" class="hero-astronaut-img" />
+          </div>
+
           <div class="terminal-mockup tilt-card">
             <div class="mockup-header">
               <div class="mockup-dots">
@@ -255,6 +281,11 @@
         </div>
       </div>
     </section>
+
+    <!-- Cosmic Wave Divider -->
+    <div class="cosmic-divider" aria-hidden="true">
+      <img src="assets/svg/space-divider.svg" alt="" />
+    </div>
 
     <!-- MOVING TECH STREAM (SEAMLESS DUAL-TRACK MARQUEE) -->
     <div class="marquee-section" aria-hidden="true">
@@ -305,7 +336,7 @@
     </div>
 
     <!-- Architecture & Pipeline Section -->
-    <section class="section pipeline-section" id="pipeline">
+    <section class="section pipeline-section space-reveal" id="pipeline">
       <div class="container">
         <div class="section-header text-center">
           <span class="section-subtitle">System Design &amp; Flow</span>
@@ -406,8 +437,13 @@
       </div>
     </section>
 
+    <!-- Cosmic Wave Divider -->
+    <div class="cosmic-divider divider-flip" aria-hidden="true">
+      <img src="assets/svg/space-divider.svg" alt="" />
+    </div>
+
     <!-- Featured Projects Section -->
-    <section class="section projects-section" id="projects">
+    <section class="section projects-section space-reveal" id="projects">
       <div class="container">
         <div class="section-header">
           <div class="header-left">
@@ -667,8 +703,13 @@
       </div>
     </section>
 
+    <!-- Cosmic Wave Divider -->
+    <div class="cosmic-divider" aria-hidden="true">
+      <img src="assets/svg/space-divider.svg" alt="" />
+    </div>
+
     <!-- Technical Skills Matrix -->
-    <section class="section skills-section" id="skills">
+    <section class="section skills-section space-reveal" id="skills">
       <div class="container">
         <div class="section-header text-center">
           <span class="section-subtitle">Core Proficiencies</span>
@@ -800,8 +841,13 @@
       </div>
     </section>
 
+    <!-- Cosmic Wave Divider -->
+    <div class="cosmic-divider divider-flip" aria-hidden="true">
+      <img src="assets/svg/space-divider.svg" alt="" />
+    </div>
+
     <!-- Live GitHub Telemetry & Stats -->
-    <section class="section telemetry-section" id="telemetry">
+    <section class="section telemetry-section space-reveal" id="telemetry">
       <div class="container">
         <div class="section-header text-center">
           <span class="section-subtitle">Real-Time Activity</span>
@@ -884,8 +930,13 @@
       </div>
     </section>
 
+    <!-- Cosmic Wave Divider -->
+    <div class="cosmic-divider" aria-hidden="true">
+      <img src="assets/svg/space-divider.svg" alt="" />
+    </div>
+
     <!-- Interactive Developer CLI Terminal -->
-    <section class="section terminal-section" id="terminal">
+    <section class="section terminal-section space-reveal" id="terminal">
       <div class="container">
         <div class="section-header text-center">
           <span class="section-subtitle">Interactive Shell</span>
@@ -933,8 +984,13 @@ Type 'help' to view available system commands.
       </div>
     </section>
 
+    <!-- Cosmic Wave Divider -->
+    <div class="cosmic-divider divider-flip" aria-hidden="true">
+      <img src="assets/svg/space-divider.svg" alt="" />
+    </div>
+
     <!-- About Section -->
-    <section class="section about-section" id="about">
+    <section class="section about-section space-reveal" id="about">
       <div class="container">
         <div class="about-grid">
           <div class="about-bio">
@@ -1016,8 +1072,13 @@ Type 'help' to view available system commands.
       </div>
     </section>
 
+    <!-- Cosmic Wave Divider -->
+    <div class="cosmic-divider" aria-hidden="true">
+      <img src="assets/svg/space-divider.svg" alt="" />
+    </div>
+
     <!-- Contact & Connect Section -->
-    <section class="section contact-section" id="contact">
+    <section class="section contact-section space-reveal" id="contact">
       <div class="container">
         <div class="contact-box neon-box">
           <div class="contact-header text-center">
